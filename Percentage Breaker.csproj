@@ -220,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scripts\Blade.cs" />
+    <Compile Include="Assets\_Scripts\GameManager.cs" />
     <Compile Include="Assets\_Scripts\Stick.cs" />
     <Compile Include="Assets\_Scripts\StickSpawner.cs" />
   </ItemGroup>

@@ -14,7 +14,7 @@ public class Stick : MonoBehaviour
     void Start()
     {
         spriterenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        Percent = spriterenderer.bounds.size.x;
+       
         /*
         //Check that the first GameObject exists in the Inspector and fetch the Collider
         if (m_MyObject != null)
@@ -30,8 +30,7 @@ public class Stick : MonoBehaviour
         //Vector2 spriteWidth = spriterenderer.bounds.size;
         //Vector2 StickMin = spriterenderer.bounds.min;
         //Vector2 StickMax = spriterenderer.bounds.max;
-        Percent = Random.Range(0, Percent);
-        Debug.Log(Percent/* * 100*/);
+       
         /*
         bool Intersecting = (m_Collider.bounds.Intersects(m_Collider2.bounds));
         bool Colliderenabled = (m_Collider);

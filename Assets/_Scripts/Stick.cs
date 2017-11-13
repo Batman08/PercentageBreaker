@@ -7,14 +7,15 @@ public class Stick : MonoBehaviour
     //public GameObject m_MyObject, m_NewObject;
     //private Collider2D m_Collider, m_Collider2;
 
-    public Vector2 widthOfStick;
     public SpriteRenderer spriterenderer;
-    public float Percent;
+
+    private GameManager manager;
 
     void Start()
     {
         spriterenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-       
+        manager = FindObjectOfType<GameManager>();
+
         /*
         //Check that the first GameObject exists in the Inspector and fetch the Collider
         if (m_MyObject != null)
@@ -30,7 +31,7 @@ public class Stick : MonoBehaviour
         //Vector2 spriteWidth = spriterenderer.bounds.size;
         //Vector2 StickMin = spriterenderer.bounds.min;
         //Vector2 StickMax = spriterenderer.bounds.max;
-       
+
         /*
         bool Intersecting = (m_Collider.bounds.Intersects(m_Collider2.bounds));
         bool Colliderenabled = (m_Collider);
@@ -53,12 +54,14 @@ public class Stick : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         bool collidedWithBlade = (collision.CompareTag("Blade"));
+        bool hitAtCorrectPosition = (Input.mousePosition.magnitude == manager.finalValue);
         bool collidedWithDeathZone = (collision.CompareTag("DeathZone"));
 
 
-        if (collidedWithBlade)
+        if (collidedWithBlade && hitAtCorrectPosition)
         {
             //ToDo: Instaniate a stick break effect
+            Destroy(gameObject);
         }
 
         else if (collidedWithDeathZone)

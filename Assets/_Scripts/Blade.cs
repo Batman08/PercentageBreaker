@@ -4,6 +4,7 @@ public class Blade : MonoBehaviour
 {
     public GameObject BladeTrailPrefab;
     public float MinCuttingVelocity = 0.000001f;
+    public float CuttingRadius = 1;
 
     private bool _isCutting = false;
     private Vector2 _previousePosition;
@@ -34,6 +35,7 @@ public class Blade : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             StartCutting();
+            //Cut();
         }
 
         else if (Input.GetMouseButtonUp(0))
@@ -62,6 +64,7 @@ public class Blade : MonoBehaviour
         if (velocity > MinCuttingVelocity)
         {
             _circleCollider.enabled = true;
+            //CuttingPhysics();
         }
         else
         {
@@ -102,4 +105,19 @@ public class Blade : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
+    #region Raycast (Not Being Used)
+    void Cut()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+        if (hit.collider != null)
+        {
+            if (hit.collider.tag == "Stick")
+            {
+                Destroy(hit.collider.gameObject);
+            }
+        }
+    }
+    #endregion
 }

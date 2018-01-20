@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Manager { get; set; }
+
     public GameObject BladePrefab;
     public Text PercentText;
     public float CurrentValue;
@@ -18,9 +20,9 @@ public class GameManager : MonoBehaviour
     {
         _stick = FindObjectOfType<Stick>();
         WidthValue = _stick.spriterenderer.bounds.size.x;
-        CurrentValue = _stick.spriterenderer.bounds.size.x;
         Instantiate(BladePrefab);
-        CurrentValue = Random.Range(0, CurrentValue);
+        StartCoroutine(ChangePercentage(1));
+        Manager = this;
     }
 
     void Update()
@@ -32,6 +34,12 @@ public class GameManager : MonoBehaviour
 
         finalValue = (CurrentValue / WidthValue * 100);
 
-        PercentText.text = "Percentage: " + Mathf.Round(finalValue + 10);
+        PercentText.text = "Percentage: " + Mathf.Round(finalValue/* + 10*/);
+    }
+
+    IEnumerator ChangePercentage(float time)
+    {
+        yield return new WaitForSeconds(time);
+        CurrentValue = Random.Range(0, WidthValue);
     }
 }

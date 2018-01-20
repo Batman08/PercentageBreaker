@@ -36,9 +36,9 @@ public class Stick : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
-
+        transform.Translate(new Vector3(0, -0.01f, 0));
     }
 
     void OnTriggerEnter2D(Collider2D collision)

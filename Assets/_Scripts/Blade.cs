@@ -3,7 +3,7 @@
 public class Blade : MonoBehaviour
 {
     public GameObject BladeTrailPrefab;
-    public float MinCuttingVelocity = 0.000001f;
+    public float MinCuttingVelocity = 0.000015f;
     public float CuttingRadius = 1;
 
     private bool _isCutting = false;
@@ -95,17 +95,6 @@ public class Blade : MonoBehaviour
         Destroy(_currentBladeTrail, 2f);
         _circleCollider.enabled = false;
     }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        bool destroyStick = (collision.collider.CompareTag("Stick"));
-
-        if (destroyStick)
-        {
-            Destroy(collision.gameObject);
-        }
-    }
-
     #region Raycast (Not Being Used)
     void Cut()
     {

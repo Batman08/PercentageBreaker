@@ -4,33 +4,45 @@ using UnityEngine;
 
 public class TargetValues : MonoBehaviour
 {
+    //Need to fix x axis for buffer/target
 
     public SpriteRenderer MyRenderer;
-    public GameObject StickObj;
 
     private GameManager _manager;
 
-    private Vector2 rend;
-    private float XMax = 0.5535f;
-    private float XMin = -0.5535f;
-    private float percentageNumValue;
-    private float percentageMaxValue;
+    private Vector2 _rend;
+    private float _XMax = 0.5535f;
+    private float _XMin = -0.5535f;
+    private float _percentageNumValue;
+    private float _percentageMaxValue = 100;
+    private float _changeBufferTime = 5;
 
     void Awake()
     {
         _manager = FindObjectOfType<GameManager>();
-        rend = MyRenderer.size;
 
+        _rend = MyRenderer.size;
 
-        //RandomXPosition();
-        Debug.Log(rend.x + " " + rend.y);
+        Debug.Log(_rend.x + " " + _rend.y);
+    }
+
+    void OnEnable()
+    {
+        if (MyRenderer == null)
+        {
+            MyRenderer = FindObjectOfType<Stick>().transform.GetChild(0).GetComponent<SpriteRenderer>();
+        }
+
+        //  StartCoroutine(ChangeBufferSize(_changeBufferTime));
     }
 
     void Update()
     {
-        percentageNumValue = _manager.finalValue;
+        RightXPosition();
 
-        CalculateObjectSize();
+        _percentageNumValue = _manager.finalValue;
+
+        //  CalculateObjectSize();
     }
 
     void FixedUpdate()
@@ -40,33 +52,45 @@ public class TargetValues : MonoBehaviour
 
     void ClampPosition()
     {
-        rend.x = 0.5535f;
-        rend.y = 0;
+        _rend.x = 1.1069f;
 
         transform.position = new Vector2
        (
-           Mathf.Clamp(transform.position.x, -rend.x, rend.x),
-           Mathf.Clamp(transform.position.y, -rend.y, rend.y)
+           Mathf.Clamp(transform.position.x, 0, _rend.x),
+          transform.position.y
        );
     }
 
     void CalculateObjectSize()
     {
-        float calcPercentage = percentageNumValue / percentageMaxValue;
-        ChangeOBjectsSize(calcPercentage);
+        float calcPercentage = _percentageNumValue / _percentageMaxValue;
+        ChangeBufferMargin(calcPercentage);
     }
 
-    void ChangeOBjectsSize(float currPercentage)
+    void ChangeBufferMargin(float currPercentage)
     {
         transform.localScale = new Vector3(currPercentage, transform.localScale.y, transform.localScale.z);
     }
 
-    void RandomXPosition()
+    void RightXPosition()
     {
-        float randPos = Random.Range(XMin, XMax);
+        //float Pos = -0.55345f;
+        float Pos = 1.1069f;
+        float Percentage = Mathf.Round(_manager.finalValue) / 100;
+        float rightPos = Pos * Percentage;
+        Debug.Log(Percentage);
 
-        Debug.Log(randPos);
+        transform.position = new Vector2(rightPos, transform.position.y);
+    }
 
-        transform.position = new Vector2(randPos, 0);
+    IEnumerator ChangeBufferSize(float time)
+    {
+        float percent = 0.9f;
+        float size = transform.localScale.x;
+        float result = size * percent;
+
+
+        yield return new WaitForSeconds(time);
+        ChangeBufferMargin(result);
     }
 }

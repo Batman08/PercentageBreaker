@@ -10,19 +10,19 @@ public class GameManager : MonoBehaviour
     public GameObject BladePrefab;
     public Text PercentText;
     public float CurrentValue;
-    public float WidthValue;
+    public float WidthValue = 1.23f;
     public float finalValue;
-    public float errorZone = 10f;
 
     private Stick _stick;
 
-    void Start()
+    void Awake()
     {
         _stick = FindObjectOfType<Stick>();
-        WidthValue = _stick.spriterenderer.bounds.size.x;
+        WidthValue = 1.23f;
         Instantiate(BladePrefab);
-        StartCoroutine(ChangePercentage(1));
+        StartCoroutine(ChangePercentage(2));
         Manager = this;
+        Debug.Log(WidthValue);
     }
 
     void Update()

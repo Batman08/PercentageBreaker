@@ -4,26 +4,30 @@ using UnityEngine;
 
 public class TargetValues : MonoBehaviour
 {
-    //Need to fix x axis for buffer/target
+    //Need to fix x axis for buffer/target ---- 0.55345
 
     public SpriteRenderer MyRenderer;
 
     private GameManager _manager;
 
-    private Vector2 _rend;
-    private float _XMax = 0.5535f;
-    private float _XMin = -0.5535f;
+    //private float _XMax = 0.5535f;
+    //private float _XMin = -0.5535f;
     private float _percentageNumValue;
     private float _percentageMaxValue = 100;
-    private float _changeBufferTime = 5;
+    float maxX;
+    float minX;
+    //private float _changeBufferTime = 5;
 
+    #region DoneMethods (That Work)
     void Awake()
     {
         _manager = FindObjectOfType<GameManager>();
+        Debug.Log(MyRenderer.bounds.max.x);
 
-        _rend = MyRenderer.size;
+        maxX = MyRenderer.bounds.max.x;
+        minX = MyRenderer.bounds.min.x;
 
-        Debug.Log(_rend.x + " " + _rend.y);
+        //Debug.Log(_rend.x + " " + _rend.y);
     }
 
     void OnEnable()
@@ -38,7 +42,8 @@ public class TargetValues : MonoBehaviour
 
     void Update()
     {
-        RightXPosition();
+        // RightXPosition();
+        CalculateXPosition();
 
         _percentageNumValue = _manager.finalValue;
 
@@ -48,17 +53,33 @@ public class TargetValues : MonoBehaviour
     void FixedUpdate()
     {
         ClampPosition();
+
+        bool greaterThanMaxX = transform.position.x > maxX;
+        bool greaterThanMinX = transform.position.x < minX;
+
+        if (greaterThanMaxX || greaterThanMinX)
+        {
+            ClampPosition();
+        }
+
+        //float billy_1 = Mathf.Clamp(200f, 5f, 10f);
+        //float billy_2 = Mathf.Clamp(-200f, 5f, 10f);
     }
 
     void ClampPosition()
     {
-        _rend.x = 1.1069f;
+        //float x = Mathf.Clamp(transform.position.x, 5f, 10f);
+        //float x = Mathf.Clamp(transform.position.x, -_rend.x, _rend.x);
+        //_rend.x = 1.1069f;
+        //float minX = gameObject.transform.parent.position.x;
 
-        transform.position = new Vector2
-       (
-           Mathf.Clamp(transform.position.x, 0, _rend.x),
-          transform.position.y
-       );
+        float x = Mathf.Clamp(transform.position.x, minX, maxX);
+
+        float y = transform.position.y;
+
+        transform.position = new Vector2(x, y);
+
+        //  Debug.Log(MyRenderer.bounds.max.x);
     }
 
     void CalculateObjectSize()
@@ -72,16 +93,18 @@ public class TargetValues : MonoBehaviour
         transform.localScale = new Vector3(currPercentage, transform.localScale.y, transform.localScale.z);
     }
 
-    void RightXPosition()
+    void CalculateXPosition()
     {
-        //float Pos = -0.55345f;
-        float Pos = 1.1069f;
         float Percentage = Mathf.Round(_manager.finalValue) / 100;
-        float rightPos = Pos * Percentage;
-        Debug.Log(Percentage);
 
-        transform.position = new Vector2(rightPos, transform.position.y);
+        float transX = maxX * Percentage;
+        float newTransformX = 1.1069f * Percentage;
+        //Debug.Log(maxX);
+        //Debug.Log(transX);
+        transform.localPosition = new Vector2(Mathf.Abs(newTransformX), transform.localPosition.y * 0);
     }
+    #endregion
+
 
     IEnumerator ChangeBufferSize(float time)
     {
@@ -93,4 +116,24 @@ public class TargetValues : MonoBehaviour
         yield return new WaitForSeconds(time);
         ChangeBufferMargin(result);
     }
+
+
+    #region FailedMethods
+    void RightXPosition()
+    {
+        //float Pos = -0.55345f;
+        //float MaxPos = 1.1069f;
+
+        //float MaxTransformPos = 1.16845f;
+        float MaxTransformPos = maxX;
+
+        float Percentage = Mathf.Round(_manager.finalValue) / 100;
+        float rightPos = MaxTransformPos * Percentage;
+
+        Debug.Log(Percentage);
+        Debug.Log(transform.position.x);
+
+        transform.position = new Vector2(rightPos, transform.position.y);
+    }
+    #endregion
 }

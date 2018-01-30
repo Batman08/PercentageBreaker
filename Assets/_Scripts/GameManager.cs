@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         Instantiate(BladePrefab);
         StartCoroutine(ChangePercentage(2));
         Manager = this;
-        Debug.Log(WidthValue);
+        //Debug.Log(WidthValue);
     }
 
     void Update()

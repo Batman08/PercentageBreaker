@@ -4,13 +4,31 @@ using UnityEngine;
 
 public class PercentageMathCollision : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        bool destroyStick = (collision.collider.CompareTag("Target"));
+        bool SlicedTarget = (collision.GetComponent<Collider2D>().CompareTag("Target"));
+        bool SlicedStick = (collision.GetComponent<Collider2D>().CompareTag("Stick"));
 
-        if (destroyStick)
+        if (SlicedTarget)
         {
-            Destroy(collision.gameObject);
+            Debug.Log("You Win");
+            DestroyStick(collision);
         }
+
+        else if (SlicedTarget && SlicedStick)
+        {
+            Debug.Log("Sliced both");
+            DestroyStick(collision);
+        }
+
+        else
+        {
+            Debug.Log("Game Over");
+        }
+    }
+
+    void DestroyStick(Collider2D collision)
+    {
+        Destroy(collision.transform.parent.gameObject);
     }
 }

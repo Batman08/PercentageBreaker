@@ -3,7 +3,7 @@
 public class Blade : MonoBehaviour
 {
     public GameObject BladeTrailPrefab;
-    public float MinCuttingVelocity = 0.000015f;
+    public float MinCuttingVelocity = 0.000000000f;
     public float CuttingRadius = 1;
 
     private bool _isCutting = false;
@@ -12,6 +12,7 @@ public class Blade : MonoBehaviour
     private Camera _cam;
     private GameObject _currentBladeTrail;
     private CircleCollider2D _circleCollider;
+    private Vector2 newPosition;
 
     void Awake()
     {
@@ -56,7 +57,7 @@ public class Blade : MonoBehaviour
 
     void EnableCollider()
     {
-        Vector2 newPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
+        newPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
         _rb2d.position = newPosition;
 
         float velocity = NewVelocity(newPosition);
@@ -68,7 +69,7 @@ public class Blade : MonoBehaviour
         }
         else
         {
-            _circleCollider.enabled = false;
+            _circleCollider.enabled = true;
         }
 
         _previousePosition = newPosition;
@@ -81,7 +82,7 @@ public class Blade : MonoBehaviour
 
     void StartCutting()
     {
-        Vector2 newPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
+        newPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
         _isCutting = true;
         _currentBladeTrail = Instantiate(BladeTrailPrefab, transform);
         _previousePosition = newPosition;

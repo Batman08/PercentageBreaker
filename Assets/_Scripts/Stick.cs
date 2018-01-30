@@ -5,6 +5,7 @@ using UnityEngine;
 public class Stick : MonoBehaviour
 {
     public SpriteRenderer spriterenderer;
+    public bool Move;
 
     private GameManager manager;
 
@@ -30,7 +31,7 @@ public class Stick : MonoBehaviour
         gak[1].alpha = 0.0F;
         gak[1].time = 1.0F;
         g.SetKeys(gck, gak);
-        Debug.Log(g.Evaluate(0.25F));
+        //Debug.Log(g.Evaluate(0.25F));
 
         //spriterenderer.color = g.Evaluate(Random.Range(0f, 1f));
 
@@ -38,7 +39,10 @@ public class Stick : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Translate(new Vector3(0, -0.01f, 0));
+        if (Move)
+        {
+            transform.Translate(new Vector3(0, -0.01f, 0));
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)

@@ -16,11 +16,13 @@ public class TargetValues : MonoBehaviour
     private float _percentageMaxValue = 100;
     float maxX;
     float minX;
-    //private float _changeBufferTime = 5;
+    private float _changeBufferTime = 1;
 
     #region DoneMethods (That Work)
     void Awake()
     {
+
+
         _manager = FindObjectOfType<GameManager>();
         Debug.Log(MyRenderer.bounds.max.x);
 
@@ -28,6 +30,12 @@ public class TargetValues : MonoBehaviour
         minX = MyRenderer.bounds.min.x;
 
         //Debug.Log(_rend.x + " " + _rend.y);
+    }
+
+    void Start()
+    {
+        //StartCoroutine(ChangeBufferSize(_changeBufferTime));
+        InvokeRepeating("ChangeBufferSize", 0, 1f);
     }
 
     void OnEnable()
@@ -42,6 +50,7 @@ public class TargetValues : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(transform.localScale.x);
         // RightXPosition();
         CalculateXPosition();
 
@@ -106,14 +115,13 @@ public class TargetValues : MonoBehaviour
     #endregion
 
 
-    IEnumerator ChangeBufferSize(float time)
+    void ChangeBufferSize()
     {
-        float percent = 0.9f;
+        float percent = _manager.BufferPercent;
         float size = transform.localScale.x;
         float result = size * percent;
 
 
-        yield return new WaitForSeconds(time);
         ChangeBufferMargin(result);
     }
 

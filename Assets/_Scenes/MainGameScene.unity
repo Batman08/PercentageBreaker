@@ -344,6 +344,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4262875979767524, guid: 04543286ee57280438beb7683b4e9ca8, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04543286ee57280438beb7683b4e9ca8, type: 2}
   m_IsPrefabParent: 0
@@ -687,8 +691,9 @@ MonoBehaviour:
     type: 2}
   PercentText: {fileID: 927004368}
   CurrentValue: 0
-  WidthValue: 0
+  MaxValue: 1.23
   finalValue: 0
+  BufferPercent: 0
 --- !u!4 &1297064858
 Transform:
   m_ObjectHideFlags: 0

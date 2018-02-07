@@ -15,31 +15,25 @@ public class GameManager : MonoBehaviour
 
     public float BufferPercent;
     [HideInInspector]
-    public float MaxBufferValue = 0.1f;
+    public float MaxBufferValue = 0.9f;
 
     private Stick _stick;
+    private float ChangePercentTime = 2;
+    private float ChangeBufferPercentTime = 5;
 
     void Awake()
     {
         _stick = FindObjectOfType<Stick>();
         MaxValue = 1.23f;
         Instantiate(BladePrefab);
-        StartCoroutine(ChangePercentage(2));
+        StartCoroutine(ChangePercentage(ChangePercentTime));
+        StartCoroutine(ChangeBufferPercentage(ChangeBufferPercentTime));
         Manager = this;
         BufferPercent = MaxBufferValue;
-        //Debug.Log(WidthValue);
-
-        InvokeRepeating("ChangeBufferPercentage", 0f, 1f);
     }
 
     void Update()
     {
-        Debug.Log(BufferPercent);
-
-        //if (CurrentValue >= 1)
-        //{
-        //    CurrentValue = Random.Range(1f, CurrentValue);
-        //}
         bool BufferIsAtMinimum = (BufferPercent <= 0.01f);
         if (BufferIsAtMinimum)
         {
@@ -57,8 +51,9 @@ public class GameManager : MonoBehaviour
         CurrentValue = Random.Range(0, MaxValue);
     }
 
-    void ChangeBufferPercentage()
+    IEnumerator ChangeBufferPercentage(float time)
     {
+        yield return new WaitForSeconds(time);
         BufferPercent -= 0.01f;
     }
 }

@@ -14,8 +14,16 @@ public class Stick : MonoBehaviour
         spriterenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         manager = FindObjectOfType<GameManager>();
 
+        ChangeStickColour();
 
+        //Debug.Log(g.Evaluate(0.25F));
 
+        //spriterenderer.color = g.Evaluate(Random.Range(0f, 1f));
+
+    }
+
+    void ChangeStickColour()
+    {
         Gradient g;
         GradientColorKey[] gck;
         GradientAlphaKey[] gak;
@@ -31,10 +39,6 @@ public class Stick : MonoBehaviour
         gak[1].alpha = 0.0F;
         gak[1].time = 1.0F;
         g.SetKeys(gck, gak);
-        //Debug.Log(g.Evaluate(0.25F));
-
-        //spriterenderer.color = g.Evaluate(Random.Range(0f, 1f));
-
     }
 
     void FixedUpdate()

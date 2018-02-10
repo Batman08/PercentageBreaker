@@ -8,31 +8,58 @@ public class GameManager : MonoBehaviour
     public static GameManager Manager { get; set; }
 
     public GameObject BladePrefab;
+    [Space]
+    [Header("Texts")]
     public Text PercentText;
+    public Text PercentBufferText;
+    [Space]
+    [Header("Percentage Values")]
+    //In the next update, change the way i calculate the percentage
     public float CurrentValue;
     public float MaxValue = 1.23f;
     public float finalValue;
 
     public float BufferPercent;
     [HideInInspector]
-    public float MaxBufferValue = 0.9f;
+    public float MaxBufferValue = 1000.1f;
 
     private Stick _stick;
+    private TargetValues _values;
     private float ChangePercentTime = 2;
-    private float ChangeBufferPercentTime = 5;
+    [HideInInspector]
+    public float ChangeBufferPercentTime = 4;
+    private float TextBuferNumber;
 
     void Awake()
     {
+        FindComponents();
+    }
+
+    void FindComponents()
+    {
         _stick = FindObjectOfType<Stick>();
+        _values = FindObjectOfType<TargetValues>();
         MaxValue = 1.23f;
         Instantiate(BladePrefab);
-        StartCoroutine(ChangePercentage(ChangePercentTime));
-        StartCoroutine(ChangeBufferPercentage(ChangeBufferPercentTime));
         Manager = this;
         BufferPercent = MaxBufferValue;
+        Debug.Log(BufferPercent);
+    }
+
+    void Start()
+    {
+        InvokeRepeating("ChangePercentage", 0, ChangePercentTime);
+        InvokeRepeating("ChangeBufferPercentage", 0, ChangeBufferPercentTime);
+        //InvokeChangesForPercentages();
     }
 
     void Update()
+    {
+        CalculatePercentage();
+        PercentBufferText.text = "Buffer: " + TextBuferNumber;
+    }
+
+    void CalculatePercentage()
     {
         bool BufferIsAtMinimum = (BufferPercent <= 0.01f);
         if (BufferIsAtMinimum)
@@ -45,15 +72,14 @@ public class GameManager : MonoBehaviour
         PercentText.text = "Percentage: " + Mathf.Round(finalValue/* + 10*/);
     }
 
-    IEnumerator ChangePercentage(float time)
+    void ChangePercentage()
     {
-        yield return new WaitForSeconds(time);
         CurrentValue = Random.Range(0, MaxValue);
     }
 
-    IEnumerator ChangeBufferPercentage(float time)
+    void ChangeBufferPercentage()
     {
-        yield return new WaitForSeconds(time);
-        BufferPercent -= 0.01f;
+        BufferPercent -= 0.1f;
+
     }
 }

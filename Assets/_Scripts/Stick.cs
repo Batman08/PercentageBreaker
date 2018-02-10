@@ -6,6 +6,8 @@ public class Stick : MonoBehaviour
 {
     public SpriteRenderer spriterenderer;
     public bool Move;
+    //-0.01f
+    public float SpeedForce;
 
     private GameManager manager;
 
@@ -43,34 +45,27 @@ public class Stick : MonoBehaviour
 
     void FixedUpdate()
     {
+        MoveStick();
+    }
+
+    void MoveStick()
+    {
         if (Move)
-        {
-            transform.Translate(new Vector3(0, -0.01f, 0));
-        }
+            transform.Translate(new Vector3(0, -SpeedForce, 0));
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        CollisionWithBlade(collision);
+    }
+
+    void CollisionWithBlade(Collider2D collision)
+    {
         bool collidedWithBlade = (collision.CompareTag("Blade"));
-        bool hitAtCorrectPosition = (Input.mousePosition.magnitude == manager.finalValue);
-        bool collidedWithDeathZone = (collision.CompareTag("DeathZone"));
 
         if (collidedWithBlade)
-        {
             // GameManager.Manager.ChangePercentage();
             Destroy(gameObject);
-        }
-
-        if (collidedWithBlade && hitAtCorrectPosition)
-        {
-            //ToDo: Instaniate a stick break effect
-            Destroy(gameObject);
-        }
-
-        else if (collidedWithDeathZone)
-        {
-            Destroy(gameObject);
-        }
     }
 
     #region Intersecting code(Not Used) 

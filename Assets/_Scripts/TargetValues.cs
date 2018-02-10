@@ -12,44 +12,66 @@ public class TargetValues : MonoBehaviour
     private float maxX;
     private float minX;
     private float _changeBufferTime = 1;
+    [HideInInspector]
+    public float _result;
 
-    #region DoneMethods (That Work)
+    #region Completed_Methods (That_Work)
     void Awake()
+    {
+        FindComponents();
+    }
+
+    void OnEnable()
+    {
+        CheckIfRendererIsEnabled();
+    }
+
+    void Start()
+    {
+        //   StartCoroutine(ChangeBufferSize());
+        InvokeRepeating("ChangeBufferSize", 0, _manager.ChangeBufferPercentTime);
+    }
+
+    void FindComponents()
     {
         _manager = FindObjectOfType<GameManager>();
         maxX = MyRenderer.bounds.max.x;
         minX = MyRenderer.bounds.min.x;
     }
 
-    void Start()
-    {
-        StartCoroutine(ChangeBufferSize());
-    }
-
-    void OnEnable()
-    {
-        if (MyRenderer == null)
-            MyRenderer = FindObjectOfType<Stick>().transform.GetChild(0).GetComponent<SpriteRenderer>();
-    }
 
     void Update()
     {
-        //Debug.Log(transform.localScale.x);
         CalculateXPosition();
-        ChangeBufferSize();
+        MinXScale();
+        //   ChangeBufferSize();
+    }
+
+    void LayerCollisions()
+    {
+        int StickLayer = 8;
+        int TargetLayer = 9;
+        Physics2D.IgnoreLayerCollision(StickLayer, TargetLayer);
+    }
+
+    void MinXScale()
+    {
+        if (transform.localScale.x <= 0.001f)
+        {
+            float minScale = 0.003f;
+            transform.localScale = new Vector2(minScale, transform.localScale.y);
+        }
     }
 
     void FixedUpdate()
     {
         ClampPosition();
+    }
 
-        bool greaterThanMaxX = transform.position.x > maxX;
-        bool greaterThanMinX = transform.position.x < minX;
-
-        if (greaterThanMaxX || greaterThanMinX)
-        {
-            ClampPosition();
-        }
+    void CheckIfRendererIsEnabled()
+    {
+        if (MyRenderer == null)
+            MyRenderer = FindObjectOfType<Stick>().transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
     void ClampPosition()
@@ -58,6 +80,13 @@ public class TargetValues : MonoBehaviour
         float y = transform.position.y;
 
         transform.position = new Vector2(x, y);
+
+        bool greaterThanMaxX = transform.position.x > maxX;
+        bool greaterThanMinX = transform.position.x < minX;
+        if (greaterThanMaxX || greaterThanMinX)
+        {
+            ClampPosition();
+        }
     }
 
     void CalculateXPosition()
@@ -71,22 +100,25 @@ public class TargetValues : MonoBehaviour
     #endregion
 
 
-    IEnumerator ChangeBufferSize()
+    void CalculateBufferSize()
     {
-        yield return new WaitForSeconds(2);
         float percent = _manager.BufferPercent;
-        float size = transform.localScale.x;
-        float result = size * percent;
-        float finalResult = size - result;
+        float size = 0.1f;
+        _result = size * percent;
+        //float finalResult = size - result;
 
         Debug.Log(percent);
-        Debug.Log(result);
+        Debug.Log(_result);
 
-        transform.localScale = new Vector2(finalResult, transform.localScale.y);
+        transform.localScale = new Vector2(_result, transform.localScale.y);
     }
 
+    void ChangeBufferSize()
+    {
+        CalculateBufferSize();
+    }
 
-    #region FailedMethods
+    #region Methods_That_Are_Not_Needed_Yet
     //void RightXPosition()
     //{
     //    //float Pos = -0.55345f;

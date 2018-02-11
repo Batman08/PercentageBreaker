@@ -5,15 +5,15 @@ using UnityEngine;
 public class TargetValues : MonoBehaviour
 {
     public SpriteRenderer MyRenderer;
-    private GameManager _manager;
+    private GameManager _gameManager;
 
-    private float _percentageNumValue;
-    private float _percentageMaxValue;
-    private float maxX;
-    private float minX;
+    //private float _percentageNumValue;
+    //private float _percentageMaxValue;
+    private float StickmaxX;
+    private float StickminX;
     private float _changeBufferTime = 1;
     [HideInInspector]
-    public float _result;
+    public float _bufferSizeResult;
 
     #region Completed_Methods (That_Work)
     void Awake()
@@ -28,39 +28,33 @@ public class TargetValues : MonoBehaviour
 
     void Start()
     {
-        //   StartCoroutine(ChangeBufferSize());
-        InvokeRepeating("ChangeBufferSize", 0, _manager.ChangeBufferPercentTime);
+        //Changes buffer size when the buffer percentage changes
+        InvokeRepeating("ChangeBufferSize", 0, _gameManager.ChangeBufferPercentTime);
     }
 
     void FindComponents()
     {
-        _manager = FindObjectOfType<GameManager>();
-        maxX = MyRenderer.bounds.max.x;
-        minX = MyRenderer.bounds.min.x;
+        //Finds Game Manager
+        _gameManager = FindObjectOfType<GameManager>();
+        //Finds renderer bounds
+        StickmaxX = MyRenderer.bounds.max.x;
+        StickminX = MyRenderer.bounds.min.x;
     }
 
 
     void Update()
     {
         CalculateXPosition();
-        MinXScale();
         //   ChangeBufferSize();
     }
 
     void LayerCollisions()
     {
+        //Makes the stick GFX not collide with target
+        //Because if sliced buffer it will collide with the stick as well
         int StickLayer = 8;
-        int TargetLayer = 9;
-        Physics2D.IgnoreLayerCollision(StickLayer, TargetLayer);
-    }
-
-    void MinXScale()
-    {
-        if (transform.localScale.x <= 0.001f)
-        {
-            float minScale = 0.003f;
-            transform.localScale = new Vector2(minScale, transform.localScale.y);
-        }
+        int BufferLayer = 9;
+        Physics2D.IgnoreLayerCollision(StickLayer, BufferLayer);
     }
 
     void FixedUpdate()
@@ -70,19 +64,29 @@ public class TargetValues : MonoBehaviour
 
     void CheckIfRendererIsEnabled()
     {
+        //Check if renderer is enabled
+        //If not then find the componet
+        //Then enable it
         if (MyRenderer == null)
+        {
             MyRenderer = FindObjectOfType<Stick>().transform.GetChild(0).GetComponent<SpriteRenderer>();
+            MyRenderer.enabled = true;
+        }
     }
 
     void ClampPosition()
     {
-        float x = Mathf.Clamp(transform.position.x, minX, maxX);
+        //Clamp x position
+        float x = Mathf.Clamp(transform.position.x, StickminX, StickmaxX);
         float y = transform.position.y;
 
+        //Then apply to the transform
         transform.position = new Vector2(x, y);
 
-        bool greaterThanMaxX = transform.position.x > maxX;
-        bool greaterThanMinX = transform.position.x < minX;
+        //Check if target position is clamped between the min and max position
+        //If not then clamp positions
+        bool greaterThanMaxX = transform.position.x > StickmaxX;
+        bool greaterThanMinX = transform.position.x < StickminX;
         if (greaterThanMaxX || greaterThanMinX)
         {
             ClampPosition();
@@ -91,26 +95,29 @@ public class TargetValues : MonoBehaviour
 
     void CalculateXPosition()
     {
-        float Percentage = Mathf.Round(_manager.finalValue) / 100;
-        float transX = maxX * Percentage;
+        //Get the percentage
+        float Percentage = Mathf.Round(_gameManager.Percentage) / 100;
+        //float transX = StickmaxX * Percentage;
+        //Get the stick size and multiply that by the percentage
         float newTransformX = 1.1069f * Percentage;
-
+        //Apply that to the transform local scale
         transform.localPosition = new Vector2(Mathf.Abs(newTransformX), transform.localPosition.y * 0);
     }
     #endregion
 
-
     void CalculateBufferSize()
     {
-        float percent = _manager.BufferPercent;
+        //Get the buffer percentage
+        float BufferPercentage = _gameManager.BufferPercent;
+
+        //Get the size of the target(X Scale)
         float size = 0.1f;
-        _result = size * percent;
-        //float finalResult = size - result;
 
-        Debug.Log(percent);
-        Debug.Log(_result);
+        //Then multiply the size by the buffer Percentage
+        _bufferSizeResult = size * BufferPercentage;
 
-        transform.localScale = new Vector2(_result, transform.localScale.y);
+        //Apply that to the transform local scale
+        transform.localScale = new Vector2(_bufferSizeResult, transform.localScale.y);
     }
 
     void ChangeBufferSize()
@@ -119,6 +126,7 @@ public class TargetValues : MonoBehaviour
     }
 
     #region Methods_That_Are_Not_Needed_Yet
+
     //void RightXPosition()
     //{
     //    //float Pos = -0.55345f;
@@ -135,6 +143,7 @@ public class TargetValues : MonoBehaviour
 
     //    transform.position = new Vector2(rightPos, transform.position.y);
     //}
+
     //void CalculateObjectSize()
     //{
     //    float calcPercentage = _percentageNumValue / _percentageMaxValue;
@@ -145,5 +154,18 @@ public class TargetValues : MonoBehaviour
     //{
     //    transform.localScale = new Vector2(currPercentage, transform.localScale.y);
     //}
+
+    /*    void MinXScale()
+        {
+            //Keep scale at minimum scale
+            float MinScale = 0.001f;
+            bool XScaleIsLessThanMinScale = (transform.localScale.x <= MinScale);
+            if (XScaleIsLessThanMinScale)
+            {
+                //Need to change Min scale because the collider doesn't work at that sie(0.001f)
+                float minScalde = 0.003f;
+                transform.localScale = new Vector2(minScalde, transform.localScale.y);
+            }
+        }*/
     #endregion
 }

@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 61586070742339070}
   - component: {fileID: 114884688684856980}
   m_Layer: 9
-  m_Name: GFXTarget
-  m_TagString: Target
+  m_Name: GFXBuffer
+  m_TagString: Buffer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MyRenderer: {fileID: 212759364738466068}
-  _result: 0
+  _bufferSizeResult: 0
 --- !u!114 &114993494085416100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MyRenderer: {fileID: 212759364738466068}
-  _result: 0
+  _bufferSizeResult: 0
 --- !u!212 &212599443606114974
 SpriteRenderer:
   m_ObjectHideFlags: 1

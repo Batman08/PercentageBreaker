@@ -13,73 +13,92 @@ public class GameManager : MonoBehaviour
     public Text PercentText;
     public Text PercentBufferText;
     [Space]
-    [Header("Percentage Values")]
-    //In the next update, change the way i calculate the percentage
-    public float CurrentValue;
-    public float MaxValue = 1.23f;
-    public float finalValue;
+    [HideInInspector]
+    [Header("Percentage variables")]
+    public float Percentage;
+    private float NumberOutOfPercent;
+    private float ChangePercentageTime = 2;
 
+    [Header("Buffer Variables")]
     public float BufferPercent;
     [HideInInspector]
-    public float MaxBufferValue = 1000.1f;
+    public float MaxBufferValue = 1.0f;
+    [HideInInspector]
+    public float ChangeBufferPercentTime = 4;
+    private float TextBufferNumber = 11;
 
     private Stick _stick;
     private TargetValues _values;
-    private float ChangePercentTime = 2;
-    [HideInInspector]
-    public float ChangeBufferPercentTime = 4;
-    private float TextBuferNumber;
 
+    #region Completed Methods(That work)
     void Awake()
     {
         FindComponents();
+    }
+
+    void Start()
+    {
+        //Changes percentage and buffer percentage
+        InvokeRepeating("ChangePercentageTwo", 0, ChangePercentageTime);
+        InvokeRepeating("ChangeBufferPercentage", 0, ChangeBufferPercentTime);
+    }
+
+    void Update()
+    {
+        //CalculatePercentage();
+        CalculatePercentageTwo();
+        KeepBufferPercentAtMinimum();
+        UpdateBufferText();
+    }
+
+    void UpdateBufferText()
+    {
+        PercentBufferText.text = "Buffer: " + TextBufferNumber;
+
+        if (TextBufferNumber <= 0)
+            TextBufferNumber = 0;
     }
 
     void FindComponents()
     {
         _stick = FindObjectOfType<Stick>();
         _values = FindObjectOfType<TargetValues>();
-        MaxValue = 1.23f;
         Instantiate(BladePrefab);
         Manager = this;
         BufferPercent = MaxBufferValue;
         Debug.Log(BufferPercent);
     }
 
-    void Start()
+    void CalculatePercentageTwo()
     {
-        InvokeRepeating("ChangePercentage", 0, ChangePercentTime);
-        InvokeRepeating("ChangeBufferPercentage", 0, ChangeBufferPercentTime);
-        //InvokeChangesForPercentages();
+        //Percentage = (NumberOutOfPercent / MaxPercentage);
+        Percentage = NumberOutOfPercent;
+        PercentText.text = "Percentage: " + Percentage;
     }
 
-    void Update()
+    void ChangePercentageTwo()
     {
-        CalculatePercentage();
-        PercentBufferText.text = "Buffer: " + TextBuferNumber;
+        NumberOutOfPercent = Random.Range(0, 100);
     }
 
-    void CalculatePercentage()
+    void KeepBufferPercentAtMinimum()
     {
-        bool BufferIsAtMinimum = (BufferPercent <= 0.01f);
+        float MinBufferPercentage = 0.01f;
+        bool BufferIsAtMinimum = (BufferPercent <= MinBufferPercentage);
         if (BufferIsAtMinimum)
         {
-            BufferPercent = 0.01f;
+            BufferPercent = 0.03f;
         }
-
-        finalValue = (CurrentValue / MaxValue * 100);
-
-        PercentText.text = "Percentage: " + Mathf.Round(finalValue/* + 10*/);
-    }
-
-    void ChangePercentage()
-    {
-        CurrentValue = Random.Range(0, MaxValue);
     }
 
     void ChangeBufferPercentage()
     {
         BufferPercent -= 0.1f;
-
+        TextBufferNumber -= 1;
     }
+    #endregion
+
+
+
+
 }

@@ -6,16 +6,16 @@ public class PercentageMathCollision : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collision)
     {
-        bool SlicedTarget = (collision.GetComponent<Collider2D>().CompareTag("Target"));
+        bool SlicedBufferTarget = (collision.GetComponent<Collider2D>().CompareTag("Buffer"));
         bool SlicedStick = (collision.GetComponent<Collider2D>().CompareTag("Stick"));
 
-        if (SlicedTarget)
+        if (SlicedBufferTarget)
         {
             Debug.Log("You Win");
             DestroyStick(collision);
         }
 
-        else if (SlicedTarget && SlicedStick)
+        else if (SlicedBufferTarget && SlicedStick)
         {
             Debug.Log("Sliced both");
             DestroyStick(collision);

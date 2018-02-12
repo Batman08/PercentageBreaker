@@ -3,8 +3,9 @@
 public class Blade : MonoBehaviour
 {
     public GameObject BladeTrailPrefab;
+    [Space]
+    [Header("Blade Cutting Variables")]
     public float MinCuttingVelocity = 0.000000000f;
-    public float CuttingRadius = 1;
 
     private bool _isCutting = false;
     private Vector2 _previousePosition;
@@ -22,6 +23,7 @@ public class Blade : MonoBehaviour
     void Update()
     {
         InputControls();
+        newPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
     void Instances()
@@ -33,13 +35,15 @@ public class Blade : MonoBehaviour
 
     void InputControls()
     {
-        if (Input.GetMouseButtonDown(0))
+        bool MouseButtonIsDown = (Input.GetMouseButtonDown(0));
+        bool MouseButtonIsUp = (Input.GetMouseButtonUp(0));
+
+        if (MouseButtonIsDown)
         {
             StartCutting();
-            //Cut();
         }
 
-        else if (Input.GetMouseButtonUp(0))
+        else if (MouseButtonIsUp)
         {
             StopCutting();
         }
@@ -57,7 +61,7 @@ public class Blade : MonoBehaviour
 
     void EnableCollider()
     {
-        newPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
+
         _rb2d.position = newPosition;
 
         float velocity = NewVelocity(newPosition);
@@ -65,11 +69,10 @@ public class Blade : MonoBehaviour
         if (velocity > MinCuttingVelocity)
         {
             _circleCollider.enabled = true;
-            //CuttingPhysics();
         }
         else
         {
-            _circleCollider.enabled = true;
+            _circleCollider.enabled = false;
         }
 
         _previousePosition = newPosition;
@@ -96,18 +99,4 @@ public class Blade : MonoBehaviour
         Destroy(_currentBladeTrail, 2f);
         _circleCollider.enabled = false;
     }
-    #region Raycast (Not Being Used)
-    void Cut()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
-        if (hit.collider != null)
-        {
-            if (hit.collider.tag == "Stick")
-            {
-                Destroy(hit.collider.gameObject);
-            }
-        }
-    }
-    #endregion
 }

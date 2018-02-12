@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
@@ -15,23 +16,40 @@ public class WaveSpawner : MonoBehaviour
         public float Rate;
     }
 
+    //stick alpha -- 95
     public Wave[] Waves;
+    [Space]
     public Transform[] SpawnPoints;
+    [Space]
     public SpawnState State = SpawnState.Counting;
+    [Space]
+    [Header("Texts")]
+    public Text DemoEndedText;
+    public Text WaveText;
+    [Space]
     public float TimeBetweenWaves = 5f;
+    public bool changePercentage;
 
-    private int _nextWave = 0;
-    private float _waveCountDown;
-    private float _searchCountDown = 1f;
+    public int _nextWave = 0;
+    public float _waveCountDown;
+    public float _searchCountDown = 1f;
 
     void Start()
     {
+        DemoEndedText.enabled = false;
         _waveCountDown = TimeBetweenWaves;
+        changePercentage = true;
     }
 
     void Update()
     {
         CheckSpawnStates();
+        UpdateWaveText(Waves[_nextWave]);
+    }
+
+    void UpdateWaveText(Wave wave)
+    {
+        WaveText.text = wave.Name;
     }
 
     void CheckSpawnStates()
@@ -71,7 +89,9 @@ public class WaveSpawner : MonoBehaviour
         if (NextWave > MaxWaves)
         {
             _nextWave = 0;
-            Debug.Log("All waves complete, Looping.....");
+            DemoEndedText.enabled = true;
+            //State = SpawnState.Spawning;
+            //   Debug.Log("All waves complete, Looping.....");
         }
         else
             _nextWave++;
@@ -83,6 +103,8 @@ public class WaveSpawner : MonoBehaviour
 
         if (_searchCountDown <= 0)
         {
+            _searchCountDown = 1;
+
             bool SticksAreNull = (GameObject.FindGameObjectWithTag("Stick") == null);
             if (SticksAreNull)
                 return false;
@@ -93,7 +115,7 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator SpawnWave(Wave wave)
     {
-        Debug.Log("Spawning Wave: " + wave.Name);
+        //Debug.Log("Spawning Wave: " + wave.Name);
         State = SpawnState.Spawning;
 
         //Spawn Sticks
@@ -110,13 +132,13 @@ public class WaveSpawner : MonoBehaviour
 
     void SpawnStick(Transform Stick)
     {
-        //Spawn Enemy
-        Debug.Log("Spawning Stick: " + Stick.name);
+        //Debug.Log("Spawning Stick: " + Stick.name);
 
+        //Spawnpoint Check
         bool NoSpawnPoints = (SpawnPoints.Length == 0);
         if (NoSpawnPoints)
             Debug.LogError("No Spawn Points referenced");
-
+        //Spawn Enemy
         Transform SpawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
         Instantiate(Stick, SpawnPoint.position, SpawnPoint.rotation);
     }

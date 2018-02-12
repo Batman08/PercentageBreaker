@@ -103,7 +103,6 @@ public class TargetValues : MonoBehaviour
         //Apply that to the transform local scale
         transform.localPosition = new Vector2(Mathf.Abs(newTransformX), transform.localPosition.y * 0);
     }
-    #endregion
 
     void CalculateBufferSize()
     {
@@ -124,6 +123,8 @@ public class TargetValues : MonoBehaviour
     {
         CalculateBufferSize();
     }
+    #endregion
+
 
     #region Methods_That_Are_Not_Needed_Yet
 

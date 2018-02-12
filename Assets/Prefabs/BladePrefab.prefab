@@ -72,12 +72,12 @@ CircleCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.01
+  m_Radius: 0.05
 --- !u!114 &114877541975949144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -92,7 +92,6 @@ MonoBehaviour:
   BladeTrailPrefab: {fileID: 1658240364598548, guid: 2c39fdab3fd36d34a8dcf418449137dc,
     type: 2}
   MinCuttingVelocity: 0.001
-  CuttingRadius: 1
 --- !u!114 &114907155390303546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -104,3 +103,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a256cfe0cd5b70f46b249fabf3c2cf6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Lives: 3

@@ -43,9 +43,23 @@ public class Stick : MonoBehaviour
         g.SetKeys(gck, gak);
     }
 
+    void Update()
+    {
+        CheckForChild();
+    }
+
     void FixedUpdate()
     {
         MoveStick();
+    }
+
+    void CheckForChild()
+    {
+        bool NoChildren = (transform.childCount <= 1);
+        if (NoChildren)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void MoveStick()
@@ -56,58 +70,9 @@ public class Stick : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        CollisionWithBlade(collision);
-    }
-
-    void CollisionWithBlade(Collider2D collision)
-    {
-        bool collidedWithBlade = (collision.CompareTag("Blade"));
-
-        if (collidedWithBlade)
-            // GameManager.Manager.ChangePercentage();
+        if (collision.tag == "DeathZone")
+        {
             Destroy(gameObject);
+        }
     }
-
-    #region Intersecting code(Not Used) 
-
-    //Variables
-    //---------
-    //public GameObject m_MyObject, m_NewObject;
-    //private Collider2D m_Collider, m_Collider2;
-
-    //Start Method
-    //------------
-    /*
-        //Check that the first GameObject exists in the Inspector and fetch the Collider
-        if (m_MyObject != null)
-            m_Collider = m_MyObject.GetComponent<Collider2D>();
-
-        //Check that the second GameObject exists in the Inspector and fetch the Collider
-        if (m_NewObject != null)
-            m_Collider2 = m_NewObject.GetComponent<Collider2D>();*/
-
-    //Update Method
-    //--------------
-    //Vector2 spriteWidth = spriterenderer.bounds.size;
-    //Vector2 StickMin = spriterenderer.bounds.min;
-    //Vector2 StickMax = spriterenderer.bounds.max;
-
-    /*
-    bool Intersecting = (m_Collider.bounds.Intersects(m_Collider2.bounds));
-    bool Colliderenabled = (m_Collider);
-    bool Collider2enabled = (m_Collider2);
-    //If the first GameObject's Bounds enters the second GameObject's Bounds, output the message
-
-    if (Intersecting)
-    {
-        m_NewObject.SetActive(value: true);
-    }
-
-    if (Intersecting)
-    {
-        Debug.Log("Bounds intersecting");
-        Debug.Log(Intersecting);
-        Destroy(gameObject);
-    }*/
-    #endregion
 }

@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [Header("Percentage variables")]
     public float Percentage;
     private float NumberOutOfPercent;
-    private float ChangePercentageTime = 2;
+    //private float ChangePercentageTime = 2;
 
     [Header("Buffer Variables")]
     public float BufferPercent;
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     private Stick _stick;
     private TargetValues _values;
+    private WaveSpawner _spawner;
 
     #region Completed Methods(That work)
     void Awake()
@@ -39,8 +40,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //Changes percentage and buffer percentage
-        InvokeRepeating("ChangePercentageTwo", 0, ChangePercentageTime);
-        InvokeRepeating("ChangeBufferPercentage", 0, ChangeBufferPercentTime);
+
     }
 
     void Update()
@@ -49,6 +49,16 @@ public class GameManager : MonoBehaviour
         CalculatePercentageTwo();
         KeepBufferPercentAtMinimum();
         UpdateBufferText();
+
+        bool ChangePercentage = _spawner.changePercentage;
+        if (ChangePercentage)
+        {
+            //InvokeRepeating("ChangePercentageTwo", 0, ChangePercentageTime);
+            //InvokeRepeating("ChangeBufferPercentage", 0, ChangeBufferPercentTime);
+            ChangePercentageTwo();
+            ChangeBufferPercentage();
+            _spawner.changePercentage = false;
+        }
     }
 
     void UpdateBufferText()
@@ -63,10 +73,11 @@ public class GameManager : MonoBehaviour
     {
         _stick = FindObjectOfType<Stick>();
         _values = FindObjectOfType<TargetValues>();
+        _spawner = FindObjectOfType<WaveSpawner>();
         Instantiate(BladePrefab);
         Manager = this;
         BufferPercent = MaxBufferValue;
-        Debug.Log(BufferPercent);
+        //Debug.Log(BufferPercent);
     }
 
     void CalculatePercentageTwo()
@@ -97,8 +108,5 @@ public class GameManager : MonoBehaviour
         TextBufferNumber -= 1;
     }
     #endregion
-
-
-
 
 }

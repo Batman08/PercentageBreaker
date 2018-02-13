@@ -85,7 +85,7 @@ public class Blade : MonoBehaviour
 
     void StartCutting()
     {
-        newPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
+        //newPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
         _isCutting = true;
         _currentBladeTrail = Instantiate(BladeTrailPrefab, transform);
         _previousePosition = newPosition;

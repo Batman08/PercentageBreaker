@@ -294,7 +294,9 @@
     <Compile Include="Assets\_Scripts\Blade.cs" />
     <Compile Include="Assets\_Scripts\BladeCollisions.cs" />
     <Compile Include="Assets\_Scripts\GameManager.cs" />
+    <Compile Include="Assets\_Scripts\GradientTest.cs" />
     <Compile Include="Assets\_Scripts\RotateStick.cs" />
+    <Compile Include="Assets\_Scripts\ScoreManager.cs" />
     <Compile Include="Assets\_Scripts\Stick.cs" />
     <Compile Include="Assets\_Scripts\StickSpawner.cs" />
     <Compile Include="Assets\_Scripts\TargetValues.cs" />

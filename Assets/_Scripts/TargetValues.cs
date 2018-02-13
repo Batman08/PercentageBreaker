@@ -29,7 +29,7 @@ public class TargetValues : MonoBehaviour
     void Start()
     {
         //Changes buffer size when the buffer percentage changes
-        InvokeRepeating("ChangeBufferSize", 0, _gameManager.ChangeBufferPercentTime);
+        InvokeRepeating("ChangeBufferSize", 0, _gameManager.ChangeBufferPercentageTime);
     }
 
     void FindComponents()

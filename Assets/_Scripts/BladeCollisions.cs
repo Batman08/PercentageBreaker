@@ -22,7 +22,7 @@ public class BladeCollisions : MonoBehaviour
         bool ZeroLifesLeft = (Lives <= 0);
         if (ZeroLifesLeft)
         {
-            Debug.Log("GAME OVER");
+            //Debug.Log("GAME OVER");
             return;
         }
     }

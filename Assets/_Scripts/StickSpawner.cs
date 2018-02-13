@@ -6,8 +6,9 @@ public class StickSpawner : MonoBehaviour
 {
     public GameObject StickPrefab;
     public Transform[] SpawnPoints;
-    public float minDelay = 0.1f;
-    public float manDelay = 1f;
+    //public float minDelay = 0.1f;
+    public float minDelay = 1f;
+    public float manDelay = 2f;
 
     void Start()
     {
@@ -18,7 +19,8 @@ public class StickSpawner : MonoBehaviour
     {
         while (true)
         {
-            float delay = Random.Range(minDelay, manDelay);
+            //float delay = Random.Range(minDelay, manDelay);
+            float delay = 2;
             yield return new WaitForSeconds(delay);
 
             int spawnIndex = Random.Range(0, SpawnPoints.Length);

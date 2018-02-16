@@ -25,6 +25,16 @@ public class Stick : MonoBehaviour
     void FixedUpdate()
     {
         MoveStick();
+        LayerCollisions();
+    }
+
+    void LayerCollisions()
+    {
+        //Makes the stick GFX not collide with target
+        //Because if sliced buffer it will collide with the stick as well
+        int StickLayer = 8;
+        int BufferLayer = 9;
+        Physics2D.IgnoreLayerCollision(StickLayer, BufferLayer);
     }
 
     void CheckForChild()

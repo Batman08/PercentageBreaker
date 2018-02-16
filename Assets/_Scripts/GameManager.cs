@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -8,10 +9,12 @@ public class GameManager : MonoBehaviour
     public static GameManager Manager { get; set; }
 
     public GameObject BladePrefab;
+    public GameObject EndGamePanel;
     [Space]
     [Header("Texts")]
     public Text PercentText;
     public Text PercentBufferText;
+    public Text LivesText;
     [Space]
     [HideInInspector]
     [Header("Percentage variables")]
@@ -31,9 +34,12 @@ public class GameManager : MonoBehaviour
 
     private Stick _stick;
     private TargetValues _values;
+    private BladeCollisions _bladeCollisions;
+
+    [HideInInspector]
+    public bool _gameOver = false;
     //private WaveSpawner _spawner;
 
-    #region Completed Methods(That work)
     void Awake()
     {
         FindComponents();
@@ -44,6 +50,7 @@ public class GameManager : MonoBehaviour
         //Changes percentage and buffer percentage
         InvokeRepeating("ChangePercentage", 0, ChangePercentageTime);
         InvokeRepeating("ChangeBufferPercentage", ChangeBufferPercentageTime, ChangeBufferPercentageTime);
+        _bladeCollisions = FindObjectOfType<BladeCollisions>();
         //InvokeRepeating("ChangeBufferPercentage", 0, ChangeBufferPercentTime);
     }
 
@@ -53,6 +60,8 @@ public class GameManager : MonoBehaviour
         CalculatePercentage();
         KeepBufferPercentAtMinimum();
         UpdateBufferText();
+        UpdateLivesText();
+
         #region
         //bool ChangePercentage = _spawner.changePercentage;
         //if (ChangePercentage)
@@ -61,12 +70,11 @@ public class GameManager : MonoBehaviour
         //    ChangeBufferPercentage();
         //    _spawner.changePercentage = false;
         //}
-        #endregion
-
         //if (BufferPercent <= 0.5f)
         //{
         //    ChangeBufferPercentTime = 60;
         //}
+        #endregion
     }
 
     void UpdateBufferText()
@@ -79,8 +87,10 @@ public class GameManager : MonoBehaviour
 
     void FindComponents()
     {
+        EndGamePanel.SetActive(value: false);
         _stick = FindObjectOfType<Stick>();
         _values = FindObjectOfType<TargetValues>();
+
         // _spawner = FindObjectOfType<WaveSpawner>();
         Instantiate(BladePrefab);
         Manager = this;
@@ -115,6 +125,20 @@ public class GameManager : MonoBehaviour
         BufferPercent -= 0.1f;
         TextBufferNumber -= 1;
     }
-    #endregion
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void GameOver()
+    {
+        _gameOver = true;
+        EndGamePanel.SetActive(value: true);
+    }
+
+    void UpdateLivesText()
+    {
+        LivesText.text = "Lives: " + _bladeCollisions.Lives;
+    }
 }

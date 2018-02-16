@@ -1,15 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class BladeCollisions : MonoBehaviour
 {
     public int Lives;
+
     private int _maxLives = 3;
+    private ScoreManager _scoreManager;
+    private GameManager _manager;
 
     void Start()
     {
         Lives = _maxLives;
+        _scoreManager = FindObjectOfType<ScoreManager>();
+        _manager = FindObjectOfType<GameManager>();
     }
 
     void Update()
@@ -22,10 +28,13 @@ public class BladeCollisions : MonoBehaviour
         bool ZeroLifesLeft = (Lives <= 0);
         if (ZeroLifesLeft)
         {
-            //Debug.Log("GAME OVER");
+            _manager.GameOver();
+
             return;
         }
     }
+
+
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -36,11 +45,15 @@ public class BladeCollisions : MonoBehaviour
         {
             //Debug.Log("You Win");
             DestroyStick(collision);
+            _scoreManager.AddScore();
         }
 
         else if (SlicedStick)
         {
-            Lives--;
+            if (Lives > 0)
+            {
+                Lives--;
+            }
             //Debug.Log("Game Over");
         }
     }

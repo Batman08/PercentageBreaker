@@ -10,8 +10,11 @@ public class StickSpawner : MonoBehaviour
     public float minDelay = 1f;
     public float manDelay = 2f;
 
+    private GameManager _manager;
+
     void Start()
     {
+        _manager = FindObjectOfType<GameManager>();
         StartCoroutine(SpawnSticks());
     }
 
@@ -19,6 +22,10 @@ public class StickSpawner : MonoBehaviour
     {
         while (true)
         {
+            if (_manager._gameOver)
+            {
+                break;
+            }
             //float delay = Random.Range(minDelay, manDelay);
             float delay = 2;
             yield return new WaitForSeconds(delay);

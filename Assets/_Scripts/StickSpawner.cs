@@ -18,6 +18,12 @@ public class StickSpawner : MonoBehaviour
         StartCoroutine(SpawnSticks());
     }
 
+    void Update()
+    {
+        if (_manager._gameOver)
+            Destroy(gameObject);
+    }
+
     IEnumerator SpawnSticks()
     {
         while (true)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Stick : MonoBehaviour
 {
+    public Material GradientMaterial;
     public SpriteRenderer spriterenderer;
     public bool Move;
     //-0.01f
@@ -13,6 +14,7 @@ public class Stick : MonoBehaviour
 
     void Start()
     {
+        Gradient();
         spriterenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         manager = FindObjectOfType<GameManager>();
     }
@@ -26,6 +28,12 @@ public class Stick : MonoBehaviour
     {
         MoveStick();
         LayerCollisions();
+    }
+
+    void Gradient()
+    {
+        GradientMaterial.SetColor("_Color", Color.white); // the left color
+        GradientMaterial.SetColor("_Color2", Color.black); // the right color
     }
 
     void LayerCollisions()

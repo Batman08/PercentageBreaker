@@ -27,10 +27,11 @@ public class GameManager : MonoBehaviour
     public float MaxBufferValue = 1f;
 
     [Header("Change Percentages Times")]
-    public float ChangePercentageTime = 25;
+    private float ChangePercentageTime = 25;
+    [HideInInspector]
     public float ChangeBufferPercentageTime = 60;
 
-    private float TextBufferNumber = 11;
+    public float TextBufferNumber;
 
     private Stick _stick;
     private TargetValues _values;
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
     {
         //CalculatePercentage();
         CalculatePercentage();
-        KeepBufferPercentAtMinimum();
+        UpdateTextBufferNumber();
         UpdateBufferText();
         UpdateLivesText();
 
@@ -79,10 +80,15 @@ public class GameManager : MonoBehaviour
 
     void UpdateBufferText()
     {
-        PercentBufferText.text = "Buffer: " + TextBufferNumber + "%";
+        PercentBufferText.text = "Buffer: " + TextBufferNumber.ToString("F0") + "%";
+    }
 
-        if (TextBufferNumber <= 0)
-            TextBufferNumber = 0;
+    void UpdateTextBufferNumber()
+    {
+        if (TextBufferNumber <= 5f)
+            TextBufferNumber = 5;
+
+        TextBufferNumber = BufferPercent * 10;
     }
 
     void FindComponents()
@@ -90,12 +96,10 @@ public class GameManager : MonoBehaviour
         EndGamePanel.SetActive(value: false);
         _stick = FindObjectOfType<Stick>();
         _values = FindObjectOfType<TargetValues>();
-
         // _spawner = FindObjectOfType<WaveSpawner>();
         Instantiate(BladePrefab);
         Manager = this;
-        BufferPercent = 1.1f; ;
-        //Debug.Log(BufferPercent);
+        BufferPercent = MaxBufferValue;
     }
 
     void CalculatePercentage()
@@ -110,20 +114,15 @@ public class GameManager : MonoBehaviour
         NumberOutOfPercent = Random.Range(0, 100);
     }
 
-    void KeepBufferPercentAtMinimum()
-    {
-        float MinBufferPercentage = 0.01f;
-        bool BufferIsAtMinimum = (BufferPercent <= MinBufferPercentage);
-        if (BufferIsAtMinimum)
-        {
-            BufferPercent = 0.03f;
-        }
-    }
-
     void ChangeBufferPercentage()
     {
-        BufferPercent -= 0.1f;
-        TextBufferNumber -= 1;
+        float MinBufferPercentage = 0.5f;
+        bool BufferIsNotAtMinimum = (BufferPercent > MinBufferPercentage);
+        if (BufferIsNotAtMinimum)
+        {
+            BufferPercent -= 0.1f;
+            //TextBufferNumber -= 1;
+        }
     }
 
     public void RestartGame()

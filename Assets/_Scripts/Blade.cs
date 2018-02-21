@@ -5,6 +5,7 @@ public class Blade : MonoBehaviour
     public GameObject BladeTrailPrefab;
     [Space]
     [Header("Blade Cutting Variables")]
+    //0.001 -- min cutting vel
     public float MinCuttingVelocity = 0.000000000f;
 
     private bool _isCutting = false;
@@ -65,8 +66,9 @@ public class Blade : MonoBehaviour
         _rb2d.position = newPosition;
 
         float velocity = NewVelocity(newPosition);
+        bool VelocityIsGreaterThanZero = (velocity > MinCuttingVelocity);
 
-        if (velocity > MinCuttingVelocity)
+        if (VelocityIsGreaterThanZero)
         {
             _circleCollider.enabled = true;
         }

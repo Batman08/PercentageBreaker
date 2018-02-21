@@ -54,9 +54,9 @@ public class BladeCollisions : MonoBehaviour
         if (SlicedBufferTarget)
         {
             //Debug.Log("You Win");
-            _circleCollider2D.enabled = false;
-            DidCollideWithStick = false;
-            IgnoreLayerCollisions();
+            //_circleCollider2D.enabled = false;
+            //DidCollideWithStick = false;
+            //IgnoreLayerCollisions();
             DestroyStick(collision);
             _scoreManager.AddScore();
             //   return;
@@ -66,13 +66,13 @@ public class BladeCollisions : MonoBehaviour
 
         else if (SlicedStick)
         {
-            DidCollideWithStick = true;
-            if (DidCollideWithStick)
+            //   DidCollideWithStick = true;
+            //if (DidCollideWithStick)
+            //{
+
+            //}if (Lives > 0)
             {
-                if (Lives > 0)
-                {
-                    Lives--;
-                }
+                Lives--;
             }
             //Debug.Log("Game Over");
         }

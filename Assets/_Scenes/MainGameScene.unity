@@ -1149,16 +1149,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114428129470465988, guid: 04543286ee57280438beb7683b4e9ca8,
-        type: 2}
-      propertyPath: Move
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212599443606114974, guid: 04543286ee57280438beb7683b4e9ca8,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04543286ee57280438beb7683b4e9ca8, type: 2}
   m_IsPrefabParent: 0

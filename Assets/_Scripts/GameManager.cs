@@ -27,14 +27,12 @@ public class GameManager : MonoBehaviour
     public float MaxBufferValue = 1f;
 
     [Header("Change Percentages Times")]
-    private float ChangePercentageTime = 25;
+    private float ChangePercentageTime = 25f;
     [HideInInspector]
-    public float ChangeBufferPercentageTime = 60;
+    public float ChangeBufferPercentageTime = 35f;
 
     public float TextBufferNumber;
 
-    private Stick _stick;
-    private TargetValues _values;
     private BladeCollisions _bladeCollisions;
 
     [HideInInspector]
@@ -94,8 +92,6 @@ public class GameManager : MonoBehaviour
     void FindComponents()
     {
         EndGamePanel.SetActive(value: false);
-        _stick = FindObjectOfType<Stick>();
-        _values = FindObjectOfType<TargetValues>();
         // _spawner = FindObjectOfType<WaveSpawner>();
         Instantiate(BladePrefab);
         Manager = this;

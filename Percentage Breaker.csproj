@@ -294,6 +294,7 @@
     <Compile Include="Assets\_Scripts\Blade.cs" />
     <Compile Include="Assets\_Scripts\BladeCollisions.cs" />
     <Compile Include="Assets\_Scripts\GameManager.cs" />
+    <Compile Include="Assets\_Scripts\GradientBackground.cs" />
     <Compile Include="Assets\_Scripts\GradientTest.cs" />
     <Compile Include="Assets\_Scripts\RotateStick.cs" />
     <Compile Include="Assets\_Scripts\ScoreManager.cs" />
@@ -301,12 +302,8 @@
     <Compile Include="Assets\_Scripts\StickSpawner.cs" />
     <Compile Include="Assets\_Scripts\TargetValues.cs" />
     <Compile Include="Assets\_Scripts\WaveSpawner.cs" />
-    <Compile Include="Assets\DayNight\Scripts\CreatePlaneMesh.cs" />
-    <Compile Include="Assets\DayNight\Scripts\DayNightCycleGradient.cs" />
-    <Compile Include="Assets\DayNight\Scripts\DayNightCycleSkybox.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\DayNight\Shaders\GradientVertexShader.shader" />
     <None Include="Assets\_Scripts\SpriteGradient.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

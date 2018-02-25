@@ -10,13 +10,12 @@ public class Stick : MonoBehaviour
     //-0.01f
     public float SpeedForce;
 
-    private GameManager manager;
+
 
     void Start()
     {
         Gradient();
         spriterenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        manager = FindObjectOfType<GameManager>();
     }
 
     void Update()

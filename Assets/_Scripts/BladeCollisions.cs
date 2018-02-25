@@ -7,18 +7,15 @@ public class BladeCollisions : MonoBehaviour
 {
     public int Lives;
 
-    private int _maxLives = 3;
-    private bool DidCollideWithStick = false;
+    private int _maxLives = 4;
     private ScoreManager _scoreManager;
     private GameManager _manager;
-    private CircleCollider2D _circleCollider2D;
 
     void Start()
     {
         Lives = _maxLives;
         _scoreManager = FindObjectOfType<ScoreManager>();
         _manager = FindObjectOfType<GameManager>();
-        _circleCollider2D = GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -39,10 +36,18 @@ public class BladeCollisions : MonoBehaviour
 
     void IgnoreLayerCollisions()
     {
-        int BladeLayer = 11;
-        int StickLayer = 8;
+        int BladeLayer = LayerMask.NameToLayer("Blade");
+        int StickLayer = LayerMask.NameToLayer("Stick");
 
-        Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer);
+        Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, true);
+    }
+
+    void EnableLayerCollisions()
+    {
+        int BladeLayer = LayerMask.NameToLayer("Blade");
+        int StickLayer = LayerMask.NameToLayer("Stick");
+
+        Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
     }
 
 
@@ -53,33 +58,31 @@ public class BladeCollisions : MonoBehaviour
 
         if (SlicedBufferTarget)
         {
-            //Debug.Log("You Win");
-            //_circleCollider2D.enabled = false;
-            //DidCollideWithStick = false;
-            //IgnoreLayerCollisions();
             DestroyStick(collision);
             _scoreManager.AddScore();
-            //   return;
-            /*Need to find a way for the buffer to not collide with stick 
-             * so when blade collides with the buffer it doesnt take a life away*/
         }
 
         else if (SlicedStick)
         {
-            //   DidCollideWithStick = true;
-            //if (DidCollideWithStick)
-            //{
-
-            //}if (Lives > 0)
+            if (Lives > 0)
             {
                 Lives--;
+                StartCoroutine(StopBladeCollidingWithStick());
             }
-            //Debug.Log("Game Over");
         }
     }
 
     void DestroyStick(Collider2D collision)
     {
         Destroy(collision.transform.parent.gameObject);
+    }
+
+    IEnumerator StopBladeCollidingWithStick()
+    {
+        float time = 8f;
+        IgnoreLayerCollisions();
+        yield return new WaitForSeconds(time);
+        EnableLayerCollisions();
+
     }
 }

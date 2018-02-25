@@ -11,7 +11,7 @@ public class TargetValues : MonoBehaviour
     //private float _percentageMaxValue;
     private float StickmaxX;
     private float StickminX;
-    private float _changeBufferTime = 1;
+    //private float _changeBufferTime = 1;
     [HideInInspector]
     public float _bufferSizeResult;
 
@@ -29,7 +29,7 @@ public class TargetValues : MonoBehaviour
     void Start()
     {
         //Changes buffer size when the buffer percentage changes
-        InvokeRepeating("ChangeBufferSize", 0, _gameManager.ChangeBufferPercentageTime);
+        InvokeRepeating("ChangeBufferSize", _gameManager.ChangeBufferPercentageTime, _gameManager.ChangeBufferPercentageTime);
     }
 
     void FindComponents()

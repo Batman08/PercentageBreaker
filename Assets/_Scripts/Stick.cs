@@ -10,12 +10,13 @@ public class Stick : MonoBehaviour
     //-0.01f
     public float SpeedForce;
 
-
+    private BladeCollisions _blade;
 
     void Start()
     {
         Gradient();
         spriterenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        _blade = FindObjectOfType<BladeCollisions>();
     }
 
     void Update()
@@ -63,6 +64,7 @@ public class Stick : MonoBehaviour
     {
         if (collision.tag == "DeathZone")
         {
+            _blade.Lives--;
             Destroy(gameObject);
         }
     }

@@ -318,7 +318,7 @@ MonoBehaviour:
   GradientMaterial: {fileID: 2100000, guid: 8202d6da09b358544b479aa1f1f29691, type: 2}
   spriterenderer: {fileID: 212759364738466068}
   Move: 1
-  SpeedForce: 0.018
+  SpeedForce: 0.024
 --- !u!114 &114884688684856980
 MonoBehaviour:
   m_ObjectHideFlags: 1

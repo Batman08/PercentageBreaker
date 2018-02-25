@@ -306,8 +306,7 @@ MonoBehaviour:
   - {fileID: 918445573}
   - {fileID: 1941183931}
   - {fileID: 1162160390}
-  minDelay: 0.1
-  manDelay: 1
+  _searchCountDown: 1
 --- !u!4 &183028747
 Transform:
   m_ObjectHideFlags: 0

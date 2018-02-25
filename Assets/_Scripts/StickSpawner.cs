@@ -20,7 +20,7 @@ public class StickSpawner : MonoBehaviour
         if (_manager._gameOver)
             Destroy(gameObject);
 
-        if (!SticksEnabled())
+        if (SticksEnabled())
             StartCoroutine(SpawnSticks());
 
         else
@@ -57,10 +57,13 @@ public class StickSpawner : MonoBehaviour
 
             int spawnIndex = Random.Range(0, SpawnPoints.Length);
             Transform spawnPoint = SpawnPoints[spawnIndex];
+            float x = Random.Range(-2.869f, 1.842f);
+            float y = 5.96f;
+            Vector2 spawnPosition = new Vector2(x, y);
 
             if (transform.childCount < 2)
             {
-                Instantiate(StickPrefab, spawnPoint.position, spawnPoint.rotation, parent: transform);
+                Instantiate(StickPrefab, spawnPosition, Quaternion.identity, parent: transform);
             }
             yield break;
         }

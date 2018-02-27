@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Manager { get; set; }
 
     public GameObject BladePrefab;
+    public GameObject GamePanel;
     public GameObject EndGamePanel;
     [Space]
     [Header("Texts")]
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
     public float TextBufferNumber;
 
     private BladeCollisions _bladeCollisions;
+    private ScoreManager _scoreManager;
 
     [HideInInspector]
     public bool _gameOver = false;
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour
         InvokeRepeating("ChangePercentage", 0, ChangePercentageTime);
         InvokeRepeating("ChangeBufferPercentage", ChangeBufferPercentageTime, ChangeBufferPercentageTime);
         _bladeCollisions = FindObjectOfType<BladeCollisions>();
+        _scoreManager = GetComponent<ScoreManager>();
         //InvokeRepeating("ChangeBufferPercentage", 0, ChangeBufferPercentTime);
     }
 
@@ -91,6 +94,7 @@ public class GameManager : MonoBehaviour
 
     void FindComponents()
     {
+        GamePanel.SetActive(value: true);
         EndGamePanel.SetActive(value: false);
         // _spawner = FindObjectOfType<WaveSpawner>();
         Instantiate(BladePrefab);
@@ -123,13 +127,22 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        _scoreManager.SaveScore();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Home()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void GameOver()
     {
         _gameOver = true;
+        _scoreManager.SaveScore();
+        GamePanel.SetActive(value: false);
         EndGamePanel.SetActive(value: true);
+        Destroy(_bladeCollisions.gameObject);
     }
 
     void UpdateLivesText()

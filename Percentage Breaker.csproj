@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -293,20 +291,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_Scripts\Blade.cs" />
-    <Compile Include="Assets\_Scripts\BladeCollisions.cs" />
-    <Compile Include="Assets\_Scripts\GameManager.cs" />
-    <Compile Include="Assets\_Scripts\GradientBackground.cs" />
-    <Compile Include="Assets\_Scripts\GradientTest.cs" />
-    <Compile Include="Assets\_Scripts\RotateStick.cs" />
-    <Compile Include="Assets\_Scripts\ScoreManager.cs" />
-    <Compile Include="Assets\_Scripts\Stick.cs" />
-    <Compile Include="Assets\_Scripts\StickSpawner.cs" />
-    <Compile Include="Assets\_Scripts\TargetValues.cs" />
-    <Compile Include="Assets\_Scripts\WaveSpawner.cs" />
+    <Compile Include="Assets\_Scripts\BladeScripts\Blade.cs" />
+    <Compile Include="Assets\_Scripts\BladeScripts\BladeCollisions.cs" />
+    <Compile Include="Assets\_Scripts\GradientScripts\GradientBackground.cs" />
+    <Compile Include="Assets\_Scripts\GradientScripts\GradientTest.cs" />
+    <Compile Include="Assets\_Scripts\ManagerScripts\GameManager.cs" />
+    <Compile Include="Assets\_Scripts\ManagerScripts\MenuManager.cs" />
+    <Compile Include="Assets\_Scripts\ManagerScripts\SaveLoadManager.cs" />
+    <Compile Include="Assets\_Scripts\ManagerScripts\ScoreManager.cs" />
+    <Compile Include="Assets\_Scripts\StickScripts\RotateStick.cs" />
+    <Compile Include="Assets\_Scripts\StickScripts\Stick.cs" />
+    <Compile Include="Assets\_Scripts\StickScripts\StickSpawner.cs" />
+    <Compile Include="Assets\_Scripts\StickScripts\TargetValues.cs" />
+    <Compile Include="Assets\_Scripts\StickScripts\WaveSpawner.cs" />
+    <Compile Include="Assets\_Scripts\TutorialScripts\StartTutorialAnimation.cs" />
+    <Compile Include="Assets\_Scripts\TutorialScripts\TutorialHandCollision.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\_Scripts\SpriteGradient.shader" />
+    <None Include="Assets\_Scripts\GradientScripts\SpriteGradient.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

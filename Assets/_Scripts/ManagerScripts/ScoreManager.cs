@@ -8,7 +8,8 @@ public class ScoreManager : MonoBehaviour
     public Text ScoreText;
     public Text EndGameScoreText;
 
-    private int _scoreCount;
+    [HideInInspector]
+    public int _scoreCount;
     [HideInInspector]
     public int StickScoreValue = 1;
     private GameManager _manager;
@@ -29,6 +30,16 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    //public void SaveHighScore()
+    //{
+    //    SaveLoadManager.SaveScore(this);
+    //}
+
+    public void LoadHighScore()
+    {
+
+    }
+
     public void AddScore()
     {
         _scoreCount += StickScoreValue;
@@ -41,5 +52,14 @@ public class ScoreManager : MonoBehaviour
     void ShowEndGameScore(int Score)
     {
         EndGameScoreText.text = " " + Score;
+    }
+
+    public void SaveScore()
+    {
+        bool ScoreIsGreaterThanHighScore = (PlayerPrefs.GetInt("score") < _scoreCount);
+        if (ScoreIsGreaterThanHighScore)
+        {
+            PlayerPrefs.SetInt("score", _scoreCount);
+        }
     }
 }

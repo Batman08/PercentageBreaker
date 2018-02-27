@@ -14,7 +14,7 @@ public class Stick : MonoBehaviour
 
     void Start()
     {
-        Gradient();
+        // Gradient();
         spriterenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         _blade = FindObjectOfType<BladeCollisions>();
     }

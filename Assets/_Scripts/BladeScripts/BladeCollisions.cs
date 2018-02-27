@@ -8,6 +8,9 @@ public class BladeCollisions : MonoBehaviour
     public int Lives;
 
     private int _maxLives = 4;
+    private int _sticksDestroyed;
+    private int BladeLayer;
+    private int StickLayer;
     private ScoreManager _scoreManager;
     private GameManager _manager;
 
@@ -16,6 +19,9 @@ public class BladeCollisions : MonoBehaviour
         Lives = _maxLives;
         _scoreManager = FindObjectOfType<ScoreManager>();
         _manager = FindObjectOfType<GameManager>();
+        BladeLayer = LayerMask.NameToLayer("Blade");
+        StickLayer = LayerMask.NameToLayer("Stick");
+        Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
     }
 
     void Update()
@@ -32,21 +38,23 @@ public class BladeCollisions : MonoBehaviour
 
             return;
         }
+
+        float MaxSticksDestroyedToGetAnotherLife = 10;
+        bool CanGiveAnotherLife = (_sticksDestroyed >= MaxSticksDestroyedToGetAnotherLife);
+        if (CanGiveAnotherLife)
+        {
+            Lives++;
+            _sticksDestroyed = 0;
+        }
     }
 
     void IgnoreLayerCollisions()
     {
-        int BladeLayer = LayerMask.NameToLayer("Blade");
-        int StickLayer = LayerMask.NameToLayer("Stick");
-
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, true);
     }
 
     void EnableLayerCollisions()
     {
-        int BladeLayer = LayerMask.NameToLayer("Blade");
-        int StickLayer = LayerMask.NameToLayer("Stick");
-
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
     }
 
@@ -59,6 +67,7 @@ public class BladeCollisions : MonoBehaviour
         if (SlicedBufferTarget)
         {
             DestroyStick(collision);
+            _sticksDestroyed++;
             _scoreManager.AddScore();
         }
 

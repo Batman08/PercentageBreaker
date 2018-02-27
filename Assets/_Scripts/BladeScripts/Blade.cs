@@ -74,7 +74,7 @@ public class Blade : MonoBehaviour
         }
         else
         {
-            _circleCollider.enabled = false;
+            _circleCollider.enabled = true;
         }
 
         _previousePosition = newPosition;
@@ -90,7 +90,7 @@ public class Blade : MonoBehaviour
         //newPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
         _isCutting = true;
         _currentBladeTrail = Instantiate(BladeTrailPrefab, transform);
-       // _previousePosition = newPosition;
+        // _previousePosition = newPosition;
         _circleCollider.enabled = false;
     }
 

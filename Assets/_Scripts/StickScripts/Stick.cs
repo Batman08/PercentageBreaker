@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Stick : MonoBehaviour
 {
+    public GameObject Cross;
     public Material GradientMaterial;
     public SpriteRenderer spriterenderer;
     public bool Move;
@@ -11,10 +12,15 @@ public class Stick : MonoBehaviour
     public float SpeedForce;
 
     private BladeCollisions _blade;
+    private GameObject _obj;
 
     void Start()
     {
         // Gradient();
+        if (StickSpawner.stickSpawner != null)
+        {
+            SpeedForce = StickSpawner.stickSpawner.Speed;
+        }
         spriterenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         _blade = FindObjectOfType<BladeCollisions>();
     }
@@ -22,6 +28,11 @@ public class Stick : MonoBehaviour
     void Update()
     {
         CheckForChild();
+
+        if (SpeedForce >= 0.5f)
+        {
+            SpeedForce = 0.5f;
+        }
     }
 
     void FixedUpdate()
@@ -65,7 +76,18 @@ public class Stick : MonoBehaviour
         if (collision.tag == "DeathZone")
         {
             _blade.Lives--;
+            float YPos = -4.55f;
+            float XOffset = 0.55345f;
+            _obj = Instantiate(_blade.Cross, new Vector2(transform.position.x + XOffset, YPos), Quaternion.identity);
+            StartCoroutine(TakeAwayObject(_obj));
             Destroy(gameObject);
+
         }
+    }
+
+    IEnumerator TakeAwayObject(GameObject obj)
+    {
+        yield return new WaitForSeconds(2);
+        Destroy(obj.gameObject);
     }
 }

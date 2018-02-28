@@ -97,9 +97,10 @@ public class TargetValues : MonoBehaviour
     {
         //Get the percentage
         float Percentage = Mathf.Round(_gameManager.Percentage) / 100;
+        float length = 0.75825f;
         //float transX = StickmaxX * Percentage;
         //Get the stick size and multiply that by the percentage
-        float newTransformX = 1.1069f * Percentage;
+        float newTransformX = length * Percentage;
         //Apply that to the transform local scale
         transform.localPosition = new Vector2(Mathf.Abs(newTransformX), transform.localPosition.y * 0);
     }
@@ -110,7 +111,7 @@ public class TargetValues : MonoBehaviour
         float BufferPercentage = _gameManager.BufferPercent;
 
         //Get the size of the target(X Scale)
-        float size = 0.1f;
+        float size = 0.045f;
 
         //Then multiply the size by the buffer Percentage
         _bufferSizeResult = size * BufferPercentage;

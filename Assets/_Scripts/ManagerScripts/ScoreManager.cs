@@ -13,6 +13,7 @@ public class ScoreManager : MonoBehaviour
     [HideInInspector]
     public int StickScoreValue = 1;
     private GameManager _manager;
+    private string HighScoreKeyString = "Score";
 
     void Awake()
     {
@@ -35,11 +36,6 @@ public class ScoreManager : MonoBehaviour
     //    SaveLoadManager.SaveScore(this);
     //}
 
-    public void LoadHighScore()
-    {
-
-    }
-
     public void AddScore()
     {
         _scoreCount += StickScoreValue;
@@ -56,10 +52,10 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveScore()
     {
-        bool ScoreIsGreaterThanHighScore = (PlayerPrefs.GetInt("score") < _scoreCount);
+        bool ScoreIsGreaterThanHighScore = (PlayerPrefs.GetInt(HighScoreKeyString) < _scoreCount);
         if (ScoreIsGreaterThanHighScore)
         {
-            PlayerPrefs.SetInt("score", _scoreCount);
+            PlayerPrefs.SetInt(HighScoreKeyString, _scoreCount);
         }
     }
 }

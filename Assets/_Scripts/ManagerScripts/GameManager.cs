@@ -116,11 +116,11 @@ public class GameManager : MonoBehaviour
 
     void ChangeBufferPercentage()
     {
-        float MinBufferPercentage = 0.5f;
+        float MinBufferPercentage = 0.009f;
         bool BufferIsNotAtMinimum = (BufferPercent > MinBufferPercentage);
         if (BufferIsNotAtMinimum)
         {
-            BufferPercent -= 0.1f;
+            BufferPercent -= 0.009f;
             //TextBufferNumber -= 1;
         }
     }

@@ -14,3 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/MainGameScene.unity
     guid: cdf467c7a5c47024b90d9cdfa277f391
+  - enabled: 1
+    path: Assets/_Scenes/Preloader.unity
+    guid: e0e3e123e730a6e46b9fbab986546591

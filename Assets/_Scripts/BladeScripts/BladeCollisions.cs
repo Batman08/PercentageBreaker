@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class BladeCollisions : MonoBehaviour
 {
+    public GameObject Tick;
+    public GameObject Cross;
+
     public int Lives;
 
     private int _maxLives = 4;
@@ -13,6 +16,8 @@ public class BladeCollisions : MonoBehaviour
     private int StickLayer;
     private ScoreManager _scoreManager;
     private GameManager _manager;
+    private GameObject Stick;
+    private GameObject _obj;
 
     void Start()
     {
@@ -27,6 +32,7 @@ public class BladeCollisions : MonoBehaviour
     void Update()
     {
         CheckAmountOfLives();
+        Stick = GameObject.FindGameObjectWithTag("Stick");
     }
 
     void CheckAmountOfLives()
@@ -66,18 +72,29 @@ public class BladeCollisions : MonoBehaviour
 
         if (SlicedBufferTarget)
         {
+            Collider2D StickCollider = Stick.gameObject.GetComponent<Collider2D>();
+            if (StickCollider != null)
+            {
+                StickCollider.enabled = false;
+            }
             DestroyStick(collision);
+            _obj = Instantiate(Tick, collision.transform.position, Quaternion.identity);
+            StartCoroutine(TakeAwayObject(_obj));
             _sticksDestroyed++;
             _scoreManager.AddScore();
+            return;
         }
 
         else if (SlicedStick)
         {
             if (Lives > 0)
             {
+                _obj = Instantiate(Cross, transform.position, Quaternion.identity);
+                StartCoroutine(TakeAwayObject(_obj));
                 Lives--;
                 StartCoroutine(StopBladeCollidingWithStick());
             }
+            return;
         }
     }
 
@@ -92,6 +109,11 @@ public class BladeCollisions : MonoBehaviour
         IgnoreLayerCollisions();
         yield return new WaitForSeconds(time);
         EnableLayerCollisions();
+    }
 
+    IEnumerator TakeAwayObject(GameObject obj)
+    {
+        yield return new WaitForSeconds(2);
+        Destroy(obj.gameObject);
     }
 }

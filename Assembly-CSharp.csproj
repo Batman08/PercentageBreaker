@@ -51,21 +51,41 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\_Scripts\Blade.cs" />
-     <Compile Include="Assets\_Scripts\BladeCollisions.cs" />
-     <Compile Include="Assets\_Scripts\GameManager.cs" />
-     <Compile Include="Assets\_Scripts\GradientTest.cs" />
-     <Compile Include="Assets\_Scripts\RotateStick.cs" />
-     <Compile Include="Assets\_Scripts\ScoreManager.cs" />
-     <Compile Include="Assets\_Scripts\Stick.cs" />
-     <Compile Include="Assets\_Scripts\StickSpawner.cs" />
-     <Compile Include="Assets\_Scripts\TargetValues.cs" />
-     <Compile Include="Assets\_Scripts\WaveSpawner.cs" />
-     <Compile Include="Assets\DayNight\Scripts\CreatePlaneMesh.cs" />
-     <Compile Include="Assets\DayNight\Scripts\DayNightCycleGradient.cs" />
-     <Compile Include="Assets\DayNight\Scripts\DayNightCycleSkybox.cs" />
-     <None Include="Assets\DayNight\Shaders\GradientVertexShader.shader" />
-     <None Include="Assets\_Scripts\SpriteGradient.shader" />
+     <Compile Include="Assets\_Scripts\BladeScripts\Blade.cs" />
+     <Compile Include="Assets\_Scripts\BladeScripts\BladeCollisions.cs" />
+     <Compile Include="Assets\_Scripts\DestroyByScripts\DestroyOverTime.cs" />
+     <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientBackground.cs" />
+     <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientTest.cs" />
+     <Compile Include="Assets\_Scripts\ManagerScripts\AdManager.cs" />
+     <Compile Include="Assets\_Scripts\ManagerScripts\GameManager.cs" />
+     <Compile Include="Assets\_Scripts\ManagerScripts\GoogleAdManager.cs" />
+     <Compile Include="Assets\_Scripts\ManagerScripts\MenuManager.cs" />
+     <Compile Include="Assets\_Scripts\ManagerScripts\PauseMenuManager.cs" />
+     <Compile Include="Assets\_Scripts\ManagerScripts\PreLoader.cs" />
+     <Compile Include="Assets\_Scripts\ManagerScripts\SaveLoadManager.cs" />
+     <Compile Include="Assets\_Scripts\ManagerScripts\ScoreManager.cs" />
+     <Compile Include="Assets\_Scripts\StickScripts\RotateStick.cs" />
+     <Compile Include="Assets\_Scripts\StickScripts\Stick.cs" />
+     <Compile Include="Assets\_Scripts\StickScripts\StickBreak.cs" />
+     <Compile Include="Assets\_Scripts\StickScripts\StickSpawner.cs" />
+     <Compile Include="Assets\_Scripts\StickScripts\TargetValues.cs" />
+     <Compile Include="Assets\_Scripts\StickScripts\WaveSpawner.cs" />
+     <Compile Include="Assets\_Scripts\TutorialScripts\StartTutorialAnimation.cs" />
+     <Compile Include="Assets\_Scripts\TutorialScripts\TutorialHandCollision.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\Cutters\ColliderPathsCreator.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\Cutters\FlatConvexCollidersCutter.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\Cutters\FlatConvexPolygonMeshCutter.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\Cutters\ShapeCutter.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\Cutters\SlicedStick.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\SpriteCutter.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\SpriteCutterGameObject.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\Tools\PolygonColliderParametersRepresentation.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\Tools\RendererParametersRepresentation.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\Tools\SafeSpriteRendererRemoverBehaviour.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\Tools\SpriteMeshContructor.cs" />
+     <Compile Include="Assets\UnitySpriteCutterExample\LinecastCutter.cs" />
+     <Compile Include="Assets\UnitySpriteCutterExample\MouseInputRepresentationBehaviour.cs" />
+     <None Include="Assets\_Scripts\DestroyByScripts\GradientScripts\SpriteGradient.shader" />
  <Reference Include="Vuforia.UnityExtensions.Editor">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Editor/Vuforia.UnityExtensions.Editor.dll</HintPath>
  </Reference>
@@ -159,6 +179,10 @@
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>C:/Users/asgha/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{518850E9-E2DA-01DB-D8B4-67EC4F8A3010}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

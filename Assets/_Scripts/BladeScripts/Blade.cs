@@ -38,13 +38,14 @@ public class Blade : MonoBehaviour
     {
         bool MouseButtonIsDown = (Input.GetMouseButtonDown(0));
         bool MouseButtonIsUp = (Input.GetMouseButtonUp(0));
+        bool GameIsNotPaused = PauseMenuManager.GameIsPaused == false;
 
-        if (MouseButtonIsDown)
+        if (MouseButtonIsDown & GameIsNotPaused)
         {
             StartCutting();
         }
 
-        else if (MouseButtonIsUp)
+        else if (MouseButtonIsUp & GameIsNotPaused)
         {
             StopCutting();
         }
@@ -97,7 +98,10 @@ public class Blade : MonoBehaviour
     void StopCutting()
     {
         _isCutting = false;
-        _currentBladeTrail.transform.SetParent(null);
+        if (_currentBladeTrail != null)
+        {
+            _currentBladeTrail.transform.SetParent(null);
+        }
         Destroy(_currentBladeTrail, 2f);
         _circleCollider.enabled = false;
     }

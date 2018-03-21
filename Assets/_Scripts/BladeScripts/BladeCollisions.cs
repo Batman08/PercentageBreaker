@@ -17,7 +17,11 @@ public class BladeCollisions : MonoBehaviour
     private ScoreManager _scoreManager;
     private GameManager _manager;
     private GameObject Stick;
-    private GameObject _obj;
+    private GameObject _objStick;
+    private GameObject _objCross;
+    private bool _isCrossEnabled = false;
+    private RotateStick _stick;
+    //private StickBreak _stickBreak;
 
     void Start()
     {
@@ -26,13 +30,16 @@ public class BladeCollisions : MonoBehaviour
         _manager = FindObjectOfType<GameManager>();
         BladeLayer = LayerMask.NameToLayer("Blade");
         StickLayer = LayerMask.NameToLayer("Stick");
+        //v_stickBreak = FindObjectOfType<StickBreak>();
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
+        _stick = FindObjectOfType<RotateStick>();
     }
 
     void Update()
     {
-        CheckAmountOfLives();
         Stick = GameObject.FindGameObjectWithTag("Stick");
+        CheckAmountOfLives();
+        CheckAmountOfCrosses();
     }
 
     void CheckAmountOfLives()
@@ -54,6 +61,15 @@ public class BladeCollisions : MonoBehaviour
         }
     }
 
+    void CheckAmountOfCrosses()
+    {
+        if (_objCross != null)
+            _isCrossEnabled = true;
+
+        else
+            _isCrossEnabled = false;
+    }
+
     void IgnoreLayerCollisions()
     {
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, true);
@@ -64,56 +80,64 @@ public class BladeCollisions : MonoBehaviour
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
     }
 
-
     void OnTriggerEnter2D(Collider2D collision)
+    {
+        DestroyStickObj(collision);
+    }
+
+    void DestroyStickObj(Collider2D collision)
     {
         bool SlicedBufferTarget = (collision.GetComponent<Collider2D>().CompareTag("Buffer"));
         bool SlicedStick = (collision.GetComponent<Collider2D>().CompareTag("Stick"));
 
         if (SlicedBufferTarget)
         {
+            _stick.DestroyMe();
+            _manager.ShowTextAnim = false;
             Collider2D StickCollider = Stick.gameObject.GetComponent<Collider2D>();
             if (StickCollider != null)
             {
                 StickCollider.enabled = false;
             }
-            DestroyStick(collision);
-            _obj = Instantiate(Tick, collision.transform.position, Quaternion.identity);
-            StartCoroutine(TakeAwayObject(_obj));
+
+            //if (Input.GetMouseButtonUp(0))
+            //{
+            //    int layermaskValue = LinecastCutter.linecastCutter.layerMask.value;
+            //    LinecastCutter.linecastCutter.LinecastCut(LinecastCutter.linecastCutter.mouseStart, LinecastCutter.linecastCutter.mouseEnd, layermaskValue);
+            //}
+
+            Debug.Log("Sliced stick at right position");
+            //DestroyStick(collision, 10f);
+
+            _objStick = Instantiate(Tick, collision.transform.position, Quaternion.identity);
+            StartCoroutine(TakeAwayObject(_objStick));
+            //  LinecastCutter.linecastCutter.LinecastCut(LinecastCutter.linecastCutter.mouseStart, LinecastCutter.linecastCutter.mouseEnd, LinecastCutter.linecastCutter.layerMask.value);
             _sticksDestroyed++;
+            //StickSpawner.stickSpawner.HasWaveEnded = true;
             _scoreManager.AddScore();
-            return;
+            //   return;
         }
 
         else if (SlicedStick)
         {
-            if (Lives > 0)
-            {
-                _obj = Instantiate(Cross, transform.position, Quaternion.identity);
-                StartCoroutine(TakeAwayObject(_obj));
-                Lives--;
-                StartCoroutine(StopBladeCollidingWithStick());
-            }
-            return;
+            _stick.DestroyMe();
+            if (!_isCrossEnabled)
+                _objCross = Instantiate(Cross, transform.position, Quaternion.identity);
+
+            StartCoroutine(TakeAwayObject(_objCross));
+            //return;
         }
     }
 
-    void DestroyStick(Collider2D collision)
-    {
-        Destroy(collision.transform.parent.gameObject);
-    }
 
-    IEnumerator StopBladeCollidingWithStick()
+    void DestroyStick(Collider2D collision, float time)
     {
-        float time = 8f;
-        IgnoreLayerCollisions();
-        yield return new WaitForSeconds(time);
-        EnableLayerCollisions();
+        Destroy(collision.transform.parent.gameObject, time);
     }
 
     IEnumerator TakeAwayObject(GameObject obj)
     {
         yield return new WaitForSeconds(2);
-        Destroy(obj.gameObject);
+        //Destroy(obj.gameObject);
     }
 }

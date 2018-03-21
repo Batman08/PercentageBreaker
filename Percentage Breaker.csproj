@@ -14,6 +14,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
@@ -300,24 +301,42 @@
     <Compile Include="Assets\_Scripts\BladeScripts\Blade.cs" />
     <Compile Include="Assets\_Scripts\BladeScripts\BladeCollisions.cs" />
     <Compile Include="Assets\_Scripts\DestroyByScripts\DestroyOverTime.cs" />
-    <Compile Include="Assets\_Scripts\GradientScripts\GradientBackground.cs" />
-    <Compile Include="Assets\_Scripts\GradientScripts\GradientTest.cs" />
+    <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientBackground.cs" />
+    <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientTest.cs" />
+    <Compile Include="Assets\_Scripts\ManagerScripts\AdManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\GameManager.cs" />
+    <Compile Include="Assets\_Scripts\ManagerScripts\GoogleAdManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\MenuManager.cs" />
+    <Compile Include="Assets\_Scripts\ManagerScripts\PauseMenuManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\PreLoader.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\SaveLoadManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\ScoreManager.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\RotateStick.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\Stick.cs" />
+    <Compile Include="Assets\_Scripts\StickScripts\StickBreak.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\StickSpawner.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\TargetValues.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\WaveSpawner.cs" />
     <Compile Include="Assets\_Scripts\TutorialScripts\StartTutorialAnimation.cs" />
     <Compile Include="Assets\_Scripts\TutorialScripts\TutorialHandCollision.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\Cutters\ColliderPathsCreator.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\Cutters\FlatConvexCollidersCutter.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\Cutters\FlatConvexPolygonMeshCutter.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\Cutters\ShapeCutter.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\Cutters\SlicedStick.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\SpriteCutter.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\SpriteCutterGameObject.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\Tools\PolygonColliderParametersRepresentation.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\Tools\RendererParametersRepresentation.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\Tools\SafeSpriteRendererRemoverBehaviour.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\Tools\SpriteMeshContructor.cs" />
+    <Compile Include="Assets\UnitySpriteCutterExample\LinecastCutter.cs" />
+    <Compile Include="Assets\UnitySpriteCutterExample\MouseInputRepresentationBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
-    <None Include="Assets\_Scripts\GradientScripts\SpriteGradient.shader" />
+    <None Include="Assets\Plugins\Admob\Android\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\GoogleMobileAds\Editor\GoogleMobileAdsDependencies.xml" />
+    <None Include="Assets\_Scripts\DestroyByScripts\GradientScripts\SpriteGradient.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

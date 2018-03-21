@@ -6,7 +6,6 @@ public class Stick : MonoBehaviour
 {
     public GameObject Cross;
     public Material GradientMaterial;
-    public SpriteRenderer spriterenderer;
     public bool Move;
     //-0.01f
     public float SpeedForce;
@@ -21,7 +20,6 @@ public class Stick : MonoBehaviour
         {
             SpeedForce = StickSpawner.stickSpawner.Speed;
         }
-        spriterenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         _blade = FindObjectOfType<BladeCollisions>();
     }
 
@@ -68,20 +66,27 @@ public class Stick : MonoBehaviour
     void MoveStick()
     {
         if (Move)
-            transform.Translate(new Vector3(0, -SpeedForce, 0));
+        {
+            //   transform.Translate(new Vector3(0, -SpeedForce, 0));
+            //transform.position = Vector2.down * -SpeedForce * Time.deltaTime;
+            transform.Translate(Vector2.down * SpeedForce, Space.World);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "DeathZone")
         {
-            _blade.Lives--;
+            if (StickSpawner.stickSpawner != null)
+            {
+                StickSpawner.stickSpawner.HasWaveEnded = true;
+            }
+            //_blade.Lives--;
             float YPos = -4.55f;
             float XOffset = 0.55345f;
             _obj = Instantiate(_blade.Cross, new Vector2(transform.position.x + XOffset, YPos), Quaternion.identity);
             StartCoroutine(TakeAwayObject(_obj));
             Destroy(gameObject);
-
         }
     }
 

@@ -11,6 +11,7 @@ public class StickSpawner : MonoBehaviour
     public float _searchCountDown = 1f;
     private float increaseDifficultyTime = 50f;
     public float increaseDifficulty = 0.01f;
+    public bool HasWaveEnded = false;
     [HideInInspector]
     public float Speed;
 
@@ -18,10 +19,16 @@ public class StickSpawner : MonoBehaviour
     private GameManager _manager;
     public float spawnWait = 0.5f;
 
-    void Start()
+    void Awake()
     {
         stickSpawner = this;
+        HasWaveEnded = true;
         _manager = FindObjectOfType<GameManager>();
+
+    }
+
+    void Start()
+    {
         startTime = System.DateTime.Now;
         Speed = 0.024f;
     }
@@ -30,9 +37,14 @@ public class StickSpawner : MonoBehaviour
     {
         if (_manager._gameOver)
             Destroy(gameObject);
+    }
 
+    public void SpawnStick()
+    {
         if (SticksEnabled())
+        {
             StartCoroutine(SpawnSticks());
+        }
 
         else
             return;
@@ -48,7 +60,10 @@ public class StickSpawner : MonoBehaviour
 
             bool SticksAreNull = (GameObject.FindGameObjectWithTag("Stick") == null);
             if (SticksAreNull)
+            {
+                HasWaveEnded = true;
                 return false;
+            }
         }
 
         return true;
@@ -63,13 +78,13 @@ public class StickSpawner : MonoBehaviour
                 break;
             }
 
-            float delay = 1;
+            float delay = 5;
             yield return new WaitForSeconds(delay);
 
             int spawnIndex = Random.Range(0, SpawnPoints.Length);
             Transform spawnPoint = SpawnPoints[spawnIndex];
-            float x = Random.Range(-2.82f, 1.78f);
-            float y = 5.96f;
+            float x = Random.Range(-2.7f, -1.15f);
+            float y = 7.18f;
             Vector2 spawnPosition = new Vector2(x, y);
 
             if (transform.childCount < 2)

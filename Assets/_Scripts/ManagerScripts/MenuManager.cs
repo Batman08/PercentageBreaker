@@ -16,8 +16,14 @@ public class MenuManager : MonoBehaviour
         ScoreText.text = HighScore;
     }
 
+    private void Start()
+    {
+        //GoogleAdManager.Instance.ShowAd();
+    }
+
     public void PlayBtn()
     {
+
         SceneManager.LoadScene(1);
     }
 }

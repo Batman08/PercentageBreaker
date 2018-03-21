@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Percentage Breaker", "Percentage Breaker.csproj", "{EED98344-920C-5A58-CB3F-05BD7405B17B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Percentage Breaker.Plugins", "Percentage Breaker.Plugins.csproj", "{5E3E364B-0064-3FB8-AAEA-B0F40D2FD94F}"

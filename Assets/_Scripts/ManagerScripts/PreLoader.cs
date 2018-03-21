@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PreLoader : MonoBehaviour
 {
-    void Awake()
+    void Start()
     {
         SceneManager.LoadScene(0);
     }

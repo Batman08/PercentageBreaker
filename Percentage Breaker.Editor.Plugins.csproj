@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>EditorPlugins:7</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -300,9 +298,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\AppLovin\source\plugin\Assets\GoogleMobileAds\Editor\AppLovinPostProcessBuild.cs" />
-    <Compile Include="Assets\Plugins\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\AppLovin\source\plugin\Assets\GoogleMobileAds\Editor\PlistDocument.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Plugins\Admob\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\googleads-mobile-unity-master\googleads-mobile-unity-master\ChangeLog.txt" />
     <None Include="Assets\Plugins\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\AdColony\source\android-library\adcolony\src\main\AndroidManifest.xml" />
     <None Include="Assets\Plugins\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\AdColony\source\plugin\Assets\GoogleMobileAds\Editor\AdColonyMediationDependencies.xml" />
@@ -330,7 +328,7 @@
     <None Include="Assets\Plugins\googleads-mobile-unity-master\googleads-mobile-unity-master\source\android-library\app\src\main\res\values\styles.xml" />
     <None Include="Assets\Plugins\googleads-mobile-unity-master\googleads-mobile-unity-master\source\plugin\Assets\GoogleMobileAds\Editor\GoogleMobileAdsDependencies.xml" />
     <None Include="Assets\Plugins\googleads-mobile-unity-master\googleads-mobile-unity-master\source\plugin\Assets\Plugins\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
-    <None Include="Assets\_Scripts\GradientScripts\SpriteGradient.shader" />
+    <None Include="Assets\_Scripts\DestroyByScripts\GradientScripts\SpriteGradient.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

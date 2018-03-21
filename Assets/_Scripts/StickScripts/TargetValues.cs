@@ -80,6 +80,11 @@ public class TargetValues : MonoBehaviour
         float x = Mathf.Clamp(transform.position.x, StickminX, StickmaxX);
         float y = transform.position.y;
 
+        if (transform.position.x > x || transform.position.x < x)
+        {
+            return;
+        }
+
         //Then apply to the transform
         transform.position = new Vector2(x, y);
 
@@ -100,9 +105,9 @@ public class TargetValues : MonoBehaviour
         float length = 0.75825f;
         //float transX = StickmaxX * Percentage;
         //Get the stick size and multiply that by the percentage
-        float newTransformX = length * Percentage;
+        float newXTransform = length * Percentage;
         //Apply that to the transform local scale
-        transform.localPosition = new Vector2(Mathf.Abs(newTransformX), transform.localPosition.y * 0);
+        transform.localPosition = new Vector2(Mathf.Abs(newXTransform), transform.localPosition.y * 0);
     }
 
     void CalculateBufferSize()

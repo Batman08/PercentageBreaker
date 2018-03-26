@@ -32,7 +32,10 @@ public class BladeCollisions : MonoBehaviour
         StickLayer = LayerMask.NameToLayer("Stick");
         //v_stickBreak = FindObjectOfType<StickBreak>();
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
-        _stick = FindObjectOfType<RotateStick>();
+        if (_stick != null)
+        {
+            _stick = FindObjectOfType<RotateStick>();
+        }
     }
 
     void Update()

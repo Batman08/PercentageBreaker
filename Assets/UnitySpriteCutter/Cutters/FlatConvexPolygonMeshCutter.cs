@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using System.Collections.Generic;
 
 namespace UnitySpriteCutter.Cutters
@@ -71,7 +71,7 @@ namespace UnitySpriteCutter.Cutters
             result.triangles = GenerateConvexPolygonTrianglesFromVertices(newVertices);
             result.uv = GenerateProportionalUVs(newVertices, original);
 
-            MeshUtility.Optimize(result);
+            //MeshUtility.Optimize(result);
             result.RecalculateNormals();
 
             return result;

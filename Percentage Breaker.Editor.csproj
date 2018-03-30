@@ -14,6 +14,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
@@ -291,43 +292,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Percentage Breaker.Plugins.csproj">
+      <Project>{5E3E364B-0064-3FB8-AAEA-B0F40D2FD94F}</Project>
+      <Name>Percentage Breaker.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="Percentage Breaker.csproj">
       <Project>{EED98344-920C-5A58-CB3F-05BD7405B17B}</Project>
       <Name>Percentage Breaker</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\AppLovin\source\plugin\Assets\GoogleMobileAds\Editor\AppLovinPostProcessBuild.cs" />
+    <Compile Include="Assets\Editor\Tools\PolygonColliderParametersRepresentation.cs" />
+    <Compile Include="Assets\Editor\Tools\RendererParametersRepresentation.cs" />
+    <Compile Include="Assets\Editor\Tools\SafeSpriteRendererRemoverBehaviour.cs" />
+    <Compile Include="Assets\Editor\Tools\SpriteMeshContructor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\_Scripts\GradientScripts\SpriteGradient.shader" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\ChangeLog.txt" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\AdColony\source\android-library\adcolony\src\main\AndroidManifest.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\AdColony\source\plugin\Assets\GoogleMobileAds\Editor\AdColonyMediationDependencies.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\AdColony\source\plugin\Assets\Plugins\Android\GoogleMobileAdsAdColonyMediation\AndroidManifest.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\AppLovin\source\plugin\Assets\GoogleMobileAds\Editor\AppLovinMediationDependencies.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\AppLovin\source\plugin\Assets\Plugins\Android\GoogleMobileAdsAppLovinMediation\AndroidManifest.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\Facebook\source\plugin\Assets\GoogleMobileAds\Editor\UnityMediationDependencies.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\InMobi\source\plugin\Assets\GoogleMobileAds\Editor\InMobiMediationDependencies.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\InMobi\source\plugin\Assets\Plugins\Android\GoogleMobileAdsInMobiMediation\AndroidManifest.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\Maio\source\plugin\Assets\GoogleMobileAds\Editor\MaioMediationDependencies.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\Maio\source\plugin\Assets\Plugins\Android\GoogleMobileAdsMaioMediation\AndroidManifest.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\MyTarget\source\plugin\Assets\GoogleMobileAds\Editor\MyTargetMediationDependencies.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\Nend\source\plugin\Assets\GoogleMobileAds\Editor\NendMediationDependencies.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\Tapjoy\source\plugin\Assets\GoogleMobileAds\Editor\TapjoyMediationDependencies.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\Tapjoy\source\plugin\Assets\Plugins\Android\GoogleMobileAdsTapjoyMediation\AndroidManifest.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\UnityAds\source\plugin\Assets\GoogleMobileAds\Editor\UnityMediationDependencies.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\Vungle\source\android-library\vungle\src\main\AndroidManifest.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\Vungle\source\android-library\vungle\src\main\res\values\strings.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\Vungle\source\android-library\vungle\src\main\res\values\styles.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\mediation\Vungle\source\plugin\Assets\GoogleMobileAds\Editor\VungleMediationDependencies.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\samples\Roll-A-Ball-NativeDemo\Assets\Fonts\roboto\LICENSE.txt" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\samples\Roll-A-Ball-NativeDemo\Assets\Shaders\3DText.shader" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\source\android-library\app\src\main\AndroidManifest.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\source\android-library\app\src\main\res\values\strings.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\source\android-library\app\src\main\res\values\styles.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\source\plugin\Assets\GoogleMobileAds\Editor\GoogleMobileAdsDependencies.xml" />
-    <None Include="Assets\googleads-mobile-unity-master\googleads-mobile-unity-master\source\plugin\Assets\Plugins\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Admob\Android\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\GoogleMobileAds\Editor\GoogleMobileAdsDependencies.xml" />
+    <None Include="Assets\_Scripts\DestroyByScripts\GradientScripts\SpriteGradient.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

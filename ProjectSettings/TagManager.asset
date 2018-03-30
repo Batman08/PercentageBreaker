@@ -8,6 +8,8 @@ TagManager:
   - DeathZone
   - Stick
   - Buffer
+  - BufferRight
+  - BufferLeft
   layers:
   - Default
   - TransparentFX

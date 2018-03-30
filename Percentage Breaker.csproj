@@ -325,7 +325,7 @@
     <Compile Include="Assets\UnitySpriteCutter\Cutters\FlatConvexPolygonMeshCutter.cs" />
     <Compile Include="Assets\UnitySpriteCutter\Cutters\ShapeCutter.cs" />
     <Compile Include="Assets\UnitySpriteCutter\Cutters\SlicedStick.cs" />
-    <Compile Include="Assets\UnitySpriteCutter\SpriteCutter.cs" />
+    <Compile Include="Assets\UnitySpriteCutter\Cutters\SpriteCutter.cs" />
     <Compile Include="Assets\UnitySpriteCutter\SpriteCutterGameObject.cs" />
     <Compile Include="Assets\UnitySpriteCutter\Tools\PolygonColliderParametersRepresentation.cs" />
     <Compile Include="Assets\UnitySpriteCutter\Tools\RendererParametersRepresentation.cs" />

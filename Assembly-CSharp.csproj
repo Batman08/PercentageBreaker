@@ -70,6 +70,7 @@
      <Compile Include="Assets\_Scripts\StickScripts\StickSpawner.cs" />
      <Compile Include="Assets\_Scripts\StickScripts\TargetValues.cs" />
      <Compile Include="Assets\_Scripts\StickScripts\WaveSpawner.cs" />
+     <Compile Include="Assets\_Scripts\TextScripts\ShowCutPercentage.cs" />
      <Compile Include="Assets\_Scripts\TutorialScripts\StartTutorialAnimation.cs" />
      <Compile Include="Assets\_Scripts\TutorialScripts\TutorialHandCollision.cs" />
      <Compile Include="Assets\UnitySpriteCutter\Cutters\ColliderPathsCreator.cs" />

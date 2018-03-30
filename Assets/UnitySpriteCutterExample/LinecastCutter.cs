@@ -16,7 +16,7 @@ public class LinecastCutter : MonoBehaviour
         linecastCutter = this;
     }
 
-    void Update()
+    void FixedUpdate()
     {
 
         if (Input.GetMouseButtonDown(0))
@@ -26,11 +26,11 @@ public class LinecastCutter : MonoBehaviour
 
         mouseEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            int layermaskValue = layerMask.value;
-            LinecastCut(mouseStart, mouseEnd, layermaskValue);
-        }
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    int layermaskValue = layerMask.value;
+        //    LinecastCut(mouseStart, mouseEnd, layermaskValue);
+        //}
 
     }
 

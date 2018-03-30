@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 114831500884031638}
   m_Layer: 8
   m_Name: GFXStick(Container)
-  m_TagString: DeathZone
+  m_TagString: Stick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

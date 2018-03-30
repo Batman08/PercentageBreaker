@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using System.Collections.Generic;
 
 namespace UnitySpriteCutter.Tools
@@ -43,7 +43,7 @@ namespace UnitySpriteCutter.Tools
             result.vertices = vertices;
             result.triangles = triangles;
             result.uv = uv;
-            MeshUtility.Optimize(result);
+            //MeshUtility.Optimize(result);
             result.RecalculateNormals();
 
             return result;

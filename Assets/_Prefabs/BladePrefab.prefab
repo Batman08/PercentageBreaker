@@ -105,4 +105,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tick: {fileID: 1744972659329432, guid: c415fbfca608f02438239c6e93cbe6bf, type: 2}
   Cross: {fileID: 1628724064481898, guid: 79f046faa95b8d24d9269188006168ef, type: 2}
+  PercentCutText: {fileID: 114925806242956664, guid: 8cadee2b0a538994c94ff8a864643a93,
+    type: 2}
   Lives: 3

@@ -43,6 +43,7 @@ public class StickSpawner : MonoBehaviour
     {
         if (SticksEnabled())
         {
+            Debug.Log("Spawned Stick");
             StartCoroutine(SpawnSticks());
         }
 
@@ -83,7 +84,7 @@ public class StickSpawner : MonoBehaviour
 
             int spawnIndex = Random.Range(0, SpawnPoints.Length);
             Transform spawnPoint = SpawnPoints[spawnIndex];
-            float x = Random.Range(-2.7f, -1.15f);
+            float x = Random.Range(-0.767f, 0.767f);
             float y = 7.18f;
             Vector2 spawnPosition = new Vector2(x, y);
 

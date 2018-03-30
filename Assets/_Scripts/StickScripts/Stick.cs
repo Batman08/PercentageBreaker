@@ -13,6 +13,15 @@ public class Stick : MonoBehaviour
     private BladeCollisions _blade;
     private GameObject _obj;
 
+    void OnEnable()
+    {
+        int BladeLayer = 11;
+        int BufferLayer = 9;
+        int StickLayer = 8;
+        Physics2D.IgnoreLayerCollision(BladeLayer, BufferLayer, false);
+        Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
+    }
+
     void Start()
     {
         // Gradient();

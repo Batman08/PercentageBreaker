@@ -12,18 +12,22 @@ public class MenuManager : MonoBehaviour
 
     void Awake()
     {
+
         string HighScore = PlayerPrefs.GetInt(HighscoreString).ToString();
         ScoreText.text = HighScore;
+
+
     }
 
-    private void Start()
+    void Start()
     {
+
         //GoogleAdManager.Instance.ShowAd();
     }
 
     public void PlayBtn()
     {
-
         SceneManager.LoadScene(1);
+        AdManager.Instance.ShowVideo();
     }
 }

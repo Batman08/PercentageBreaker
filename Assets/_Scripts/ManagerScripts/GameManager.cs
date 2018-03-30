@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
         PercentNumText1.enabled = true;
         PercentNumText2.enabled = true;
         PlayPercentageTextAnimation();
-        //StickSpawner.stickSpawner.SpawnStick();
+        StickSpawner.stickSpawner.SpawnStick();
     }
 
     void Start()
@@ -104,12 +104,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //CalculatePercentage();
-        //bool WaveHasEnded = (StickSpawner.stickSpawner.HasWaveEnded);
-        //if (WaveHasEnded)
-        //{
+        bool WaveHasEnded = (StickSpawner.stickSpawner.HasWaveEnded);
+        if (WaveHasEnded)
+        {
 
-        //    StartSpawningSticks();
-        //}
+            StartSpawningSticks();
+        }
 
         bool BufferIsGreaterThanAHundred = (Buffer >= 100);
         if (BufferIsGreaterThanAHundred)
@@ -151,13 +151,14 @@ public class GameManager : MonoBehaviour
         float FinalBufferValue;
         Percentage = NumberOutOfPercent;
         Buffer = Percentage + BufferPercent * 10;
-        FinalBufferValue = Mathf.RoundToInt(Buffer);
 
         bool BufferIsGreaterThanAHundred = (Buffer >= 100);
         if (BufferIsGreaterThanAHundred)
         {
             Buffer = 100;
         }
+
+        FinalBufferValue = Mathf.RoundToInt(Buffer);
         PercentNumText1.text = Percentage + "%";
         PercentNumText2.text = Mathf.RoundToInt(FinalBufferValue) + "%";
         PercentText.text = "Cut Between " + "        " + " and";

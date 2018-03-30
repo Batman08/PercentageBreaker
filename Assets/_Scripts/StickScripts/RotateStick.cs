@@ -20,11 +20,6 @@ public class RotateStick : MonoBehaviour
         CheckForChildren();
     }
 
-    public void DestroyMe()
-    {
-        Destroy(gameObject, 2f);
-    }
-
     void CheckForChildren()
     {
         bool NoChildren = (transform.childCount <= 0);

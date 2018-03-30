@@ -7,6 +7,7 @@ public class BladeCollisions : MonoBehaviour
 {
     public GameObject Tick;
     public GameObject Cross;
+    public Text PercentCutText;
 
     public int Lives;
 
@@ -20,10 +21,9 @@ public class BladeCollisions : MonoBehaviour
     private GameObject _objStick;
     private GameObject _objCross;
     private bool _isCrossEnabled = false;
-    private RotateStick _stick;
     //private StickBreak _stickBreak;
 
-    void Start()
+    void Awake()
     {
         Lives = _maxLives;
         _scoreManager = FindObjectOfType<ScoreManager>();
@@ -32,10 +32,6 @@ public class BladeCollisions : MonoBehaviour
         StickLayer = LayerMask.NameToLayer("Stick");
         //v_stickBreak = FindObjectOfType<StickBreak>();
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
-        if (_stick != null)
-        {
-            _stick = FindObjectOfType<RotateStick>();
-        }
     }
 
     void Update()
@@ -88,14 +84,29 @@ public class BladeCollisions : MonoBehaviour
         DestroyStickObj(collision);
     }
 
+    void DestroyMe(GameObject Gameobj)
+    {
+        Destroy(Gameobj, 4f);
+    }
+
     void DestroyStickObj(Collider2D collision)
     {
+        int layermaskValue = LinecastCutter.linecastCutter.layerMask.value;
+        LinecastCutter.linecastCutter.LinecastCut(LinecastCutter.linecastCutter.mouseStart, LinecastCutter.linecastCutter.mouseEnd, layermaskValue);
+
         bool SlicedBufferTarget = (collision.GetComponent<Collider2D>().CompareTag("Buffer"));
+        bool SlicedBufferTargetLeft = (collision.GetComponent<Collider2D>().CompareTag("BufferLeft"));
         bool SlicedStick = (collision.GetComponent<Collider2D>().CompareTag("Stick"));
+        GameObject stickObject = GameObject.FindGameObjectWithTag("Stick");
 
         if (SlicedBufferTarget)
         {
-            _stick.DestroyMe();
+            //float cutPercent = Random.Range(5, 10);
+            //float finalValue = GameManager.Manager.Percentage - cutPercent;
+            //Debug.Log(finalValue);
+            //PercentCutText.text = finalValue.ToString();
+
+            DestroyMe(stickObject);
             _manager.ShowTextAnim = false;
             Collider2D StickCollider = Stick.gameObject.GetComponent<Collider2D>();
             if (StickCollider != null)
@@ -103,33 +114,61 @@ public class BladeCollisions : MonoBehaviour
                 StickCollider.enabled = false;
             }
 
-            //if (Input.GetMouseButtonUp(0))
-            //{
-            //    int layermaskValue = LinecastCutter.linecastCutter.layerMask.value;
-            //    LinecastCutter.linecastCutter.LinecastCut(LinecastCutter.linecastCutter.mouseStart, LinecastCutter.linecastCutter.mouseEnd, layermaskValue);
-            //}
-
             Debug.Log("Sliced stick at right position");
-            //DestroyStick(collision, 10f);
 
             _objStick = Instantiate(Tick, collision.transform.position, Quaternion.identity);
             StartCoroutine(TakeAwayObject(_objStick));
-            //  LinecastCutter.linecastCutter.LinecastCut(LinecastCutter.linecastCutter.mouseStart, LinecastCutter.linecastCutter.mouseEnd, LinecastCutter.linecastCutter.layerMask.value);
             _sticksDestroyed++;
-            //StickSpawner.stickSpawner.HasWaveEnded = true;
+
             _scoreManager.AddScore();
             //   return;
         }
 
+        #region
+        //else if (SlicedBufferTargetLeft)
+        //{
+        //    float cutPercent = Random.Range(0, 5);
+        //    float finalValue = GameManager.Manager.Percentage - cutPercent;
+        //    PercentCutText.text = finalValue.ToString();
+        //    DestroyMe(stickObject);
+        //    _manager.ShowTextAnim = false;
+        //    Collider2D StickCollider = Stick.gameObject.GetComponent<Collider2D>();
+        //    if (StickCollider != null)
+        //    {
+        //        StickCollider.enabled = false;
+        //    }
+
+        //    Debug.Log("Sliced stick at right position");
+
+        //    _objStick = Instantiate(Tick, collision.transform.position, Quaternion.identity);
+        //    StartCoroutine(TakeAwayObject(_objStick));
+        //    _sticksDestroyed++;
+
+        //    _scoreManager.AddScore();
+        //}
+        #endregion
+
         else if (SlicedStick)
         {
-            _stick.DestroyMe();
+            Lives--;
+            DestroyMe(stickObject);
             if (!_isCrossEnabled)
                 _objCross = Instantiate(Cross, transform.position, Quaternion.identity);
 
             StartCoroutine(TakeAwayObject(_objCross));
             //return;
         }
+
+        if (SlicedStick || SlicedBufferTarget)
+        {
+            int BladeLayer = 11;
+            int BufferLayer = 9;
+            int StickLayer = 8;
+            Physics2D.IgnoreLayerCollision(BladeLayer, BufferLayer, true);
+            Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, true);
+        }
+
+        StickSpawner.stickSpawner.HasWaveEnded = true;
     }
 
 

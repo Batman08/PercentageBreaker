@@ -104,10 +104,13 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //CalculatePercentage();
+        PlayPercentageTextAnimation();
+
         bool WaveHasEnded = (StickSpawner.stickSpawner.HasWaveEnded);
         if (WaveHasEnded)
         {
-
+            //ShowNewPercentageTextAnim();
+            //TextAnim.SetBool("ShowNewPercentage", false);
             StartSpawningSticks();
         }
 
@@ -182,12 +185,18 @@ public class GameManager : MonoBehaviour
 
     void PlayPercentageTextAnimation()
     {
-        if (ShowTextAnim)
-        {
-            TextAnim.SetBool("ShowNewPercentage", true);
-            TextAnim.SetBool("HidePercentageText", false);
-        }
+        TextAnim.SetBool("ShowNewPercentage", true);
+
+        //TextAnim.SetBool("HidePercentageText", false);
+        // ShowTextAnim = false;
     }
+
+    //void ShowNewPercentageTextAnim()
+    //{
+    //    TextAnim.SetBool("HidePercentageText", true);
+    //    TextAnim.SetBool("HidePercentageText", false);
+    //    ShowTextAnim = true;
+    //}
     #endregion
 
     #region Button Methods

@@ -21,6 +21,7 @@ public class BladeCollisions : MonoBehaviour
     private GameObject _objStick;
     private GameObject _objCross;
     private bool _isCrossEnabled = false;
+    private CircleCollider2D _bladeCollider;
     //private StickBreak _stickBreak;
 
     void Awake()
@@ -32,6 +33,7 @@ public class BladeCollisions : MonoBehaviour
         StickLayer = LayerMask.NameToLayer("Stick");
         //v_stickBreak = FindObjectOfType<StickBreak>();
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
+        _bladeCollider = GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -81,6 +83,8 @@ public class BladeCollisions : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        int layermaskValue = LinecastCutter.linecastCutter.layerMask.value;
+        LinecastCutter.linecastCutter.LinecastCut(LinecastCutter.linecastCutter.mouseStart, LinecastCutter.linecastCutter.mouseEnd, layermaskValue);
         DestroyStickObj(collision);
     }
 
@@ -91,13 +95,11 @@ public class BladeCollisions : MonoBehaviour
 
     void DestroyStickObj(Collider2D collision)
     {
-        int layermaskValue = LinecastCutter.linecastCutter.layerMask.value;
-        LinecastCutter.linecastCutter.LinecastCut(LinecastCutter.linecastCutter.mouseStart, LinecastCutter.linecastCutter.mouseEnd, layermaskValue);
-
         bool SlicedBufferTarget = (collision.GetComponent<Collider2D>().CompareTag("Buffer"));
         bool SlicedBufferTargetLeft = (collision.GetComponent<Collider2D>().CompareTag("BufferLeft"));
         bool SlicedStick = (collision.GetComponent<Collider2D>().CompareTag("Stick"));
         GameObject stickObject = GameObject.FindGameObjectWithTag("Stick");
+
 
         if (SlicedBufferTarget)
         {
@@ -166,6 +168,7 @@ public class BladeCollisions : MonoBehaviour
             int StickLayer = 8;
             Physics2D.IgnoreLayerCollision(BladeLayer, BufferLayer, true);
             Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, true);
+            _bladeCollider.enabled = false;
         }
 
         StickSpawner.stickSpawner.HasWaveEnded = true;

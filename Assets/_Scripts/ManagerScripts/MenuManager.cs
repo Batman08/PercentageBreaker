@@ -7,6 +7,8 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     public Text ScoreText;
+    public Text SoundButtonText;
+    public bool IsSoundOn = true;
 
     private string HighscoreString = "Score";
 
@@ -19,15 +21,34 @@ public class MenuManager : MonoBehaviour
 
     }
 
-    void Start()
+    void Update()
     {
-
-        //GoogleAdManager.Instance.ShowAd();
+        if (IsSoundOn)
+            SoundButtonText.text = "ON";
+        else
+            SoundButtonText.text = "OFF";
     }
 
-    public void PlayBtn()
+    public void PlayGameBtn()
     {
         SceneManager.LoadScene(1);
-        AdManager.Instance.ShowVideo();
+        // AdManager.Instance.ShowVideo();
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        //Handheld.Vibrate();
+        Debug.Log("Quit Game!");
+    }
+
+    public void Sound()
+    {
+        //IsSoundOn = (IsSoundOn == false) ? IsSoundOn : !IsSoundOn;
+        //backGroundAudioSource.mute = !backGroundAudioSource.mute;
+        if (IsSoundOn)
+            IsSoundOn = false;
+        else
+            IsSoundOn = true;
     }
 }

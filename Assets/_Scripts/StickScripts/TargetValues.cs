@@ -103,6 +103,7 @@ public class TargetValues : MonoBehaviour
         //Get the percentage
         float Percentage = Mathf.Round(_gameManager.Percentage) / 100;
         float length = 0.75825f;
+
         //float transX = StickmaxX * Percentage;
         //Get the stick size and multiply that by the percentage
         float newXTransform = length * Percentage;

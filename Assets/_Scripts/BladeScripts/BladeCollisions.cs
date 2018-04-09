@@ -8,11 +8,13 @@ public class BladeCollisions : MonoBehaviour
     public GameObject Tick;
     public GameObject Cross;
     public Text PercentCutText;
+    public AudioSource SlicedStickSound;
 
     public int Lives;
 
     private int _maxLives = 4;
-    private int _sticksDestroyed;
+
+    public int _sticksDestroyed;
     private int BladeLayer;
     private int StickLayer;
     private ScoreManager _scoreManager;
@@ -34,6 +36,15 @@ public class BladeCollisions : MonoBehaviour
         //v_stickBreak = FindObjectOfType<StickBreak>();
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
         _bladeCollider = GetComponent<CircleCollider2D>();
+        SlicedStickSound = GetComponent<AudioSource>();
+
+        string SoundKey = "Value";
+        bool SoundShouldBeON = (PlayerPrefs.GetInt(SoundKey) == 1);
+        if (SoundShouldBeON)
+            SlicedStickSound.enabled = true;
+        else
+            SlicedStickSound.enabled = false;
+
     }
 
     void Update()
@@ -161,16 +172,29 @@ public class BladeCollisions : MonoBehaviour
             //return;
         }
 
-        if (SlicedStick || SlicedBufferTarget)
+        if (SlicedStick)
         {
             int BladeLayer = 11;
-            int BufferLayer = 9;
             int StickLayer = 8;
-            Physics2D.IgnoreLayerCollision(BladeLayer, BufferLayer, true);
+
             Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, true);
             _bladeCollider.enabled = false;
         }
 
+        else
+        {
+            int BladeLayer = 11;
+            int BufferLayer = 9;
+
+            Physics2D.IgnoreLayerCollision(BladeLayer, BufferLayer, true);
+            _bladeCollider.enabled = false;
+        }
+
+        bool StickSlicedSoundIsEnabled = SlicedStickSound != null;
+        if (StickSlicedSoundIsEnabled)
+        {
+            SlicedStickSound.Play();
+        }
         StickSpawner.stickSpawner.HasWaveEnded = true;
     }
 

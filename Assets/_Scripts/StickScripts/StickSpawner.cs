@@ -19,12 +19,15 @@ public class StickSpawner : MonoBehaviour
     private GameManager _manager;
     public float spawnWait = 0.5f;
 
+    private string RoundCountKey = "NumberOfRoundsKey";
+    private static int roundNumCount;
+
     void Awake()
     {
         stickSpawner = this;
         HasWaveEnded = true;
         _manager = FindObjectOfType<GameManager>();
-
+        PlayerPrefs.SetInt(RoundCountKey, 5);
     }
 
     void Start()
@@ -36,7 +39,7 @@ public class StickSpawner : MonoBehaviour
     void Update()
     {
         if (_manager._gameOver)
-            Destroy(gameObject);
+            gameObject.SetActive(value: false);
     }
 
     public void SpawnStick()
@@ -79,6 +82,18 @@ public class StickSpawner : MonoBehaviour
                 break;
             }
 
+            bool PassedFiveRounds = (PlayerPrefs.GetInt(RoundCountKey) >= 5);
+            if (PassedFiveRounds)
+            {
+                _manager.ChangeBufferPercentage();
+
+                //float fivePercentDecrease = 0.05f;
+                //float targetLength = TargetValues.Values.length * fivePercentDecrease;
+                //TargetValues.Values.length += targetLength;
+
+                PlayerPrefs.SetInt(RoundCountKey, 0);
+            }
+
             float delay = 5;
             yield return new WaitForSeconds(delay);
 
@@ -90,7 +105,9 @@ public class StickSpawner : MonoBehaviour
 
             if (transform.childCount < 2)
             {
-                Instantiate(StickPrefab, spawnPosition, Quaternion.identity, parent: transform);
+                roundNumCount += 1;
+                PlayerPrefs.SetInt(RoundCountKey, roundNumCount);
+                //Instantiate(StickPrefab, spawnPosition, Quaternion.identity, parent: transform);
             }
 
             TryMakeGameHarder();

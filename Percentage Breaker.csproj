@@ -298,14 +298,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Scripts\AdScripts\GoogleAdManager.cs" />
     <Compile Include="Assets\_Scripts\BladeScripts\Blade.cs" />
     <Compile Include="Assets\_Scripts\BladeScripts\BladeCollisions.cs" />
     <Compile Include="Assets\_Scripts\DestroyByScripts\DestroyOverTime.cs" />
     <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientBackground.cs" />
     <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientTest.cs" />
-    <Compile Include="Assets\_Scripts\ManagerScripts\AdManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\GameManager.cs" />
-    <Compile Include="Assets\_Scripts\ManagerScripts\GoogleAdManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\MenuManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\PauseMenuManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\PreLoader.cs" />
@@ -317,7 +316,6 @@
     <Compile Include="Assets\_Scripts\StickScripts\StickSpawner.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\TargetValues.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\WaveSpawner.cs" />
-    <Compile Include="Assets\_Scripts\TextScripts\ShowCutPercentage.cs" />
     <Compile Include="Assets\_Scripts\TutorialScripts\RotateStickMainMenu.cs" />
     <Compile Include="Assets\_Scripts\TutorialScripts\StartTutorialAnimation.cs" />
     <Compile Include="Assets\_Scripts\TutorialScripts\TutorialHandCollision.cs" />

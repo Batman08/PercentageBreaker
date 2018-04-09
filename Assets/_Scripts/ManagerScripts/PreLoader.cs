@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class PreLoader : MonoBehaviour
 {
-    void Start()
+    private string SoundIsOnKey = "On";
+
+    void Awake()
     {
         SceneManager.LoadScene(0);
+        PlayerPrefs.SetFloat(SoundIsOnKey, 0);
     }
 }

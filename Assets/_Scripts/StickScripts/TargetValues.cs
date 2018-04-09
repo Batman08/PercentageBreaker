@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TargetValues : MonoBehaviour
 {
+    public static TargetValues Values;
+
     public SpriteRenderer MyRenderer;
     private GameManager _gameManager;
 
@@ -14,6 +16,10 @@ public class TargetValues : MonoBehaviour
     //private float _changeBufferTime = 1;
     [HideInInspector]
     public float _bufferSizeResult;
+    private string RoundCountKey = "NumberOfRoundsKey";
+
+    [HideInInspector]
+    public float length = 0.4986f;
 
     #region Completed_Methods (That_Work)
     void Awake()
@@ -26,14 +32,15 @@ public class TargetValues : MonoBehaviour
         CheckIfRendererIsEnabled();
     }
 
-    void Start()
-    {
-        //Changes buffer size when the buffer percentage changes
-        InvokeRepeating("ChangeBufferSize", _gameManager.ChangeBufferPercentageTime, _gameManager.ChangeBufferPercentageTime);
-    }
+    //void Start()
+    //{
+    //    //Changes buffer size when the buffer percentage changes
+    //    InvokeRepeating("ChangeBufferSize", _gameManager.ChangeBufferPercentageTime, _gameManager.ChangeBufferPercentageTime);
+    //}
 
     void FindComponents()
     {
+        Values = this;
         //Finds Game Manager
         _gameManager = FindObjectOfType<GameManager>();
         //Finds renderer bounds
@@ -45,7 +52,11 @@ public class TargetValues : MonoBehaviour
     void Update()
     {
         CalculateXPosition();
-        //   ChangeBufferSize();
+        bool HasBeenFiveRounds = (PlayerPrefs.GetInt(RoundCountKey) >= 1);
+        if (HasBeenFiveRounds)
+        {
+            ChangeBufferSize();
+        }
     }
 
     void LayerCollisions()
@@ -60,6 +71,11 @@ public class TargetValues : MonoBehaviour
     void FixedUpdate()
     {
         ClampPosition();
+
+        if (length <= 0.26)
+        {
+            length = 0.26f;
+        }
     }
 
     void CheckIfRendererIsEnabled()
@@ -102,11 +118,14 @@ public class TargetValues : MonoBehaviour
     {
         //Get the percentage
         float Percentage = Mathf.Round(_gameManager.Percentage) / 100;
-        float length = 0.75825f;
+        //float length = 0.75825f;
+        float length = 0.608f;
+        //float length = 0.5113f;
 
         //float transX = StickmaxX * Percentage;
         //Get the stick size and multiply that by the percentage
         float newXTransform = length * Percentage;
+
         //Apply that to the transform local scale
         transform.localPosition = new Vector2(Mathf.Abs(newXTransform), transform.localPosition.y * 0);
     }
@@ -117,7 +136,9 @@ public class TargetValues : MonoBehaviour
         float BufferPercentage = _gameManager.BufferPercent;
 
         //Get the size of the target(X Scale)
-        float size = 0.045f;
+        //float size = 0.045f;
+        //float size = transform.lossyScale.x;
+        float size = 2.076718f;
 
         //Then multiply the size by the buffer Percentage
         _bufferSizeResult = size * BufferPercentage;

@@ -8,7 +8,7 @@ public class GradientBackground : MonoBehaviour
 
     void Start()
     {
-        Gradient();
+        //Gradient();
     }
     void Gradient()
     {

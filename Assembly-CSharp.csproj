@@ -51,14 +51,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_Scripts\AdScripts\GoogleAdManager.cs" />
      <Compile Include="Assets\_Scripts\BladeScripts\Blade.cs" />
      <Compile Include="Assets\_Scripts\BladeScripts\BladeCollisions.cs" />
      <Compile Include="Assets\_Scripts\DestroyByScripts\DestroyOverTime.cs" />
      <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientBackground.cs" />
      <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientTest.cs" />
-     <Compile Include="Assets\_Scripts\ManagerScripts\AdManager.cs" />
      <Compile Include="Assets\_Scripts\ManagerScripts\GameManager.cs" />
-     <Compile Include="Assets\_Scripts\ManagerScripts\GoogleAdManager.cs" />
      <Compile Include="Assets\_Scripts\ManagerScripts\MenuManager.cs" />
      <Compile Include="Assets\_Scripts\ManagerScripts\PauseMenuManager.cs" />
      <Compile Include="Assets\_Scripts\ManagerScripts\PreLoader.cs" />
@@ -71,6 +70,7 @@
      <Compile Include="Assets\_Scripts\StickScripts\TargetValues.cs" />
      <Compile Include="Assets\_Scripts\StickScripts\WaveSpawner.cs" />
      <Compile Include="Assets\_Scripts\TextScripts\ShowCutPercentage.cs" />
+     <Compile Include="Assets\_Scripts\TutorialScripts\RotateStickMainMenu.cs" />
      <Compile Include="Assets\_Scripts\TutorialScripts\StartTutorialAnimation.cs" />
      <Compile Include="Assets\_Scripts\TutorialScripts\TutorialHandCollision.cs" />
      <Compile Include="Assets\UnitySpriteCutter\Cutters\ColliderPathsCreator.cs" />
@@ -78,7 +78,7 @@
      <Compile Include="Assets\UnitySpriteCutter\Cutters\FlatConvexPolygonMeshCutter.cs" />
      <Compile Include="Assets\UnitySpriteCutter\Cutters\ShapeCutter.cs" />
      <Compile Include="Assets\UnitySpriteCutter\Cutters\SlicedStick.cs" />
-     <Compile Include="Assets\UnitySpriteCutter\SpriteCutter.cs" />
+     <Compile Include="Assets\UnitySpriteCutter\Cutters\SpriteCutter.cs" />
      <Compile Include="Assets\UnitySpriteCutter\SpriteCutterGameObject.cs" />
      <Compile Include="Assets\UnitySpriteCutter\Tools\PolygonColliderParametersRepresentation.cs" />
      <Compile Include="Assets\UnitySpriteCutter\Tools\RendererParametersRepresentation.cs" />
@@ -158,6 +158,9 @@
  </Reference>
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+ <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>C:/Users/asgha/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>

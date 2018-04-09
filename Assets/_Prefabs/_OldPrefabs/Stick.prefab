@@ -446,7 +446,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cross: {fileID: 0}
   GradientMaterial: {fileID: 2100000, guid: 8202d6da09b358544b479aa1f1f29691, type: 2}
-  spriterenderer: {fileID: 212375773893704650}
   Move: 1
   SpeedForce: 0.024
 --- !u!114 &114884688684856980
@@ -462,6 +461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyRenderer: {fileID: 212375773893704650}
   _bufferSizeResult: 0
+  length: 0.4986
 --- !u!114 &114993494085416100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -475,6 +475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyRenderer: {fileID: 212375773893704650}
   _bufferSizeResult: 0
+  length: 0.4986
 --- !u!212 &212146547928695440
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Manager { get; set; }
 
     public bool ShowTextAnim = true;
+    public bool _dontWantToSeeAnAd = true;
+
+    public GameObject ContinueButton;
 
     public Animator TextAnim;
 
@@ -43,8 +46,7 @@ public class GameManager : MonoBehaviour
     [Header("Buffer Variables")]
     public float BufferPercent;
     [HideInInspector]
-    public float MaxBufferValue = 1f;
-    public float TextBufferNumber;
+    public float MaxBufferValue = 0.7f;
     #endregion
 
     #region Percentages Timings
@@ -80,21 +82,16 @@ public class GameManager : MonoBehaviour
         Instantiate(BladePrefab);
         Manager = this;
         BufferPercent = MaxBufferValue;
-
-        PercentNumText1.enabled = false;
-        PercentNumText2.enabled = false;
         ChangePercentage();
-        PercentNumText1.enabled = true;
-        PercentNumText2.enabled = true;
-        PlayPercentageTextAnimation();
         StickSpawner.stickSpawner.SpawnStick();
+        ContinueButton.SetActive(value: false);
     }
 
     void Start()
     {
         //Changes percentage and buffer percentage
         //InvokeRepeating("ChangePercentage", 0, ChangePercentageTime);
-        InvokeRepeating("ChangeBufferPercentage", ChangeBufferPercentageTime, ChangeBufferPercentageTime);
+        //InvokeRepeating("ChangeBufferPercentage", ChangeBufferPercentageTime, ChangeBufferPercentageTime);
         _bladeCollisions = FindObjectOfType<BladeCollisions>();
         _scoreManager = GetComponent<ScoreManager>();
     }
@@ -105,24 +102,62 @@ public class GameManager : MonoBehaviour
     {
         //CalculatePercentage();
         PlayPercentageTextAnimation();
+        CheckIfWaveHasEnded();
+        CheckIfBufferGoesOverMax();
+        CalculatePercentage();
+        UpdateLivesText();
+        CheckForAds();
+    }
 
+    void CheckIfWaveHasEnded()
+    {
         bool WaveHasEnded = (StickSpawner.stickSpawner.HasWaveEnded);
         if (WaveHasEnded)
         {
             //ShowNewPercentageTextAnim();
-            //TextAnim.SetBool("ShowNewPercentage", false);
+            //if (_bladeCollisions._sticksDestroyed >= 1)
+            //{
+            //    TextAnim.SetBool("HidePercentageText", true);
+            //}
+            StartCoroutine(ChangePercentageAnim());
             StartSpawningSticks();
         }
 
-        bool BufferIsGreaterThanAHundred = (Buffer >= 100);
+    }
+
+    void CheckIfBufferGoesOverMax()
+    {
+
+        bool BufferIsGreaterThanAHundred = (TextBuffer >= 100);
         if (BufferIsGreaterThanAHundred)
         {
-            Buffer = 100;
+            TextBuffer = 100;
         }
-        CalculatePercentage();
-        UpdateTextBufferNumber();
-        UpdateLivesText();
+    }
 
+    void CheckForAds()
+    {
+        bool CanShowAdToContinueGame = (PlayerPrefs.GetInt(DeathCountKey) >= 3);
+        if (CanShowAdToContinueGame)
+        {
+            ContinueButton.SetActive(value: true);
+            _dontWantToSeeAnAd = false;
+            NumberOFDeaths = 0;
+            PlayerPrefs.SetInt(DeathCountKey, 0);
+        }
+
+        else
+        {
+            _dontWantToSeeAnAd = true;
+        }
+    }
+
+    IEnumerator ChangePercentageAnim()
+    {
+        float time = 1.35f;
+        TextAnim.SetBool("HidePercentageText", true);
+        yield return new WaitForSeconds(time);
+        TextAnim.SetBool("HidePercentageText", false);
     }
 
     void UpdateLivesText()
@@ -137,31 +172,22 @@ public class GameManager : MonoBehaviour
         StickSpawner.stickSpawner.SpawnStick();
     }
 
-    void UpdateTextBufferNumber()
-    {
-        if (TextBufferNumber <= 5f)
-            TextBufferNumber = 5;
-
-        TextBufferNumber = BufferPercent * 10;
-    }
-
-
-    private float Buffer;
+    private float TextBuffer;
 
     void CalculatePercentage()
     {
         //Percentage = (NumberOutOfPercent / MaxPercentage);
         float FinalBufferValue;
         Percentage = NumberOutOfPercent;
-        Buffer = Percentage + BufferPercent * 10;
+        TextBuffer = Percentage + BufferPercent * 10;
 
-        bool BufferIsGreaterThanAHundred = (Buffer >= 100);
+        bool BufferIsGreaterThanAHundred = (TextBuffer >= 100);
         if (BufferIsGreaterThanAHundred)
         {
-            Buffer = 100;
+            TextBuffer = 100;
         }
 
-        FinalBufferValue = Mathf.RoundToInt(Buffer);
+        FinalBufferValue = Mathf.RoundToInt(TextBuffer);
         PercentNumText1.text = Percentage + "%";
         PercentNumText2.text = Mathf.RoundToInt(FinalBufferValue) + "%";
         PercentText.text = "Cut Between " + "        " + " and";
@@ -202,9 +228,11 @@ public class GameManager : MonoBehaviour
     #region Button Methods
     public void RestartGame()
     {
+        _dontWantToSeeAnAd = true;
         _scoreManager.SaveScore();
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //GoogleAdManager.Instance.ShowVideoAd();
     }
 
     public void Home()
@@ -213,34 +241,53 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public static int NumberOFDeaths = 0;
+    private string DeathCountKey = "DeathCount";
+
     #region OtherMethods
     public void GameOver()
     {
+        NumberOFDeaths += 1;
+
+        PlayerPrefs.SetInt(DeathCountKey, NumberOFDeaths);
         _gameOver = true;
-        _scoreManager.SaveScore();
         GamePanel.SetActive(value: false);
         EndGamePanel.SetActive(value: true);
-        Destroy(_bladeCollisions.gameObject);
+
+        if (_gameOver && _dontWantToSeeAnAd)
+        {
+            _scoreManager.SaveScore();
+            _bladeCollisions.gameObject.SetActive(value: false);
+            //Destroy(_bladeCollisions.gameObject);
+        }
+        Debug.Log(PlayerPrefs.GetInt(DeathCountKey));
+    }
+
+    public void ShowAdButton()
+    {
+        GoogleAdManager.Instance.ShowVideoAd();
+        _gameOver = false;
+        StickSpawner.stickSpawner.HasWaveEnded = true;
+        //Time.timeScale = 0;
+        GamePanel.SetActive(value: true);
+        EndGamePanel.SetActive(value: false);
+        StickSpawner.stickSpawner.gameObject.SetActive(value: true);
+        _bladeCollisions.Lives = 1;
+        _bladeCollisions.gameObject.SetActive(value: true);
+        //Time.timeScale = 1;
     }
     #endregion
 
+    public void ChangeBufferPercentage()
+    {
+        BufferPercent -= 0.05f;
+    }
 
     #region Not Used Methods
     void StopPercentageTextAnimation()
     {
         TextAnim.SetBool("HidePercentageText", true);
         TextAnim.SetBool("ShowNewPercentage", false);
-    }
-
-    void ChangeBufferPercentage()
-    {
-        float MinBufferPercentage = 0.009f;
-        bool BufferIsNotAtMinimum = (BufferPercent > MinBufferPercentage);
-        if (BufferIsNotAtMinimum)
-        {
-            BufferPercent -= 0.009f;
-            //TextBufferNumber -= 1;
-        }
     }
     #endregion
     #endregion

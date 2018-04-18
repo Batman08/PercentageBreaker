@@ -26,7 +26,7 @@ public class StartTutorialAnimation : MonoBehaviour
 
     public void ContinueButton()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     void OnTriggerEnter2D(Collider2D collision)

@@ -25,10 +25,10 @@ public class Stick : MonoBehaviour
     void Start()
     {
         // Gradient();
-        if (StickSpawner.stickSpawner != null)
-        {
-            SpeedForce = StickSpawner.stickSpawner.Speed;
-        }
+        //if (StickSpawner.stickSpawner != null)
+        //{
+        //    SpeedForce = StickSpawner.stickSpawner.Speed;
+        //}
         _blade = FindObjectOfType<BladeCollisions>();
     }
 
@@ -91,7 +91,7 @@ public class Stick : MonoBehaviour
                 StickSpawner.stickSpawner.HasWaveEnded = true;
             }
             //_blade.Lives--;
-            float YPos = -4.55f;
+            float YPos = -4.13f;
             float XOffset = 0.55345f;
             _obj = Instantiate(_blade.Cross, new Vector2(transform.position.x + XOffset, YPos), Quaternion.identity);
             StartCoroutine(TakeAwayObject(_obj));

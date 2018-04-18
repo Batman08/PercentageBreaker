@@ -7,9 +7,9 @@ public class PreLoader : MonoBehaviour
 {
     private string SoundIsOnKey = "On";
 
-    void Awake()
+    void Start()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         PlayerPrefs.SetFloat(SoundIsOnKey, 0);
     }
 }

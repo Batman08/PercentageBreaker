@@ -8,11 +8,10 @@ public class BladeCollisions : MonoBehaviour
     public GameObject Tick;
     public GameObject Cross;
     public Text PercentCutText;
-    public AudioSource SlicedStickSound;
 
     public int Lives;
 
-    private int _maxLives = 4;
+    private int _maxLives = 3;
 
     public int _sticksDestroyed;
     private int BladeLayer;
@@ -36,15 +35,6 @@ public class BladeCollisions : MonoBehaviour
         //v_stickBreak = FindObjectOfType<StickBreak>();
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
         _bladeCollider = GetComponent<CircleCollider2D>();
-        SlicedStickSound = GetComponent<AudioSource>();
-
-        string SoundKey = "Value";
-        bool SoundShouldBeON = (PlayerPrefs.GetInt(SoundKey) == 1);
-        if (SoundShouldBeON)
-            SlicedStickSound.enabled = true;
-        else
-            SlicedStickSound.enabled = false;
-
     }
 
     void Update()
@@ -127,7 +117,7 @@ public class BladeCollisions : MonoBehaviour
                 StickCollider.enabled = false;
             }
 
-            Debug.Log("Sliced stick at right position");
+            //Debug.Log("Sliced stick at right position");
 
             _objStick = Instantiate(Tick, collision.transform.position, Quaternion.identity);
             StartCoroutine(TakeAwayObject(_objStick));
@@ -190,11 +180,13 @@ public class BladeCollisions : MonoBehaviour
             _bladeCollider.enabled = false;
         }
 
-        bool StickSlicedSoundIsEnabled = SlicedStickSound != null;
+        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        bool StickSlicedSoundIsEnabled = audioManager != null;
         if (StickSlicedSoundIsEnabled)
         {
-            SlicedStickSound.Play();
+            audioManager.Play("StickSlicedSound");
         }
+
         StickSpawner.stickSpawner.HasWaveEnded = true;
     }
 

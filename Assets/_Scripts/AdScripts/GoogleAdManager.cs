@@ -10,6 +10,7 @@ public class GoogleAdManager : MonoBehaviour
 
     private string _bannerId = "ca-app-pub-1211888741379414/8807931452";
     private string _interstitialId = "ca-app-pub-1211888741379414/8362575878";
+    private Admob _ad;
 
     void Awake()
     {
@@ -28,10 +29,18 @@ public class GoogleAdManager : MonoBehaviour
 
     void InitAdmob()
     {
-        Admob.Instance().bannerEventHandler += OnBannerEvent;
-        Admob.Instance().interstitialEventHandler += OnInterstitialEvent;
-        Admob.Instance().initAdmob("ca-app-pub-3940256099942544/2934735716", "ca-app-pub-3940256099942544/4411468910");//all id are admob test id,change those to mine
+        _ad = Admob.Instance();
+        _ad.bannerEventHandler += OnBannerEvent;
+        _ad.interstitialEventHandler += OnInterstitialEvent;
+        _ad.rewardedVideoEventHandler += OnRewardedVideoEvent;
+        _ad.initAdmob("ca-app-pub-3940256099942544/2934735716", "ca-app-pub-3940256099942544/4411468910");//all id are admob test id,change those to your
         Admob.Instance().loadInterstitial();
+        Admob.Instance().loadRewardedVideo("ca-app-pub-3940256099942544/5224354917");
+        //ad.setTesting(true);//show test ad
+        _ad.setGender(AdmobGender.MALE);
+        //string[] keywords = { "game", "crash", "male game" };
+        //  ad.setKeywords(keywords);//set keywords for ad
+        Debug.Log("admob inited -------------");
     }
 
     public void ShowBannerAd()
@@ -40,7 +49,12 @@ public class GoogleAdManager : MonoBehaviour
         Admob.Instance().showBannerRelative(AdSize.SmartBanner, AdPosition.BOTTOM_CENTER, 0);
     }
 
-    public void ShowVideoAd()
+    public void RemoveBannerAd()
+    {
+        Admob.Instance().removeBanner();
+    }
+
+    public void ShowInterstitialAd()
     {
         Debug.Log("Showing video or full screen ad");
         bool MyAdIsReady = (Admob.Instance().isInterstitialReady());
@@ -50,10 +64,22 @@ public class GoogleAdManager : MonoBehaviour
             Admob.Instance().showInterstitial();
         }
 
-        //else
-        //{
-        //    Admob.Instance().loadInterstitial();
-        //}
+        else
+        {
+            Admob.Instance().loadInterstitial();
+        }
+    }
+
+    public void ShowVideoAd()
+    {
+        if (_ad.isRewardedVideoReady())
+        {
+            _ad.showRewardedVideo();
+        }
+        else
+        {
+            _ad.loadRewardedVideo("ca-app-pub-3940256099942544/1712485313");
+        }
     }
 
     void OnInterstitialEvent(string eventName, string msg)
@@ -64,8 +90,14 @@ public class GoogleAdManager : MonoBehaviour
             Admob.Instance().showInterstitial();
         }
     }
+
     void OnBannerEvent(string eventName, string msg)
     {
         Debug.Log("handler onAdmobBannerEvent---" + eventName + "   " + msg);
+    }
+
+    void OnRewardedVideoEvent(string eventName, string msg)
+    {
+        Debug.Log("handler onRewardedVideoEvent---" + eventName + "  rewarded: " + msg);
     }
 }

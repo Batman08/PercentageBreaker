@@ -13,28 +13,26 @@ public class MenuManager : MonoBehaviour
     private string HighscoreString = "Score";
     private string SoundKey = "Value";
     private string SoundIsOnKey = "On";
+    private ToggleController _toggleController;
 
     void Start()
     {
-        GoogleAdManager.Instance.ShowBannerAd();
 
         //Shows the user their high score
         string HighScore = PlayerPrefs.GetInt(HighscoreString).ToString();
         ScoreText.text = HighScore;
 
-        CheckSoundButtonState();
+        //CheckSoundButtonState();
 
-        bool FirstTimeOn = (PlayerPrefs.GetFloat(SoundIsOnKey) == 0);
-        if (FirstTimeOn)
-        {
-            IsSoundOn = true;
-            PlayerPrefs.SetFloat(SoundIsOnKey, 1);
-        }
     }
 
     void Update()
     {
-        UpdateSoundButtonText();
+        //if (_toggleController.gameObject != null)
+        //{
+        //    _toggleController = FindObjectOfType<ToggleController>();
+        //}
+
     }
 
     void CheckSoundButtonState()
@@ -62,7 +60,7 @@ public class MenuManager : MonoBehaviour
         //Admob.Instance().removeBanner();
 
         //Go to game scene
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void QuitGame()
@@ -72,19 +70,4 @@ public class MenuManager : MonoBehaviour
         Debug.Log("Quit Game!");
     }
 
-    public void Sound()
-    {
-        //Check to see if the sound should be enabled or disabled
-        if (IsSoundOn)
-        {
-            IsSoundOn = false;
-            PlayerPrefs.SetInt(SoundKey, 0);
-            //GoogleAdManager.Instance.ShowBannerAd();
-        }
-        else
-        {
-            IsSoundOn = true;
-            PlayerPrefs.SetInt(SoundKey, 1);
-        }
-    }
 }

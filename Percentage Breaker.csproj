@@ -298,18 +298,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Scripts\AdScripts\AdManager.cs" />
+    <Compile Include="Assets\_Scripts\AdScripts\Ads.cs" />
     <Compile Include="Assets\_Scripts\AdScripts\GoogleAdManager.cs" />
     <Compile Include="Assets\_Scripts\BladeScripts\Blade.cs" />
     <Compile Include="Assets\_Scripts\BladeScripts\BladeCollisions.cs" />
+    <Compile Include="Assets\_Scripts\BladeScripts\RaycastCollision.cs" />
+    <Compile Include="Assets\_Scripts\BladeScripts\ToggleController.cs" />
+    <Compile Include="Assets\_Scripts\CameraScripts\CameraShake.cs" />
     <Compile Include="Assets\_Scripts\DestroyByScripts\DestroyOverTime.cs" />
     <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientBackground.cs" />
     <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientTest.cs" />
+    <Compile Include="Assets\_Scripts\ManagerScripts\AudioManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\GameManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\MenuManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\PauseMenuManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\PreLoader.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\SaveLoadManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\ScoreManager.cs" />
+    <Compile Include="Assets\_Scripts\SoundScripts\Sound.cs" />
+    <Compile Include="Assets\_Scripts\StickScripts\MoveBufferHolder.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\RotateStick.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\Stick.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\StickBreak.cs" />
@@ -319,6 +327,21 @@
     <Compile Include="Assets\_Scripts\TutorialScripts\RotateStickMainMenu.cs" />
     <Compile Include="Assets\_Scripts\TutorialScripts\StartTutorialAnimation.cs" />
     <Compile Include="Assets\_Scripts\TutorialScripts\TutorialHandCollision.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Demo\Sample Scripts\ShakeByDistance.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Demo\Sample Scripts\ShakeOnKeyPress.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Demo\Sample Scripts\ShakeOnTrigger.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Demo\ShakeDemo.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Scripts\CameraShakeInstance.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Scripts\CameraShakePresets.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Scripts\CameraShaker.cs" />
+    <Compile Include="Assets\EZ Camera Shake\Scripts\Utilities\CameraUtilities.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Constant.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Enum.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IconUtility.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IgnoreSnapAttribute.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
     <Compile Include="Assets\UnitySpriteCutter\Cutters\ColliderPathsCreator.cs" />
     <Compile Include="Assets\UnitySpriteCutter\Cutters\FlatConvexCollidersCutter.cs" />
     <Compile Include="Assets\UnitySpriteCutter\Cutters\FlatConvexPolygonMeshCutter.cs" />
@@ -335,7 +358,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\Admob\Android\AndroidManifest.xml" />
-    <None Include="Assets\Plugins\GoogleMobileAds\Editor\GoogleMobileAdsDependencies.xml" />
+    <None Include="Assets\ProCore\ProGrids\About\changelog.txt" />
+    <None Include="Assets\ProCore\ProGrids\About\pc_AboutEntry_ProGrids.txt" />
+    <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />
     <None Include="Assets\_Scripts\DestroyByScripts\GradientScripts\SpriteGradient.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,7 +6,7 @@ public class Blade : MonoBehaviour
     [Space]
     [Header("Blade Cutting Variables")]
     //0.001 -- min cutting vel
-    public float MinCuttingVelocity = 0.000000000f;
+    public float MinCuttingVelocity = 0.00001f;
 
     private bool _isCutting = false;
     private Vector2 _previousePosition;
@@ -65,18 +65,8 @@ public class Blade : MonoBehaviour
     {
 
         _rb2d.position = newPosition;
+        _circleCollider.enabled = true;
 
-        float velocity = NewVelocity(newPosition);
-        bool VelocityIsGreaterThanZero = (velocity > MinCuttingVelocity);
-
-        if (VelocityIsGreaterThanZero)
-        {
-            _circleCollider.enabled = true;
-        }
-        else
-        {
-            _circleCollider.enabled = true;
-        }
 
         _previousePosition = newPosition;
     }
@@ -93,6 +83,24 @@ public class Blade : MonoBehaviour
         _currentBladeTrail = Instantiate(BladeTrailPrefab, transform);
         // _previousePosition = newPosition;
         _circleCollider.enabled = false;
+
+        PlaySlashingSound();
+    }
+
+    void PlaySlashingSound()
+    {
+        float velocity = NewVelocity(newPosition);
+        bool VelocityIsGreaterThanZero = (velocity > MinCuttingVelocity);
+        AudioManager audioManager = FindObjectOfType<AudioManager>();
+
+        if (VelocityIsGreaterThanZero)
+        {
+            bool SoundIsNotEqualNull = (audioManager != null);
+            if (SoundIsNotEqualNull)
+            {
+                audioManager.Play("SlashingSound");
+            }
+        }
     }
 
     void StopCutting()

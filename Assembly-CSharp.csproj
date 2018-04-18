@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_Scripts\AdScripts\AdManager.cs" />
      <Compile Include="Assets\_Scripts\AdScripts\GoogleAdManager.cs" />
      <Compile Include="Assets\_Scripts\BladeScripts\Blade.cs" />
      <Compile Include="Assets\_Scripts\BladeScripts\BladeCollisions.cs" />
@@ -69,7 +70,6 @@
      <Compile Include="Assets\_Scripts\StickScripts\StickSpawner.cs" />
      <Compile Include="Assets\_Scripts\StickScripts\TargetValues.cs" />
      <Compile Include="Assets\_Scripts\StickScripts\WaveSpawner.cs" />
-     <Compile Include="Assets\_Scripts\TextScripts\ShowCutPercentage.cs" />
      <Compile Include="Assets\_Scripts\TutorialScripts\RotateStickMainMenu.cs" />
      <Compile Include="Assets\_Scripts\TutorialScripts\StartTutorialAnimation.cs" />
      <Compile Include="Assets\_Scripts\TutorialScripts\TutorialHandCollision.cs" />

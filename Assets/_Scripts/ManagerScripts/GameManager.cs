@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using EZCameraShake;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -59,9 +60,12 @@ public class GameManager : MonoBehaviour
     #region Private Variables
     private BladeCollisions _bladeCollisions;
     private ScoreManager _scoreManager;
+    public CameraShake _cameraShake;
 
     [HideInInspector]
     public bool _gameOver = false;
+    private float TextBuffer;
+    public float textbufferValue = 70;
     #endregion
     #endregion
 
@@ -78,13 +82,21 @@ public class GameManager : MonoBehaviour
     {
         GamePanel.SetActive(value: true);
         EndGamePanel.SetActive(value: false);
-        // _spawner = FindObjectOfType<WaveSpawner>();
         Instantiate(BladePrefab);
         Manager = this;
         BufferPercent = MaxBufferValue;
         ChangePercentage();
         StickSpawner.stickSpawner.SpawnStick();
         ContinueButton.SetActive(value: false);
+        _cameraShake = Camera.main.GetComponent<CameraShake>();
+
+        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        string SoundKey = "Value";
+        bool SoundShouldBeON = (PlayerPrefs.GetFloat(SoundKey) == 1);
+        if (SoundShouldBeON)
+            audioManager.gameObject.SetActive(value: true);
+        else
+            audioManager.gameObject.SetActive(value: false);
     }
 
     void Start()
@@ -104,10 +116,93 @@ public class GameManager : MonoBehaviour
         PlayPercentageTextAnimation();
         CheckIfWaveHasEnded();
         CheckIfBufferGoesOverMax();
-        CalculatePercentage();
+        CalculatePercentageTextOutput();
+
+
+
         UpdateLivesText();
         CheckForAds();
     }
+
+
+    void CalculatePercentageTextOutput()
+    {
+        float FinalBufferValue;
+
+        Percentage = NumberOutOfPercent;
+        TextBuffer = Percentage + textbufferValue;
+
+        FinalBufferValue = Mathf.RoundToInt(TextBuffer);
+        PercentNumText1.text = Percentage + "%";
+        PercentNumText2.text = Mathf.RoundToInt(FinalBufferValue) + "%";
+        PercentText.text = "Cut Between " + "        " + " and";
+    }
+
+
+    #region BuggyVersion
+    //void calculatePercentageTextOutput()
+    //{
+    //    //Percentage = (NumberOutOfPercent / MaxPercentage);
+    //    float FinalBufferValue;
+
+
+    //    Percentage = NumberOutOfPercent;
+    //    TextBuffer = Percentage + textbufferValue;
+
+
+
+    //    bool BufferIsGreaterThanAHundred = (textbufferValue >= 100);
+    //    if (BufferIsGreaterThanAHundred)
+    //    {
+    //        textbufferValue = 100;
+    //    }
+
+    //    FinalBufferValue = Mathf.RoundToInt(TextBuffer);
+    //    PercentNumText1.text = Percentage + "%";
+    //    PercentNumText2.text = Mathf.RoundToInt(FinalBufferValue) + "%";
+    //    PercentText.text = "Cut Between " + "        " + " and";
+    //}
+
+    //void CalculatePercentageTextOutput()
+    //{
+    //    float mathcalc;
+    //    float newPercentage;
+    //    float newBuffer;
+    //    float FinalBufferValue;
+
+    //    if (NumberOutOfPercent > 30)
+    //    {
+    //        mathcalc = textbufferValue / 2;
+    //        newPercentage = NumberOutOfPercent - mathcalc;
+    //        newBuffer = textbufferValue - mathcalc;
+    //        NumberOutOfPercent = newPercentage;
+    //        textbufferValue = newBuffer;
+    //        FinalBufferValue = textbufferValue;
+    //    }
+
+    //    else
+    //    {
+    //        FinalBufferValue = textbufferValue;
+    //        textbufferValue = NumberOutOfPercent + FinalBufferValue;
+    //        return;
+    //    }
+
+
+    //    PercentNumText1.text = NumberOutOfPercent + "%";
+    //    PercentNumText2.text = FinalBufferValue + "%";
+    //    PercentText.text = "Cut Between " + "        " + " and";
+    //}
+    #endregion
+
+    void CheckIfBufferGoesOverMax()
+    {
+        bool BufferIsGreaterThanAHundred = (TextBuffer >= 100);
+        if (BufferIsGreaterThanAHundred)
+        {
+            TextBuffer = 100;
+        }
+    }
+
 
     void CheckIfWaveHasEnded()
     {
@@ -125,19 +220,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void CheckIfBufferGoesOverMax()
-    {
-
-        bool BufferIsGreaterThanAHundred = (TextBuffer >= 100);
-        if (BufferIsGreaterThanAHundred)
-        {
-            TextBuffer = 100;
-        }
-    }
-
     void CheckForAds()
     {
-        bool CanShowAdToContinueGame = (PlayerPrefs.GetInt(DeathCountKey) >= 3);
+        bool CanShowAdToContinueGame = (PlayerPrefs.GetInt(DeathCountKey) >= 2);
         if (CanShowAdToContinueGame)
         {
             ContinueButton.SetActive(value: true);
@@ -172,30 +257,39 @@ public class GameManager : MonoBehaviour
         StickSpawner.stickSpawner.SpawnStick();
     }
 
-    private float TextBuffer;
 
-    void CalculatePercentage()
-    {
-        //Percentage = (NumberOutOfPercent / MaxPercentage);
-        float FinalBufferValue;
-        Percentage = NumberOutOfPercent;
-        TextBuffer = Percentage + BufferPercent * 10;
-
-        bool BufferIsGreaterThanAHundred = (TextBuffer >= 100);
-        if (BufferIsGreaterThanAHundred)
-        {
-            TextBuffer = 100;
-        }
-
-        FinalBufferValue = Mathf.RoundToInt(TextBuffer);
-        PercentNumText1.text = Percentage + "%";
-        PercentNumText2.text = Mathf.RoundToInt(FinalBufferValue) + "%";
-        PercentText.text = "Cut Between " + "        " + " and";
-    }
 
     void ChangePercentage()
     {
-        NumberOutOfPercent = Random.Range(0, 100);
+        if (textbufferValue == 70)
+        {
+            NumberOutOfPercent = Random.Range(0, 30);
+        }
+
+        else if (textbufferValue >= 60)
+        {
+            NumberOutOfPercent = Random.Range(0, 40);
+        }
+
+        else if (textbufferValue >= 50)
+        {
+            NumberOutOfPercent = Random.Range(0, 50);
+        }
+
+        else if (textbufferValue >= 40)
+        {
+            NumberOutOfPercent = Random.Range(0, 60);
+        }
+
+        else if (textbufferValue >= 30)
+        {
+            NumberOutOfPercent = Random.Range(0, 70);
+        }
+
+        else if (textbufferValue >= 20)
+        {
+            NumberOutOfPercent = Random.Range(0, 80);
+        }
         StartCoroutine(ChangeTextColour());
 
     }
@@ -237,7 +331,7 @@ public class GameManager : MonoBehaviour
 
     public void Home()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     #endregion
 
@@ -260,27 +354,36 @@ public class GameManager : MonoBehaviour
             _bladeCollisions.gameObject.SetActive(value: false);
             //Destroy(_bladeCollisions.gameObject);
         }
-        Debug.Log(PlayerPrefs.GetInt(DeathCountKey));
+        //Debug.Log(PlayerPrefs.GetInt(DeathCountKey));
+        CameraShaker.Instance.ShakeOnce(4, 4, 0.1f, 1);
     }
 
     public void ShowAdButton()
     {
-        GoogleAdManager.Instance.ShowVideoAd();
-        _gameOver = false;
-        StickSpawner.stickSpawner.HasWaveEnded = true;
-        //Time.timeScale = 0;
-        GamePanel.SetActive(value: true);
-        EndGamePanel.SetActive(value: false);
-        StickSpawner.stickSpawner.gameObject.SetActive(value: true);
-        _bladeCollisions.Lives = 1;
-        _bladeCollisions.gameObject.SetActive(value: true);
+        Ads.Instance.ShowRewardBasedAd();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //_gameOver = false;
+        //StickSpawner.stickSpawner.HasWaveEnded = true;
+        ////Time.timeScale = 0;
+        //GamePanel.SetActive(value: true);
+        //EndGamePanel.SetActive(value: false);
+        //StickSpawner.stickSpawner.gameObject.SetActive(value: true);
+        //_bladeCollisions.Lives = 1;
+        //_bladeCollisions.gameObject.SetActive(value: true);
         //Time.timeScale = 1;
     }
     #endregion
 
+    public float Length = 0.608f;
+
     public void ChangeBufferPercentage()
     {
         BufferPercent -= 0.05f;
+        textbufferValue -= 5;
+
+        float NewLength = Length * 0.05f;
+        Length += NewLength;
+        Debug.Log(Length);
     }
 
     #region Not Used Methods

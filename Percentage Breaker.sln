@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Percentage Breaker", "Perce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Percentage Breaker.Plugins", "Percentage Breaker.Plugins.csproj", "{5E3E364B-0064-3FB8-AAEA-B0F40D2FD94F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Percentage Breaker.Editor", "Percentage Breaker.Editor.csproj", "{083C65E1-1772-A6C5-AECF-D49B4647F3DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{5E3E364B-0064-3FB8-AAEA-B0F40D2FD94F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E3E364B-0064-3FB8-AAEA-B0F40D2FD94F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E3E364B-0064-3FB8-AAEA-B0F40D2FD94F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{083C65E1-1772-A6C5-AECF-D49B4647F3DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{083C65E1-1772-A6C5-AECF-D49B4647F3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{083C65E1-1772-A6C5-AECF-D49B4647F3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{083C65E1-1772-A6C5-AECF-D49B4647F3DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

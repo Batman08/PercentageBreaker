@@ -20,14 +20,16 @@ public class StickSpawner : MonoBehaviour
     public float spawnWait = 0.5f;
 
     private string RoundCountKey = "NumberOfRoundsKey";
-    private static int roundNumCount;
+    public int roundNumCount;
 
     void Awake()
     {
         stickSpawner = this;
         HasWaveEnded = true;
         _manager = FindObjectOfType<GameManager>();
-        PlayerPrefs.SetInt(RoundCountKey, 5);
+        roundNumCount = 0;
+        PlayerPrefs.SetInt(RoundCountKey, roundNumCount);
+        PlayerPrefs.SetFloat("CurrentPosition", 0);
     }
 
     void Start()
@@ -46,7 +48,7 @@ public class StickSpawner : MonoBehaviour
     {
         if (SticksEnabled())
         {
-            Debug.Log("Spawned Stick");
+            //Debug.Log("Spawned Stick");
             StartCoroutine(SpawnSticks());
         }
 
@@ -82,16 +84,12 @@ public class StickSpawner : MonoBehaviour
                 break;
             }
 
-            bool PassedFiveRounds = (PlayerPrefs.GetInt(RoundCountKey) >= 5);
-            if (PassedFiveRounds)
+            bool PastFiveRounds = (PlayerPrefs.GetInt(RoundCountKey) >= 5);
+            if (PastFiveRounds)
             {
                 _manager.ChangeBufferPercentage();
-
-                //float fivePercentDecrease = 0.05f;
-                //float targetLength = TargetValues.Values.length * fivePercentDecrease;
-                //TargetValues.Values.length += targetLength;
-
-                PlayerPrefs.SetInt(RoundCountKey, 0);
+                roundNumCount = 0;
+                PlayerPrefs.GetInt(RoundCountKey, roundNumCount);
             }
 
             float delay = 5;
@@ -107,10 +105,9 @@ public class StickSpawner : MonoBehaviour
             {
                 roundNumCount += 1;
                 PlayerPrefs.SetInt(RoundCountKey, roundNumCount);
-                //Instantiate(StickPrefab, spawnPosition, Quaternion.identity, parent: transform);
+                Debug.Log(PlayerPrefs.GetInt(RoundCountKey));
+                Instantiate(StickPrefab, spawnPosition, Quaternion.identity, parent: transform);
             }
-
-            TryMakeGameHarder();
             yield break;
         }
     }

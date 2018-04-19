@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 
         AudioManager audioManager = FindObjectOfType<AudioManager>();
         string SoundKey = "Value";
-        bool SoundShouldBeON = (PlayerPrefs.GetFloat(SoundKey) == 1);
+        bool SoundShouldBeON = (PlayerPrefs.GetInt(SoundKey) == 1);
         if (SoundShouldBeON)
             audioManager.gameObject.SetActive(value: true);
         else
@@ -117,13 +117,9 @@ public class GameManager : MonoBehaviour
         CheckIfWaveHasEnded();
         CheckIfBufferGoesOverMax();
         CalculatePercentageTextOutput();
-
-
-
         UpdateLivesText();
         CheckForAds();
     }
-
 
     void CalculatePercentageTextOutput()
     {
@@ -138,62 +134,6 @@ public class GameManager : MonoBehaviour
         PercentText.text = "Cut Between " + "        " + " and";
     }
 
-
-    #region BuggyVersion
-    //void calculatePercentageTextOutput()
-    //{
-    //    //Percentage = (NumberOutOfPercent / MaxPercentage);
-    //    float FinalBufferValue;
-
-
-    //    Percentage = NumberOutOfPercent;
-    //    TextBuffer = Percentage + textbufferValue;
-
-
-
-    //    bool BufferIsGreaterThanAHundred = (textbufferValue >= 100);
-    //    if (BufferIsGreaterThanAHundred)
-    //    {
-    //        textbufferValue = 100;
-    //    }
-
-    //    FinalBufferValue = Mathf.RoundToInt(TextBuffer);
-    //    PercentNumText1.text = Percentage + "%";
-    //    PercentNumText2.text = Mathf.RoundToInt(FinalBufferValue) + "%";
-    //    PercentText.text = "Cut Between " + "        " + " and";
-    //}
-
-    //void CalculatePercentageTextOutput()
-    //{
-    //    float mathcalc;
-    //    float newPercentage;
-    //    float newBuffer;
-    //    float FinalBufferValue;
-
-    //    if (NumberOutOfPercent > 30)
-    //    {
-    //        mathcalc = textbufferValue / 2;
-    //        newPercentage = NumberOutOfPercent - mathcalc;
-    //        newBuffer = textbufferValue - mathcalc;
-    //        NumberOutOfPercent = newPercentage;
-    //        textbufferValue = newBuffer;
-    //        FinalBufferValue = textbufferValue;
-    //    }
-
-    //    else
-    //    {
-    //        FinalBufferValue = textbufferValue;
-    //        textbufferValue = NumberOutOfPercent + FinalBufferValue;
-    //        return;
-    //    }
-
-
-    //    PercentNumText1.text = NumberOutOfPercent + "%";
-    //    PercentNumText2.text = FinalBufferValue + "%";
-    //    PercentText.text = "Cut Between " + "        " + " and";
-    //}
-    #endregion
-
     void CheckIfBufferGoesOverMax()
     {
         bool BufferIsGreaterThanAHundred = (TextBuffer >= 100);
@@ -203,17 +143,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     void CheckIfWaveHasEnded()
     {
         bool WaveHasEnded = (StickSpawner.stickSpawner.HasWaveEnded);
         if (WaveHasEnded)
         {
-            //ShowNewPercentageTextAnim();
-            //if (_bladeCollisions._sticksDestroyed >= 1)
-            //{
-            //    TextAnim.SetBool("HidePercentageText", true);
-            //}
             StartCoroutine(ChangePercentageAnim());
             StartSpawningSticks();
         }
@@ -256,8 +190,6 @@ public class GameManager : MonoBehaviour
         ChangePercentage();
         StickSpawner.stickSpawner.SpawnStick();
     }
-
-
 
     void ChangePercentage()
     {

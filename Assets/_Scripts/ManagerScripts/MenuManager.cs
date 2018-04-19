@@ -70,4 +70,4 @@ public class MenuManager : MonoBehaviour
         Debug.Log("Quit Game!");
     }
 
-}
+}   

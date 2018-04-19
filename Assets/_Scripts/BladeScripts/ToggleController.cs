@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ToggleController : MonoBehaviour
 {
-    public bool isOn;
+    public bool IsOn = false;
 
     public Color onColorBg;
     public Color offColorBg;
@@ -42,39 +42,36 @@ public class ToggleController : MonoBehaviour
         float toggleSizeX = toggle.sizeDelta.x;
         onPosX = (toggleSizeX / 2) - (handleSize / 2) - handleOffset;
         offPosX = onPosX * -1;
-        bool FirstTimeOn = (PlayerPrefs.GetFloat(SoundIsOnKey) == 0);
+
+        bool FirstTimeOn = (PlayerPrefs.GetInt(SoundIsOnKey) == 0);
         if (FirstTimeOn)
         {
-            isOn = true;
-            PlayerPrefs.SetFloat(SoundIsOnKey, 1);
+            IsOn = true;
+            //Toggle(isOn);
+            PlayerPrefs.SetInt(SoundIsOnKey, 1);
+            PlayerPrefs.SetInt(SoundKey, 1);
         }
 
-
-
-        if (PlayerPrefs.GetFloat(SoundKey) == 1)
-        {
-            isOn = true;
-        }
+        bool SoundShouldBeON = (PlayerPrefs.GetInt(SoundKey) == 1);
+        if (SoundShouldBeON)
+            IsOn = true;
         else
-        {
-            isOn = false;
-        }
-    }
+            IsOn = false;
 
 
-    void Start()
-    {
-        //Sound();
     }
+
 
     void Sound()
     {
-        if (isOn)
+        if (IsOn)
         {
             toggleBgImage.color = onColorBg;
             handleTransform.localPosition = new Vector3(onPosX, 0f, 0f);
             onIcon.gameObject.SetActive(true);
             offIcon.gameObject.SetActive(false);
+            offIcon.gameObject.GetComponent<CanvasGroup>().alpha = 1;
+            PlayerPrefs.SetInt(SoundKey, 1);
         }
         else
         {
@@ -82,6 +79,8 @@ public class ToggleController : MonoBehaviour
             handleTransform.localPosition = new Vector3(offPosX, 0f, 0f);
             onIcon.gameObject.SetActive(false);
             offIcon.gameObject.SetActive(true);
+            onIcon.gameObject.GetComponent<CanvasGroup>().alpha = 1;
+            PlayerPrefs.SetInt(SoundKey, 0);
         }
     }
 
@@ -105,16 +104,17 @@ public class ToggleController : MonoBehaviour
 
     void Update()
     {
+        Sound();
 
         if (switching)
         {
-            Toggle(isOn);
+            Toggle(IsOn);
         }
     }
 
     public void DoYourStaff()
     {
-        Debug.Log(isOn);
+        Debug.Log(IsOn);
     }
 
     public void Switching()
@@ -138,7 +138,6 @@ public class ToggleController : MonoBehaviour
             Transparency(onIcon, 1f, 0f);
             Transparency(offIcon, 0f, 1f);
             handleTransform.localPosition = SmoothMove(handle, onPosX, offPosX);
-            PlayerPrefs.SetInt(SoundKey, 1);
         }
         else
         {
@@ -146,7 +145,6 @@ public class ToggleController : MonoBehaviour
             Transparency(onIcon, 0f, 1f);
             Transparency(offIcon, 1f, 0f);
             handleTransform.localPosition = SmoothMove(handle, offPosX, onPosX);
-            PlayerPrefs.SetInt(SoundKey, 0);
         }
 
     }
@@ -182,15 +180,15 @@ public class ToggleController : MonoBehaviour
             switching = false;
 
             t = 0.0f;
-            switch (isOn)
+            switch (IsOn)
             {
                 case true:
-                    isOn = false;
+                    IsOn = false;
                     DoYourStaff();
                     break;
 
                 case false:
-                    isOn = true;
+                    IsOn = true;
                     DoYourStaff();
                     break;
             }

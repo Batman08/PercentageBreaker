@@ -40,7 +40,8 @@ public class StickSpawner : MonoBehaviour
 
     void Update()
     {
-        if (_manager._gameOver)
+        bool GameIsOver = (_manager._gameOver);
+        if (GameIsOver)
             gameObject.SetActive(value: false);
     }
 

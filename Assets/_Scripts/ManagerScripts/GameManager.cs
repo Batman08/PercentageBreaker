@@ -119,7 +119,19 @@ public class GameManager : MonoBehaviour
         CalculatePercentageTextOutput();
         UpdateLivesText();
         CheckForAds();
+
+
+        bool PastFiveRounds = (PlayerPrefs.GetInt(RoundCountKey) >= 2);
+        if (PastFiveRounds)
+        {
+            ChangeValue = true;
+            ChangeValue = false;
+        }
+
+        ChangeValues();
     }
+
+    private readonly string RoundCountKey = "NumberOfRoundsKey";
 
     void CalculatePercentageTextOutput()
     {
@@ -242,13 +254,6 @@ public class GameManager : MonoBehaviour
         //TextAnim.SetBool("HidePercentageText", false);
         // ShowTextAnim = false;
     }
-
-    //void ShowNewPercentageTextAnim()
-    //{
-    //    TextAnim.SetBool("HidePercentageText", true);
-    //    TextAnim.SetBool("HidePercentageText", false);
-    //    ShowTextAnim = true;
-    //}
     #endregion
 
     #region Button Methods
@@ -268,7 +273,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public static int NumberOFDeaths = 0;
-    private string DeathCountKey = "DeathCount";
+    private readonly string DeathCountKey = "DeathCount";
 
     #region OtherMethods
     public void GameOver()
@@ -308,14 +313,36 @@ public class GameManager : MonoBehaviour
 
     public float Length = 0.608f;
 
-    public void ChangeBufferPercentage()
-    {
-        BufferPercent -= 0.05f;
-        textbufferValue -= 5;
+    //public void ChangeBufferPercentage()
+    //{
+    //    ChangeValues();
 
-        float NewLength = Length * 0.05f;
-        Length += NewLength;
-        Debug.Log(Length);
+    //    if (ChangeValue)
+    //    {
+    //        float NewLength = Length * 0.05f;
+    //        Length += NewLength;
+    //        Debug.Log(Length);
+    //    }
+    //    return;
+    //}
+
+    public bool ChangeValue = false;
+
+    void ChangeValues()
+    {
+        if (ChangeValue)
+        {
+            BufferPercent -= 0.05f;
+            textbufferValue -= 5;
+
+            //float NewLength = Length * 0.05f;
+            //Length += NewLength;
+            //Debug.Log(Length);
+
+            ChangeValue = false;
+            return;
+        }
+
     }
 
     #region Not Used Methods

@@ -19,7 +19,7 @@ public class StickSpawner : MonoBehaviour
     private GameManager _manager;
     public float spawnWait = 0.5f;
 
-    private string RoundCountKey = "NumberOfRoundsKey";
+    private readonly string RoundCountKey = "NumberOfRoundsKey";
     public int roundNumCount;
 
     void Awake()
@@ -40,9 +40,23 @@ public class StickSpawner : MonoBehaviour
 
     void Update()
     {
+        bool NoStickAsChildrenOfSpawner = ((transform.childCount < 2));
+        if (NoStickAsChildrenOfSpawner)
+        {
+            StartCoroutine(EnableBoolWaveStart());
+            return;
+        }
+
         bool GameIsOver = (_manager._gameOver);
         if (GameIsOver)
             gameObject.SetActive(value: false);
+    }
+
+    IEnumerator EnableBoolWaveStart()
+    {
+        HasWaveEnded = true;
+        yield return new WaitForSeconds(0.5f);
+        HasWaveEnded = false;
     }
 
     public void SpawnStick()
@@ -85,10 +99,10 @@ public class StickSpawner : MonoBehaviour
                 break;
             }
 
-            bool PastFiveRounds = (PlayerPrefs.GetInt(RoundCountKey) >= 5);
+            bool PastFiveRounds = (PlayerPrefs.GetInt(RoundCountKey) >= 2);
             if (PastFiveRounds)
             {
-                _manager.ChangeBufferPercentage();
+                //_manager.ChangeBufferPercentage();
                 roundNumCount = 0;
                 PlayerPrefs.GetInt(RoundCountKey, roundNumCount);
             }

@@ -142,7 +142,7 @@ public class Blade : MonoBehaviour
         {
             _currentBladeTrail.transform.SetParent(null);
         }
-        Destroy(_currentBladeTrail, 2f);
+        Destroy(obj: _currentBladeTrail, t: 2f);
         _circleCollider.enabled = false;
     }
 }

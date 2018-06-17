@@ -61,17 +61,18 @@
   <ItemGroup>
     <Compile Include="Assets\_Scripts\_BladeScripts\Blade.cs" />
     <Compile Include="Assets\_Scripts\_BladeScripts\BladeCollisions.cs" />
+    <Compile Include="Assets\_Scripts\_BladeScripts\BladeSlicingMechanic.cs" />
     <Compile Include="Assets\_Scripts\_BladeScripts\RaycastCollision.cs" />
-    <Compile Include="Assets\_Scripts\_BladeScripts\ToggleController.cs" />
     <Compile Include="Assets\_Scripts\AdScripts\AdManager.cs" />
     <Compile Include="Assets\_Scripts\AdScripts\Ads.cs" />
     <Compile Include="Assets\_Scripts\AdScripts\GoogleAdManager.cs" />
     <Compile Include="Assets\_Scripts\CameraScripts\CameraShake.cs" />
     <Compile Include="Assets\_Scripts\DestroyByScripts\DestroyOverTime.cs" />
-    <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientBackground.cs" />
-    <Compile Include="Assets\_Scripts\DestroyByScripts\GradientScripts\GradientTest.cs" />
+    <Compile Include="Assets\_Scripts\GradientScripts\GradientBackground.cs" />
+    <Compile Include="Assets\_Scripts\GradientScripts\GradientTest.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\AudioManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\GameManager.cs" />
+    <Compile Include="Assets\_Scripts\ManagerScripts\LivesManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\MenuManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\PauseMenuManager.cs" />
     <Compile Include="Assets\_Scripts\ManagerScripts\PreLoader.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Assets\_Scripts\StickScripts\StickSpawner.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\TargetValues.cs" />
     <Compile Include="Assets\_Scripts\StickScripts\WaveSpawner.cs" />
+    <Compile Include="Assets\_Scripts\ToggleController.cs" />
     <Compile Include="Assets\_Scripts\TutorialScripts\RotateStickMainMenu.cs" />
     <Compile Include="Assets\_Scripts\TutorialScripts\StartTutorialAnimation.cs" />
     <Compile Include="Assets\_Scripts\TutorialScripts\TutorialHandCollision.cs" />
@@ -106,13 +108,6 @@
     <Compile Include="Assets\ZPlugins(Assets)\Plugins\Admob\AdmobAPI\AdSize.cs" />
     <Compile Include="Assets\ZPlugins(Assets)\Plugins\Admob\AdmobAPI\IAdmobListener.cs" />
     <Compile Include="Assets\ZPlugins(Assets)\Plugins\Admob\AdmobAPI\MonoPInvokeCallbackAttribute.cs" />
-    <Compile Include="Assets\ZPlugins(Assets)\ProCore\ProGrids\Classes\pg_Constant.cs" />
-    <Compile Include="Assets\ZPlugins(Assets)\ProCore\ProGrids\Classes\pg_Enum.cs" />
-    <Compile Include="Assets\ZPlugins(Assets)\ProCore\ProGrids\Classes\pg_IconUtility.cs" />
-    <Compile Include="Assets\ZPlugins(Assets)\ProCore\ProGrids\Classes\pg_IgnoreSnapAttribute.cs" />
-    <Compile Include="Assets\ZPlugins(Assets)\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
-    <Compile Include="Assets\ZPlugins(Assets)\ProCore\ProGrids\Classes\pg_Util.cs" />
-    <Compile Include="Assets\ZPlugins(Assets)\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
     <Compile Include="Assets\ZPlugins(Assets)\UnitySpriteCutter\Cutters\ColliderPathsCreator.cs" />
     <Compile Include="Assets\ZPlugins(Assets)\UnitySpriteCutter\Cutters\FlatConvexCollidersCutter.cs" />
     <Compile Include="Assets\ZPlugins(Assets)\UnitySpriteCutter\Cutters\FlatConvexPolygonMeshCutter.cs" />
@@ -126,11 +121,8 @@
     <Compile Include="Assets\ZPlugins(Assets)\UnitySpriteCutter\Tools\SpriteMeshContructor.cs" />
     <Compile Include="Assets\ZPlugins(Assets)\UnitySpriteCutterExample\LinecastCutter.cs" />
     <Compile Include="Assets\ZPlugins(Assets)\UnitySpriteCutterExample\MouseInputRepresentationBehaviour.cs" />
-    <None Include="Assets\ZPlugins(Assets)\ProCore\ProGrids\Shader\pg_GridShader.shader" />
-    <None Include="Assets\ZPlugins(Assets)\ProCore\ProGrids\About\pc_AboutEntry_ProGrids.txt" />
-    <None Include="Assets\ZPlugins(Assets)\ProCore\ProGrids\About\changelog.txt" />
     <None Include="Assets\ZPlugins(Assets)\Plugins\Admob\Android\AndroidManifest.xml" />
-    <None Include="Assets\_Scripts\DestroyByScripts\GradientScripts\SpriteGradient.shader" />
+    <None Include="Assets\_Scripts\GradientScripts\SpriteGradient.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/asgha/Documents/Unity Projects/Percentage Breaker/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

@@ -11,7 +11,7 @@ public class BladeCollisions : MonoBehaviour
 
     public int Lives;
 
-    private int _maxLives = 3;
+    private readonly int _maxLives = 3;
 
     public int _sticksDestroyed;
     private int BladeLayer;

@@ -40,6 +40,12 @@ public class Stick : MonoBehaviour
         {
             SpeedForce = 0.5f;
         }
+
+        PolygonCollider2D collider2D = GetComponent<PolygonCollider2D>();
+        if (collider2D != null)
+        {
+            Destroy(collider2D);
+        }
     }
 
     void FixedUpdate()

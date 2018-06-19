@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private Variables
-    private BladeCollisions _bladeCollisions;
+    private LivesManager _lives;
     private ScoreManager _scoreManager;
     public CameraShake _cameraShake;
 
@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
         //Changes percentage and buffer percentage
         //InvokeRepeating("ChangePercentage", 0, ChangePercentageTime);
         //InvokeRepeating("ChangeBufferPercentage", ChangeBufferPercentageTime, ChangeBufferPercentageTime);
-        _bladeCollisions = FindObjectOfType<BladeCollisions>();
+        _lives = FindObjectOfType<LivesManager>();
         _scoreManager = GetComponent<ScoreManager>();
     }
     #endregion
@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateLivesText()
     {
-        LivesText.text = "Lives: " + _bladeCollisions.Lives;
+        LivesText.text = "Lives: " + _lives.Lives;
     }
 
     void StartSpawningSticks()
@@ -288,7 +288,7 @@ public class GameManager : MonoBehaviour
         if (_gameOver && _dontWantToSeeAnAd)
         {
             _scoreManager.SaveScore();
-            _bladeCollisions.gameObject.SetActive(value: false);
+            _lives.gameObject.SetActive(value: false);
             //Destroy(_bladeCollisions.gameObject);
         }
         //Debug.Log(PlayerPrefs.GetInt(DeathCountKey));

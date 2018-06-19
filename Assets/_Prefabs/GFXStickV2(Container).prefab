@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0852530ee83408429fd2398b5295bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cross: {fileID: 0}
+  Cross: {fileID: 1628724064481898, guid: 79f046faa95b8d24d9269188006168ef, type: 2}
   GradientMaterial: {fileID: 2100000, guid: 8202d6da09b358544b479aa1f1f29691, type: 2}
   Move: 1
   SpeedForce: 0.024

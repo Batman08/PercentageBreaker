@@ -22,7 +22,14 @@ public class BladeSlicingMechanic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        PerformSliceAnimation();
         DestroyStickGameObj(collision);
+    }
+
+    void PerformSliceAnimation()
+    {
+        int layermaskValue = LinecastCutter.linecastCutter.layerMask.value;
+        LinecastCutter.linecastCutter.LinecastCut(LinecastCutter.linecastCutter.mouseStart, LinecastCutter.linecastCutter.mouseEnd, layermaskValue);
     }
 
     void DestroyStickGameObj(Collider2D collision)
@@ -32,7 +39,6 @@ public class BladeSlicingMechanic : MonoBehaviour
 
         if (SlicedBuffer)
         {
-            stickObject.GetComponent<Collider2D>().enabled = false;
             _livesManager._sticksDestroyed++;
 
 
@@ -41,7 +47,10 @@ public class BladeSlicingMechanic : MonoBehaviour
 
 
             DestroyStickSound(stickObject);
+            //Destroy(stickObject.GetComponent<PolygonCollider2D>());
         }
+
+        DidSlicecorrectlyVisual(collision, _tick, _cross);
     }
 
     void DestroyStickSound(GameObject Gameobj)
@@ -60,11 +69,20 @@ public class BladeSlicingMechanic : MonoBehaviour
     void DidSlicecorrectlyVisual(Collider2D collision, GameObject tick, GameObject cross)
     {
         bool SlicedBuffer = (collision.GetComponent<Collider2D>().CompareTag("Buffer"));
+        bool SlicedStick = (collision.GetComponent<Collider2D>().CompareTag("Stick"));
 
         if (SlicedBuffer)
         {
+            Debug.Log("Sliced Correctly");
             tick.SetActive(value: true);
             cross.SetActive(value: false);
+        }
+
+        else if (SlicedStick)
+        {
+            Debug.Log("Sliced Incorrectly");
+            tick.SetActive(value: false);
+            cross.SetActive(value: true);
         }
     }
 }

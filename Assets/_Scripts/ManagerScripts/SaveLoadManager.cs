@@ -45,6 +45,6 @@ public class ScoreData
 
     public ScoreData(ScoreManager scoreManager)
     {
-        Score = scoreManager._scoreCount;
+        Score = scoreManager.ScoreCount;
     }
 }

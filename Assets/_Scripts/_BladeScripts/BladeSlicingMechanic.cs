@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class BladeSlicingMechanic : MonoBehaviour
 {
-    public GameObject _tick, _cross;
+    public GameObject Tick, Cross;
 
     private AudioManager _audioManager;
     private LivesManager _livesManager;
+    private ScoreManager _scoreManager;
+
+    public bool HasSlicedCorrectly;
 
     void Awake()
     {
         _audioManager = FindObjectOfType<AudioManager>();
         _livesManager = FindObjectOfType<LivesManager>();
+        _scoreManager = FindObjectOfType<ScoreManager>();
     }
 
-    void Update()
-    {
-
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         PerformSliceAnimation();
         DestroyStickGameObj(collision);
@@ -34,23 +33,31 @@ public class BladeSlicingMechanic : MonoBehaviour
 
     void DestroyStickGameObj(Collider2D collision)
     {
-        bool SlicedBuffer = (collision.GetComponent<Collider2D>().CompareTag("Buffer"));
+        bool slicedBuffer = (collision.GetComponent<Collider2D>().CompareTag("Buffer"));
         GameObject stickObject = GameObject.FindGameObjectWithTag("Stick");
 
-        if (SlicedBuffer)
+        if (slicedBuffer)
         {
+            HasSlicedCorrectly = true;
             _livesManager._sticksDestroyed++;
+            _scoreManager.AddScore();
 
-
-            //FINISH VISUAL EFFECTS FOR PLAYER TO RELISE WHAT THEY HAVE DONE!!
-            //(TICK/CROSS)
-
+            if (Tick != null)
+            {
+                Instantiate(Tick, collision.transform.position, Quaternion.identity);
+            }
 
             DestroyStickSound(stickObject);
-            //Destroy(stickObject.GetComponent<PolygonCollider2D>());
+            Destroy(stickObject.GetComponent<PolygonCollider2D>());
         }
 
-        DidSlicecorrectlyVisual(collision, _tick, _cross);
+        else
+        {
+            if (Cross != null)
+            {
+                Instantiate(Cross, collision.transform.position, Quaternion.identity);
+            }
+        }
     }
 
     void DestroyStickSound(GameObject Gameobj)
@@ -64,25 +71,5 @@ public class BladeSlicingMechanic : MonoBehaviour
         }
 
         Destroy(Gameobj, 4f);
-    }
-
-    void DidSlicecorrectlyVisual(Collider2D collision, GameObject tick, GameObject cross)
-    {
-        bool SlicedBuffer = (collision.GetComponent<Collider2D>().CompareTag("Buffer"));
-        bool SlicedStick = (collision.GetComponent<Collider2D>().CompareTag("Stick"));
-
-        if (SlicedBuffer)
-        {
-            Debug.Log("Sliced Correctly");
-            tick.SetActive(value: true);
-            cross.SetActive(value: false);
-        }
-
-        else if (SlicedStick)
-        {
-            Debug.Log("Sliced Incorrectly");
-            tick.SetActive(value: false);
-            cross.SetActive(value: true);
-        }
     }
 }

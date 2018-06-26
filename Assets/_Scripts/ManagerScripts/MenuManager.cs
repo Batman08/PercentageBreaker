@@ -60,7 +60,16 @@ public class MenuManager : MonoBehaviour
         //Admob.Instance().removeBanner();
 
         //Go to game scene
-        SceneManager.LoadScene(2);
+
+
+        if (PlayerPrefs.GetInt("ShowTutorial") > 0)
+        {
+            SceneManager.LoadScene(2);
+        }
+        else if (PlayerPrefs.GetInt("ShowTutorial") < 1)
+        {
+            SceneManager.LoadScene(3);
+        }
     }
 
     public void QuitGame()
@@ -70,4 +79,4 @@ public class MenuManager : MonoBehaviour
         Debug.Log("Quit Game!");
     }
 
-}   
+}

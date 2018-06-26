@@ -10,8 +10,16 @@ public class Stick : MonoBehaviour
     //-0.01f
     public float SpeedForce;
 
-    private BladeCollisions _blade;
     private GameObject _obj;
+
+    void Awake()
+    {
+        // Gradient();
+        //if (StickSpawner.stickSpawner != null)
+        //{
+        //    SpeedForce = StickSpawner.stickSpawner.Speed;
+        //}
+    }
 
     void OnEnable()
     {
@@ -20,16 +28,6 @@ public class Stick : MonoBehaviour
         int StickLayer = 8;
         Physics2D.IgnoreLayerCollision(BladeLayer, BufferLayer, false);
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
-    }
-
-    void Start()
-    {
-        // Gradient();
-        //if (StickSpawner.stickSpawner != null)
-        //{
-        //    SpeedForce = StickSpawner.stickSpawner.Speed;
-        //}
-        _blade = FindObjectOfType<BladeCollisions>();
     }
 
     void Update()
@@ -99,7 +97,7 @@ public class Stick : MonoBehaviour
             //_blade.Lives--;
             float YPos = -4.13f;
             float XOffset = 0.55345f;
-            _obj = Instantiate(_blade.Cross, new Vector2(transform.position.x + XOffset, YPos), Quaternion.identity);
+            _obj = Instantiate(Cross, new Vector2(transform.position.x + XOffset, YPos), Quaternion.identity);
             StartCoroutine(TakeAwayObject(_obj));
             Destroy(gameObject);
         }

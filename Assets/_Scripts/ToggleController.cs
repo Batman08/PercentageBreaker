@@ -33,6 +33,13 @@ public class ToggleController : MonoBehaviour
     private string SoundIsOnKey = "On";
     private string SoundKey = "Value";
 
+    private string ShowTutorialKey = "On2";
+    private string TutorialKey = "Value2";
+
+    public bool IsSound;
+    public bool IsTutorial;
+
+    public bool Showtutorial;
 
     void Awake()
     {
@@ -43,44 +50,91 @@ public class ToggleController : MonoBehaviour
         onPosX = (toggleSizeX / 2) - (handleSize / 2) - handleOffset;
         offPosX = onPosX * -1;
 
-        bool FirstTimeOn = (PlayerPrefs.GetInt(SoundIsOnKey) == 0);
-        if (FirstTimeOn)
+        if (IsSound)
         {
-            IsOn = true;
-            //Toggle(isOn);
-            PlayerPrefs.SetInt(SoundIsOnKey, 1);
-            PlayerPrefs.SetInt(SoundKey, 1);
+            bool FirstTimeOn = (PlayerPrefs.GetInt(SoundIsOnKey) == 0);
+            if (FirstTimeOn)
+            {
+                IsOn = true;
+                //Toggle(isOn);
+                PlayerPrefs.SetInt(SoundIsOnKey, 1);
+                PlayerPrefs.SetInt(SoundKey, 1);
+            }
+
+            bool SoundShouldBeON = (PlayerPrefs.GetInt(SoundKey) == 1);
+            if (SoundShouldBeON)
+                IsOn = true;
+            else
+                IsOn = false;
         }
 
-        bool SoundShouldBeON = (PlayerPrefs.GetInt(SoundKey) == 1);
-        if (SoundShouldBeON)
-            IsOn = true;
-        else
-            IsOn = false;
+        else if (IsTutorial)
+        {
+            bool FirstTimeOn = (PlayerPrefs.GetInt(ShowTutorialKey) == 0);
+            if (FirstTimeOn)
+            {
+                Showtutorial = true;
+                //Toggle(isOn);
+                PlayerPrefs.SetInt(ShowTutorialKey, 1);
+                PlayerPrefs.SetInt(TutorialKey, 1);
+            }
 
-
+            bool SoundShouldBeON = (PlayerPrefs.GetInt(TutorialKey) == 1);
+            if (SoundShouldBeON)
+                Showtutorial = true;
+            else
+                Showtutorial = false;
+        }
     }
 
 
+    void ShouldShowTutorial()
+    {
+        if (IsTutorial)
+        {
+            if (Showtutorial)
+            {
+                toggleBgImage.color = onColorBg;
+                handleTransform.localPosition = new Vector3(onPosX, 0f, 0f);
+                onIcon.gameObject.SetActive(true);
+                offIcon.gameObject.SetActive(false);
+                offIcon.gameObject.GetComponent<CanvasGroup>().alpha = 1;
+                PlayerPrefs.SetInt(TutorialKey, 1);
+            }
+            else
+            {
+                toggleBgImage.color = offColorBg;
+                handleTransform.localPosition = new Vector3(offPosX, 0f, 0f);
+                onIcon.gameObject.SetActive(false);
+                offIcon.gameObject.SetActive(true);
+                onIcon.gameObject.GetComponent<CanvasGroup>().alpha = 1;
+                PlayerPrefs.SetInt(TutorialKey, 0);
+            }
+        }
+    }
+
     void Sound()
     {
-        if (IsOn)
+        if (IsSound)
         {
-            toggleBgImage.color = onColorBg;
-            handleTransform.localPosition = new Vector3(onPosX, 0f, 0f);
-            onIcon.gameObject.SetActive(true);
-            offIcon.gameObject.SetActive(false);
-            offIcon.gameObject.GetComponent<CanvasGroup>().alpha = 1;
-            PlayerPrefs.SetInt(SoundKey, 1);
-        }
-        else
-        {
-            toggleBgImage.color = offColorBg;
-            handleTransform.localPosition = new Vector3(offPosX, 0f, 0f);
-            onIcon.gameObject.SetActive(false);
-            offIcon.gameObject.SetActive(true);
-            onIcon.gameObject.GetComponent<CanvasGroup>().alpha = 1;
-            PlayerPrefs.SetInt(SoundKey, 0);
+            if (IsOn)
+            {
+                toggleBgImage.color = onColorBg;
+                handleTransform.localPosition = new Vector3(onPosX, 0f, 0f);
+                onIcon.gameObject.SetActive(true);
+                offIcon.gameObject.SetActive(false);
+                offIcon.gameObject.GetComponent<CanvasGroup>().alpha = 1;
+                PlayerPrefs.SetInt(SoundKey, 1);
+            }
+            else
+            {
+                toggleBgImage.color = offColorBg;
+                handleTransform.localPosition = new Vector3(offPosX, 0f, 0f);
+                onIcon.gameObject.SetActive(false);
+                offIcon.gameObject.SetActive(true);
+                onIcon.gameObject.GetComponent<CanvasGroup>().alpha = 1;
+                PlayerPrefs.SetInt(SoundKey, 0);
+            }
         }
     }
 
@@ -105,6 +159,7 @@ public class ToggleController : MonoBehaviour
     void Update()
     {
         Sound();
+        ShouldShowTutorial();
 
         if (switching)
         {

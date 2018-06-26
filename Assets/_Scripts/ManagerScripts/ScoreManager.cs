@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     public Text EndGameScoreText;
 
     [HideInInspector]
-    public int _scoreCount;
+    public int ScoreCount;
     [HideInInspector]
     public int StickScoreValue = 1;
     private GameManager _manager;
@@ -17,17 +17,17 @@ public class ScoreManager : MonoBehaviour
 
     void Awake()
     {
-        _scoreCount = 0;
+        ScoreCount = 0;
         _manager = FindObjectOfType<GameManager>();
     }
 
     void Update()
     {
-        UpdateScore(_scoreCount);
+        UpdateScore(ScoreCount);
 
         if (_manager._gameOver)
         {
-            ShowEndGameScore(_scoreCount);
+            ShowEndGameScore(ScoreCount);
         }
     }
 
@@ -38,7 +38,7 @@ public class ScoreManager : MonoBehaviour
 
     public void AddScore()
     {
-        _scoreCount += StickScoreValue;
+        ScoreCount += StickScoreValue;
     }
 
     void UpdateScore(int Score)
@@ -52,10 +52,10 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveScore()
     {
-        bool ScoreIsGreaterThanHighScore = (PlayerPrefs.GetInt(HighScoreKeyString) < _scoreCount);
+        bool ScoreIsGreaterThanHighScore = (PlayerPrefs.GetInt(HighScoreKeyString) < ScoreCount);
         if (ScoreIsGreaterThanHighScore)
         {
-            PlayerPrefs.SetInt(HighScoreKeyString, _scoreCount);
+            PlayerPrefs.SetInt(HighScoreKeyString, ScoreCount);
         }
     }
 }

@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -39,6 +39,7 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 40
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -158,7 +158,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyRenderer: {fileID: 1342654860}
   _bufferSizeResult: 0
-  length: 0.4986
 --- !u!1 &160962884
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +307,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114264271773927704, guid: 509c58601bb000043b9754d14da47479,
+        type: 2}
+      propertyPath: SpeedForce
+      value: 0.03978
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114720255529299138, guid: 509c58601bb000043b9754d14da47479, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 509c58601bb000043b9754d14da47479, type: 2}
@@ -344,6 +348,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 8202d6da09b358544b479aa1f1f29691, type: 2}
   m_StaticBatchInfo:
@@ -509,7 +514,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 248.17, y: 252.07996}
+  m_AnchoredPosition: {x: 223.88, y: 252.07996}
   m_SizeDelta: {x: 1000, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &405127479
@@ -544,8 +549,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Slice at the right \npercentage of the stick.\n(The arrow is the starting
-    point --- 0%)"
+  m_Text: 'Slice at the right percentage of the stick.
+
+    (The arrow is the starting point --- 0%)'
 --- !u!222 &405127480
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -826,6 +832,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -902,6 +909,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -965,6 +973,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 8202d6da09b358544b479aa1f1f29691, type: 2}
   m_StaticBatchInfo:
@@ -1467,7 +1476,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyRenderer: {fileID: 717196974}
   _bufferSizeResult: 0
-  length: 0.4986
 --- !u!61 &989623817
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1508,6 +1516,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1630,7 +1639,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyRenderer: {fileID: 717196974}
   _bufferSizeResult: 0
-  length: 0.4986
 --- !u!1 &1017085930
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,7 +1816,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyRenderer: {fileID: 1342654860}
   _bufferSizeResult: 0
-  length: 0.4986
 --- !u!61 &1118902313
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1849,6 +1856,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -2020,6 +2028,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -2270,6 +2279,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 8202d6da09b358544b479aa1f1f29691, type: 2}
   m_StaticBatchInfo:
@@ -2386,6 +2396,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -2749,7 +2760,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyRenderer: {fileID: 238744598}
   _bufferSizeResult: 0
-  length: 0.4986
 --- !u!61 &1637372870
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2790,6 +2800,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -2937,7 +2948,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyRenderer: {fileID: 238744598}
   _bufferSizeResult: 0
-  length: 0.4986
 --- !u!1 &1805362984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2970,6 +2980,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -3031,6 +3042,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1805362988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3141,6 +3153,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 8202d6da09b358544b479aa1f1f29691, type: 2}
   m_StaticBatchInfo:
@@ -3506,6 +3519,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -3582,6 +3596,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:

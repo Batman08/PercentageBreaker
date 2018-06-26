@@ -109,10 +109,10 @@ public class Blade : MonoBehaviour
 
     void StartCutting()
     {
-        //newPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 NewPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
         _isCutting = true;
         //_currentBladeTrail = Instantiate(BladeTrailPrefab, transform);
-        // _previousePosition = newPosition;
+        _previousePosition = NewPosition;
         _circleCollider.enabled = false;
 
         PlaySlashingSound();
@@ -141,8 +141,8 @@ public class Blade : MonoBehaviour
         if (_currentBladeTrail != null)
         {
             _currentBladeTrail.transform.SetParent(null);
-        }
-        Destroy(obj: _currentBladeTrail, t: 2f);
+        }//2f
+        Destroy(obj: _currentBladeTrail, t: 0f);
         _circleCollider.enabled = false;
     }
 }

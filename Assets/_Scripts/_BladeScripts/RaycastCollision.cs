@@ -143,7 +143,7 @@ public class RaycastCollision : MonoBehaviour
             StartCoroutine(TakeAwayObject(_objStick));
             _sticksDestroyed++;
 
-            _scoreManager.AddScore();
+            _scoreManager.AddScore(1);
         }
     }
     void CollidingWithStick()

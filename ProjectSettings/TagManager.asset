@@ -10,6 +10,11 @@ TagManager:
   - Buffer
   - BufferRight
   - BufferLeft
+  - OnText
+  - Handle
+  - Off Text
+  - Toggle Bg
+  - Tick
   layers:
   - Default
   - TransparentFX

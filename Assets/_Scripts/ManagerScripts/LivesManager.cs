@@ -12,6 +12,8 @@ public class LivesManager : MonoBehaviour
 
     void Awake()
     {
+        _manager = FindObjectOfType<GameManager>();
+
         Lives = _maxLives;
         _sticksDestroyed = 0;
     }
@@ -34,7 +36,7 @@ public class LivesManager : MonoBehaviour
 
     void CheckForStickCombo()
     {
-        float MaxSticksDestroyedToGetAnotherLife = 10;
+        float MaxSticksDestroyedToGetAnotherLife = 5;
         bool CanGiveAnotherLife = (_sticksDestroyed >= MaxSticksDestroyedToGetAnotherLife);
         if (CanGiveAnotherLife)
         {

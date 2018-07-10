@@ -13,8 +13,8 @@ public class PreLoader : MonoBehaviour
     {
         PlayerPrefs.SetInt(SoundIsOnKey, 0);
         PlayerPrefs.SetInt(ShowTutorialKey, 0);
-        Debug.Log(PlayerPrefs.GetInt(SoundIsOnKey));
-        Debug.Log(PlayerPrefs.GetInt(ShowTutorialKey));
+        /* Debug.Log(PlayerPrefs.GetInt(SoundIsOnKey));
+         Debug.Log(PlayerPrefs.GetInt(ShowTutorialKey));*/
         SceneManager.LoadScene(1);
     }
 }

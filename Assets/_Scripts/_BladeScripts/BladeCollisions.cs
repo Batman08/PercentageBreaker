@@ -53,7 +53,7 @@ public class BladeCollisions : MonoBehaviour
         bool ZeroLifesLeft = (Lives <= 0);
         if (ZeroLifesLeft)
         {
-            _manager.GameOver();
+            //_manager.GameOver();
 
             return;
         }
@@ -131,7 +131,7 @@ public class BladeCollisions : MonoBehaviour
             StartCoroutine(TakeAwayObject(_objStick));
             _sticksDestroyed++;
 
-            _scoreManager.AddScore();
+            _scoreManager.AddScore(1);
             return;
         }
 

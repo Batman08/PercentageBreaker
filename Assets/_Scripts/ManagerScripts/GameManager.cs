@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
         //InvokeRepeating("ChangePercentage", 0, ChangePercentageTime);
         //InvokeRepeating("ChangeBufferPercentage", ChangeBufferPercentageTime, ChangeBufferPercentageTime);
         _lives = FindObjectOfType<LivesManager>();
-        _scoreManager = GetComponent<ScoreManager>();
+        _scoreManager = FindObjectOfType<ScoreManager>();
     }
     #endregion
 
@@ -260,7 +260,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         _dontWantToSeeAnAd = true;
-        _scoreManager.SaveScore();
+        _scoreManager.CheckIfHighScore();
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //GoogleAdManager.Instance.ShowVideoAd();
@@ -279,7 +279,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         NumberOFDeaths += 1;
-
+        _scoreManager.ShowScore = true;
         PlayerPrefs.SetInt(DeathCountKey, NumberOFDeaths);
         _gameOver = true;
         GamePanel.SetActive(value: false);
@@ -287,11 +287,11 @@ public class GameManager : MonoBehaviour
 
         if (_gameOver && _dontWantToSeeAnAd)
         {
-            _scoreManager.SaveScore();
+            _scoreManager.CheckIfHighScore();
             _lives.gameObject.SetActive(value: false);
-            //Destroy(_bladeCollisions.gameObject);
+            Blade blade = FindObjectOfType<Blade>();
+            blade.gameObject.SetActive(value: false);
         }
-        //Debug.Log(PlayerPrefs.GetInt(DeathCountKey));
         CameraShaker.Instance.ShakeOnce(4, 4, 0.1f, 1);
     }
 

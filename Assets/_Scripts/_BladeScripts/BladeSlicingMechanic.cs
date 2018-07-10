@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BladeSlicingMechanic : MonoBehaviour
 {
-    public GameObject Tick, Cross;
+    public GameObject VisualEffects;
 
     private AudioManager _audioManager;
     private LivesManager _livesManager;
@@ -12,16 +12,27 @@ public class BladeSlicingMechanic : MonoBehaviour
 
     public bool HasSlicedCorrectly;
 
+    public int ScoreValue;
+
+    private PlayerVisualCorrection _playerVisualCorrection;
+
     void Awake()
     {
         _audioManager = FindObjectOfType<AudioManager>();
         _livesManager = FindObjectOfType<LivesManager>();
         _scoreManager = FindObjectOfType<ScoreManager>();
+        _playerVisualCorrection = FindObjectOfType<PlayerVisualCorrection>();
+
+        Instantiate(VisualEffects, Vector2.zero, Quaternion.identity);
+        VisualEffects = GameObject.Find("VisualEffects(Clone)");
+
+        ScoreValue = 1;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         PerformSliceAnimation();
+        SlicedPos = collision.transform.position;
         DestroyStickGameObj(collision);
     }
 
@@ -40,26 +51,23 @@ public class BladeSlicingMechanic : MonoBehaviour
         {
             HasSlicedCorrectly = true;
             _livesManager._sticksDestroyed++;
-            _scoreManager.AddScore();
+            _scoreManager.AddScore(ScoreValue);
 
-            if (Tick != null)
-            {
-                Instantiate(Tick, collision.transform.position, Quaternion.identity);
-            }
-
-            DestroyStickSound(stickObject);
-            Destroy(stickObject.GetComponent<PolygonCollider2D>());
+            VisualEffects.transform.GetChild(0).GetChild(0).gameObject.SetActive(value: true);
         }
 
         else
         {
-            if (Cross != null)
-            {
-                Instantiate(Cross, collision.transform.position, Quaternion.identity);
-            }
+            _livesManager.Lives--;
+            VisualEffects.transform.GetChild(0).GetChild(1).gameObject.SetActive(value: true);
         }
-    }
 
+        DestroyStickSound(stickObject);
+        Destroy(stickObject.GetComponent<PolygonCollider2D>());
+
+        SlicedPos = collision.transform.position;
+    }
+    public Vector2 SlicedPos;
     void DestroyStickSound(GameObject Gameobj)
     {
 

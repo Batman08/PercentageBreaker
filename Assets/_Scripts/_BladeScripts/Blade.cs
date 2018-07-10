@@ -4,6 +4,13 @@ public class Blade : MonoBehaviour
 {
     public GameObject BladeTrailPrefab;
     [Space]
+
+    public Transform Trail;
+    [Space]
+
+    public TrailRenderer TrailRend;
+    [Space]
+
     [Header("Blade Cutting Variables")]
     //0.001 -- min cutting vel
     public float MinCuttingVelocity = 0.00001f;
@@ -24,8 +31,8 @@ public class Blade : MonoBehaviour
 
     void Update()
     {
-        InputControls();
         _newPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
+        InputControls();
     }
 
     void FixedUpdate()
@@ -82,6 +89,7 @@ public class Blade : MonoBehaviour
         if (_isCutting)
         {
             UpdateCut();
+
             //_raycastCollision.RaycastToSeeIfCollidingWithStick();
             //_raycastCollision.RayCastCollisions();
         }
@@ -89,7 +97,22 @@ public class Blade : MonoBehaviour
 
     void UpdateCut()
     {
+        //Vector2 pos = _newPosition;
+        //Trail.position = pos;
         EnableCollider();
+
+        #region Gradient
+        /*float alpha1 = 1.0f;
+        float alpha2 = 0.0f;
+
+        Gradient gradient = new Gradient();
+        gradient.SetKeys
+            (
+            new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(Color.white, 0.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(alpha: alpha1, time: 0.0f), new GradientAlphaKey(alpha: alpha2, time: 0.0f) }
+            );
+        TrailRend.colorGradient = gradient;*/
+        #endregion
     }
 
     void EnableCollider()
@@ -104,15 +127,15 @@ public class Blade : MonoBehaviour
 
     private float NewVelocity(Vector2 newPosition)
     {
-        return (newPosition - _previousePosition).magnitude * Time.deltaTime;
+        return (newPosition - _previousePosition).magnitude / Time.deltaTime;
     }
 
     void StartCutting()
     {
-        Vector2 NewPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
         _isCutting = true;
-        //_currentBladeTrail = Instantiate(BladeTrailPrefab, transform);
-        _previousePosition = NewPosition;
+        _rb2d.position = _newPosition;
+        transform.position = _rb2d.position;
+        _currentBladeTrail = Instantiate(BladeTrailPrefab, transform);
         _circleCollider.enabled = false;
 
         PlaySlashingSound();
@@ -142,7 +165,7 @@ public class Blade : MonoBehaviour
         {
             _currentBladeTrail.transform.SetParent(null);
         }//2f
-        Destroy(obj: _currentBladeTrail, t: 0f);
+        Destroy(obj: _currentBladeTrail, t: 2f);
         _circleCollider.enabled = false;
     }
 }

@@ -12,6 +12,7 @@ public class StickSpawner : MonoBehaviour
     private float increaseDifficultyTime = 50f;
     public float increaseDifficulty = 0.01f;
     public bool HasWaveEnded = false;
+    public int roundNumCount;
     [HideInInspector]
     public float Speed;
 
@@ -20,7 +21,8 @@ public class StickSpawner : MonoBehaviour
     public float spawnWait = 0.5f;
 
     private readonly string RoundCountKey = "NumberOfRoundsKey";
-    public int roundNumCount;
+
+    private PlayerVisualCorrection _playerVisualCorrection;
 
     void Awake()
     {
@@ -34,6 +36,7 @@ public class StickSpawner : MonoBehaviour
 
     void Start()
     {
+        _playerVisualCorrection = FindObjectOfType<PlayerVisualCorrection>();
         startTime = System.DateTime.Now;
         Speed = 0.024f;
     }
@@ -44,6 +47,8 @@ public class StickSpawner : MonoBehaviour
         if (NoStickAsChildrenOfSpawner)
         {
             StartCoroutine(EnableBoolWaveStart());
+            _playerVisualCorrection.CanInstantiate = true;
+            _playerVisualCorrection.CheckForChildren();
             return;
         }
 

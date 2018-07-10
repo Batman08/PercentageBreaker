@@ -19,8 +19,8 @@ public class MenuManager : MonoBehaviour
     {
 
         //Shows the user their high score
-        string HighScore = PlayerPrefs.GetInt(HighscoreString).ToString();
-        ScoreText.text = HighScore;
+        //string HighScore = PlayerPrefs.GetInt(HighscoreString).ToString();
+        //ScoreText.text = HighScore;
 
         //CheckSoundButtonState();
 
@@ -56,19 +56,15 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGameBtn()
     {
-        //Destroys the ad incase it continues to next scene
-        //Admob.Instance().removeBanner();
-
         //Go to game scene
 
-
-        if (PlayerPrefs.GetInt("ShowTutorial") > 0)
-        {
-            SceneManager.LoadScene(2);
-        }
-        else if (PlayerPrefs.GetInt("ShowTutorial") < 1)
+        if (PlayerPrefs.GetInt("Value2") == 1)
         {
             SceneManager.LoadScene(3);
+        }
+        else if (PlayerPrefs.GetInt("Value2") == 0)
+        {
+            SceneManager.LoadScene(2);
         }
     }
 

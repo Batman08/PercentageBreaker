@@ -58,11 +58,11 @@ public class MenuManager : MonoBehaviour
     {
         //Go to game scene
 
-        if (PlayerPrefs.GetInt("Value2") == 1)
+        if (PlayerPrefs.GetInt("Value2") == 0)
         {
             SceneManager.LoadScene(3);
         }
-        else if (PlayerPrefs.GetInt("Value2") == 0)
+        else if (PlayerPrefs.GetInt("Value2") == 1)
         {
             SceneManager.LoadScene(2);
         }

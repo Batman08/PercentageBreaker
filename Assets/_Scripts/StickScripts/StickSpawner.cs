@@ -32,6 +32,7 @@ public class StickSpawner : MonoBehaviour
         roundNumCount = 0;
         PlayerPrefs.SetInt(RoundCountKey, roundNumCount);
         PlayerPrefs.SetFloat("CurrentPosition", 0);
+        SpawnStick();
     }
 
     void Start()
@@ -52,6 +53,8 @@ public class StickSpawner : MonoBehaviour
             return;
         }
 
+
+
         bool GameIsOver = (_manager._gameOver);
         if (GameIsOver)
             gameObject.SetActive(value: false);
@@ -60,7 +63,7 @@ public class StickSpawner : MonoBehaviour
     IEnumerator EnableBoolWaveStart()
     {
         HasWaveEnded = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(5f);
         HasWaveEnded = false;
     }
 

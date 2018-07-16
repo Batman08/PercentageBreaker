@@ -1599,7 +1599,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &643920858
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3327,6 +3327,7 @@ GameObject:
   - component: {fileID: 1297064858}
   - component: {fileID: 1297064859}
   - component: {fileID: 1297064857}
+  - component: {fileID: 1297064860}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3382,6 +3383,18 @@ MonoBehaviour:
   EndGameScoreText: {fileID: 643920859}
   ShowScore: 0
   ScoreCount: 0
+--- !u!114 &1297064860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1297064856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf8c5b7bee48734998071402e4f82b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextAnimator: {fileID: 1481719395}
 --- !u!1 &1308714183
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject ContinueButton;
 
-    public Animator TextAnim;
+    public Animator TextAnimator;
 
     #region Object Variables
     public GameObject BladePrefab;
@@ -86,7 +86,6 @@ public class GameManager : MonoBehaviour
         Manager = this;
         BufferPercent = MaxBufferValue;
         ChangePercentage();
-        StickSpawner.stickSpawner.SpawnStick();
         ContinueButton.SetActive(value: false);
         _cameraShake = Camera.main.GetComponent<CameraShake>();
 
@@ -113,10 +112,13 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //CalculatePercentage();
-        PlayPercentageTextAnimation();
+        //if (!StickSpawner.stickSpawner.HasWaveEnded)
+        //{
+        //    PlayPercentageTextAnimation();
+        //}
+        CalculatePercentageTextOutput();
         CheckIfWaveHasEnded();
         CheckIfBufferGoesOverMax();
-        CalculatePercentageTextOutput();
         UpdateLivesText();
         CheckForAds();
 
@@ -160,7 +162,7 @@ public class GameManager : MonoBehaviour
         bool WaveHasEnded = (StickSpawner.stickSpawner.HasWaveEnded);
         if (WaveHasEnded)
         {
-            StartCoroutine(ChangePercentageAnim());
+            //StartCoroutine(ChangePercentageAnim());
             StartSpawningSticks();
         }
 
@@ -185,10 +187,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ChangePercentageAnim()
     {
-        float time = 1.35f;
-        TextAnim.SetBool("HidePercentageText", true);
+        float time = 1.05f;
+        TextAnimator.SetBool("HidePercentageText", true);
         yield return new WaitForSeconds(time);
-        TextAnim.SetBool("HidePercentageText", false);
+        TextAnimator.SetBool("HidePercentageText", false);
     }
 
     void UpdateLivesText()
@@ -198,9 +200,9 @@ public class GameManager : MonoBehaviour
 
     void StartSpawningSticks()
     {
-        StickSpawner.stickSpawner.HasWaveEnded = false;
         ChangePercentage();
         StickSpawner.stickSpawner.SpawnStick();
+        //StickSpawner.stickSpawner.HasWaveEnded = false;
     }
 
     void ChangePercentage()
@@ -242,14 +244,14 @@ public class GameManager : MonoBehaviour
     {
         PercentNumText1.color = Color.yellow;
         PercentNumText2.color = Color.yellow;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(5f);
         PercentNumText1.color = Color.red;
         PercentNumText2.color = Color.red;
     }
 
     void PlayPercentageTextAnimation()
     {
-        TextAnim.SetBool("ShowNewPercentage", true);
+        TextAnimator.SetBool("ShowNewPercentage", true);
 
         //TextAnim.SetBool("HidePercentageText", false);
         // ShowTextAnim = false;
@@ -344,13 +346,5 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
-    #region Not Used Methods
-    void StopPercentageTextAnimation()
-    {
-        TextAnim.SetBool("HidePercentageText", true);
-        TextAnim.SetBool("ShowNewPercentage", false);
-    }
-    #endregion
     #endregion
 }

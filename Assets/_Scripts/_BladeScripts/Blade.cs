@@ -13,7 +13,7 @@ public class Blade : MonoBehaviour
 
     [Header("Blade Cutting Variables")]
     //0.001 -- min cutting vel
-    public float MinCuttingVelocity = 0.00001f;
+    private float MinCuttingVelocity = 0.00001f;
 
     private bool _isCutting = false;
     private Vector2 _previousePosition;
@@ -27,6 +27,9 @@ public class Blade : MonoBehaviour
     void Awake()
     {
         Instances();
+
+        TrailRend.startWidth = 0.18f;
+        TrailRend.endWidth = 0.043f;
     }
 
     void Update()
@@ -117,10 +120,17 @@ public class Blade : MonoBehaviour
 
     void EnableCollider()
     {
-
         _rb2d.position = _newPosition;
-        _circleCollider.enabled = true;
 
+        float velocity = (_newPosition - _previousePosition).magnitude * Time.deltaTime;
+        if (velocity > MinCuttingVelocity)
+        {
+            _circleCollider.enabled = true;
+        }
+        else
+        {
+            _circleCollider.enabled = false;
+        }
 
         _previousePosition = _newPosition;
     }

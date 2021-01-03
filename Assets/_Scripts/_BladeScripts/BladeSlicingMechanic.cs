@@ -45,6 +45,7 @@ public class BladeSlicingMechanic : MonoBehaviour
     void DestroyStickGameObj(Collider2D collision)
     {
         bool slicedBuffer = (collision.GetComponent<Collider2D>().CompareTag("Buffer"));
+        bool slicedStick = (collision.GetComponent<Collider2D>().CompareTag("Stick"));
         GameObject stickObject = GameObject.FindGameObjectWithTag("Stick");
 
         if (slicedBuffer)
@@ -56,7 +57,7 @@ public class BladeSlicingMechanic : MonoBehaviour
             VisualEffects.transform.GetChild(0).GetChild(0).gameObject.SetActive(value: true);
         }
 
-        else
+        else if (slicedStick)
         {
             _livesManager.Lives--;
             VisualEffects.transform.GetChild(0).GetChild(1).gameObject.SetActive(value: true);
@@ -78,6 +79,6 @@ public class BladeSlicingMechanic : MonoBehaviour
             _audioManager.Play(SlashSound);
         }
 
-        Destroy(Gameobj, 4f);
+        Destroy(Gameobj, 2f);
     }
 }

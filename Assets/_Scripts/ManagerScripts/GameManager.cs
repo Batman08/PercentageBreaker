@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     [Header("Buffer Variables")]
     public float BufferPercent;
     [HideInInspector]
-    public float MaxBufferValue = 0.7f;
+    public float MaxBufferValue = 0.55f;
     #endregion
 
     #region Percentages Timings
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool _gameOver = false;
     private float TextBuffer;
-    public float textbufferValue = 70;
+    public float textbufferValue = 55;
     #endregion
     #endregion
 
@@ -93,9 +93,14 @@ public class GameManager : MonoBehaviour
         string SoundKey = "Value";
         bool SoundShouldBeON = (PlayerPrefs.GetInt(SoundKey) == 1);
         if (SoundShouldBeON)
+        {
             audioManager.gameObject.SetActive(value: true);
+        }
+
         else
+        {
             audioManager.gameObject.SetActive(value: false);
+        }
     }
 
     void Start()
@@ -111,23 +116,40 @@ public class GameManager : MonoBehaviour
     #region Update Methods
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Time.timeScale = 0; //Change for next update
+        }
+
+
+        _scoreManager.CheckIfHighScore();
+
         //CalculatePercentage();
         //if (!StickSpawner.stickSpawner.HasWaveEnded)
         //{
         //    PlayPercentageTextAnimation();
         //}
+
+        //0.14f
+        if (BufferPercent <= 0.02f)
+        {
+            BufferPercent = MaxBufferValue;
+        }
+
         CalculatePercentageTextOutput();
-        CheckIfWaveHasEnded();
         CheckIfBufferGoesOverMax();
+        CheckIfWaveHasEnded();
+
         UpdateLivesText();
         CheckForAds();
 
 
-        bool PastFiveRounds = (PlayerPrefs.GetInt(RoundCountKey) >= 2);
+        bool PastFiveRounds = (PlayerPrefs.GetInt(RoundCountKey) >= 3);
         if (PastFiveRounds)
         {
             ChangeValue = true;
-            ChangeValue = false;
+            PlayerPrefs.SetInt(RoundCountKey, 0);
+            //ChangeValue = false;
         }
 
         ChangeValues();
@@ -135,15 +157,23 @@ public class GameManager : MonoBehaviour
 
     private readonly string RoundCountKey = "NumberOfRoundsKey";
 
+    public float FinalBufferValue;
+
     void CalculatePercentageTextOutput()
     {
-        float FinalBufferValue;
+
 
         Percentage = NumberOutOfPercent;
         TextBuffer = Percentage + textbufferValue;
 
         FinalBufferValue = Mathf.RoundToInt(TextBuffer);
         PercentNumText1.text = Percentage + "%";
+
+        if (FinalBufferValue > 100)
+        {
+            FinalBufferValue = 100;
+        }
+
         PercentNumText2.text = Mathf.RoundToInt(FinalBufferValue) + "%";
         PercentText.text = "Cut Between " + "        " + " and";
     }
@@ -154,6 +184,13 @@ public class GameManager : MonoBehaviour
         if (BufferIsGreaterThanAHundred)
         {
             TextBuffer = 100;
+        }
+
+        if (textbufferValue <= 5)
+        {
+            textbufferValue = 55;
+            Percentage = 0;
+            NumberOutOfPercent = 0;
         }
     }
 
@@ -187,7 +224,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ChangePercentageAnim()
     {
-        float time = 1.05f;
+        float time = 0.40f;
         TextAnimator.SetBool("HidePercentageText", true);
         yield return new WaitForSeconds(time);
         TextAnimator.SetBool("HidePercentageText", false);
@@ -244,7 +281,7 @@ public class GameManager : MonoBehaviour
     {
         PercentNumText1.color = Color.yellow;
         PercentNumText2.color = Color.yellow;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         PercentNumText1.color = Color.red;
         PercentNumText2.color = Color.red;
     }
@@ -261,8 +298,9 @@ public class GameManager : MonoBehaviour
     #region Button Methods
     public void RestartGame()
     {
+        PlayerPrefs.SetFloat("Speed", 0.024f);
         _dontWantToSeeAnAd = true;
-        _scoreManager.CheckIfHighScore();
+        //_scoreManager.CheckIfHighScore();
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //GoogleAdManager.Instance.ShowVideoAd();
@@ -270,6 +308,8 @@ public class GameManager : MonoBehaviour
 
     public void Home()
     {
+        //_scoreManager.CheckIfHighScore();
+        Time.timeScale = 1;
         SceneManager.LoadScene(1);
     }
     #endregion
@@ -313,7 +353,8 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public float Length = 0.608f;
+    //public float Length = 0.608f;
+    public float Length = 0.912f;
 
     //public void ChangeBufferPercentage()
     //{
@@ -342,7 +383,7 @@ public class GameManager : MonoBehaviour
             //Debug.Log(Length);
 
             ChangeValue = false;
-            return;
+            //return;
         }
 
     }

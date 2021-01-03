@@ -317,6 +317,16 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114264271773927704, guid: 509c58601bb000043b9754d14da47479,
+        type: 2}
+      propertyPath: name
+      value: MenuStick
+      objectReference: {fileID: 0}
+    - target: {fileID: 114264271773927704, guid: 509c58601bb000043b9754d14da47479,
+        type: 2}
+      propertyPath: StickName
+      value: MenuStick
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114720255529299138, guid: 509c58601bb000043b9754d14da47479, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 509c58601bb000043b9754d14da47479, type: 2}
@@ -520,7 +530,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 223.88, y: 252.07996}
+  m_AnchoredPosition: {x: 233.83, y: 252.07996}
   m_SizeDelta: {x: 1000, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &405127479
@@ -545,7 +555,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 29
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 99
@@ -2916,6 +2926,8 @@ MonoBehaviour:
   GradientMaterial: {fileID: 2100000, guid: 8202d6da09b358544b479aa1f1f29691, type: 2}
   Move: 1
   SpeedForce: 0.038
+  StickName: 
+  CrossName: RedCrossV2
 --- !u!4 &1691841150
 Transform:
   m_ObjectHideFlags: 0
@@ -3271,6 +3283,8 @@ MonoBehaviour:
   GradientMaterial: {fileID: 2100000, guid: 8202d6da09b358544b479aa1f1f29691, type: 2}
   Move: 1
   SpeedForce: 0.044
+  StickName: 
+  CrossName: RedCrossV2
 --- !u!4 &1849681377
 Transform:
   m_ObjectHideFlags: 0
@@ -3379,6 +3393,8 @@ MonoBehaviour:
   GradientMaterial: {fileID: 2100000, guid: 8202d6da09b358544b479aa1f1f29691, type: 2}
   Move: 1
   SpeedForce: 0.05
+  StickName: 
+  CrossName: RedCrossV2
 --- !u!4 &1887540164
 Transform:
   m_ObjectHideFlags: 0

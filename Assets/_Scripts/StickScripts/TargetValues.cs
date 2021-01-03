@@ -45,18 +45,28 @@ public class TargetValues : MonoBehaviour
         StickmaxX = MyRenderer.bounds.max.x;
         StickminX = MyRenderer.bounds.min.x;
 
-        bool ScaleIsAtTwentyPercent = (transform.localScale.x == 0.14f);
+
+    }
+
+    void Update()
+    {
+        bool ScaleIsAtTwentyPercent = (transform.localScale.x <= 0.25f);
         if (ScaleIsAtTwentyPercent)
         {
             _gameManager.BufferPercent = _gameManager.MaxBufferValue;
-            _gameManager.textbufferValue = 70;
-            float x = 0.7f;
+            _gameManager.textbufferValue = 55;
+            float x = 0.55f;
             float y = transform.localScale.y;
             transform.localScale = new Vector2(x, y);
 
             float speedIncrease = 0.10f;
-            float NewStickSpeed = _stick.SpeedForce / speedIncrease;
+            //float stickSpeedForce = 0.024f;
+            float stickSpeedForce = PlayerPrefs.GetFloat("Speed");
+            float NewStickSpeed = stickSpeedForce / speedIncrease;
             _stick.SpeedForce += NewStickSpeed;
+            _stick.SpeedForce /= 10;
+            PlayerPrefs.SetFloat("Speed", _stick.SpeedForce);
+            Debug.Log(stickSpeedForce);
         }
     }
 
@@ -133,7 +143,7 @@ public class TargetValues : MonoBehaviour
         float BufferPercentage = _gameManager.BufferPercent;
 
         //Get the size of the target(X Scale)
-        float size = 0.7f;
+        float size = 0.55f;
 
         //Then multiply the size by the buffer Percentage
         _bufferSizeResult = size * BufferPercentage;

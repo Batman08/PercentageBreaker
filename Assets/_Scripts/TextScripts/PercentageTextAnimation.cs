@@ -5,26 +5,34 @@ using UnityEngine;
 
 public class PercentageTextAnimation : MonoBehaviour
 {
+    public GameObject PercentageTxt1;
+    public GameObject PercentageTxt2;
+
     public Animator TextAnimator;
 
-    public GameObject Text1, Text2;
 
     private readonly string ShowTextAnimationCondition = "ShowNewPercentage";
     private readonly string HideTextAnimationCondition = "HidePercentageText";
 
     private StickSpawner _stickSpawner;
 
-    void Start()
+    void Awake()
     {
         _stickSpawner = FindObjectOfType<StickSpawner>();
+
+        StartCoroutine(ShowText());
     }
 
     void Update()
     {
-
         ChangeTextAnimation();
-        //Text1.SetActive(value: true);
-        //Text2.SetActive(value: true);
+    }
+
+    IEnumerator ShowText()
+    {
+        yield return new WaitForSeconds(0.85f);
+        PercentageTxt1.SetActive(value: true);
+        PercentageTxt2.SetActive(value: true);
     }
 
     void ChangeTextAnimation()
@@ -34,6 +42,8 @@ public class PercentageTextAnimation : MonoBehaviour
         if (hasWaveEnded)
         {
             HideTextAnimation();
+
+
         }
 
         if (!hasWaveEnded)

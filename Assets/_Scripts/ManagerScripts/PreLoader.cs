@@ -12,9 +12,8 @@ public class PreLoader : MonoBehaviour
     void Start()
     {
         PlayerPrefs.SetInt(SoundIsOnKey, 0);
-        PlayerPrefs.SetInt(ShowTutorialKey, 0);
-        /* Debug.Log(PlayerPrefs.GetInt(SoundIsOnKey));
-         Debug.Log(PlayerPrefs.GetInt(ShowTutorialKey));*/
+        PlayerPrefs.SetFloat("Speed", 0.024f);
+        //PlayerPrefs.SetInt(ShowTutorialKey, 0);
         SceneManager.LoadScene(1);
     }
 }

@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-
+        PlayerPrefs.SetFloat("Speed", 0.024f);
         //Shows the user their high score
         //string HighScore = PlayerPrefs.GetInt(HighscoreString).ToString();
         //ScoreText.text = HighScore;

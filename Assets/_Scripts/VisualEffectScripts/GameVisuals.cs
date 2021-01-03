@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class GameVisuals : MonoBehaviour
 {
-    BladeSlicingMechanic _bladeSlicingMechanic;
+    private BladeSlicingMechanic _bladeSlicingMechanic;
+
     void Awake()
     {
         _bladeSlicingMechanic = FindObjectOfType<BladeSlicingMechanic>();
 
         Vector2 stickPos = _bladeSlicingMechanic.SlicedPos;
-        transform.position = stickPos;
+        transform.localPosition = stickPos;
 
         stickPos = Vector2.zero;
     }

@@ -32,7 +32,7 @@ public class StickSpawner : MonoBehaviour
         roundNumCount = 0;
         PlayerPrefs.SetInt(RoundCountKey, roundNumCount);
         PlayerPrefs.SetFloat("CurrentPosition", 0);
-        SpawnStick();
+        //SpawnStick();
     }
 
     void Start()
@@ -63,7 +63,7 @@ public class StickSpawner : MonoBehaviour
     IEnumerator EnableBoolWaveStart()
     {
         HasWaveEnded = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1.2f);
         HasWaveEnded = false;
     }
 
@@ -107,7 +107,7 @@ public class StickSpawner : MonoBehaviour
                 break;
             }
 
-            bool PastFiveRounds = (PlayerPrefs.GetInt(RoundCountKey) >= 2);
+            bool PastFiveRounds = (PlayerPrefs.GetInt(RoundCountKey) >= 3);
             if (PastFiveRounds)
             {
                 //_manager.ChangeBufferPercentage();
@@ -115,7 +115,7 @@ public class StickSpawner : MonoBehaviour
                 PlayerPrefs.GetInt(RoundCountKey, roundNumCount);
             }
 
-            float delay = 5;
+            float delay = 1.2f;
             yield return new WaitForSeconds(delay);
 
             int spawnIndex = Random.Range(0, SpawnPoints.Length);

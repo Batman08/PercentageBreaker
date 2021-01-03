@@ -18,6 +18,7 @@ public class AudioManager : MonoBehaviour
             S.Source.volume = S.Volume;
             S.Source.pitch = S.Pitch;
             S.Source.loop = S.Loop;
+            S.Source.playOnAwake = S.PlayOnAwake;
         }
     }
 
@@ -28,6 +29,10 @@ public class AudioManager : MonoBehaviour
         if (SoundClassIsEqualToNull)
             return;
 
-        S.Source.Play();
+        bool audioManagerIsActive = (gameObject.activeSelf == true);
+        if (audioManagerIsActive)
+        {
+            S.Source.Play();
+        }
     }
 }

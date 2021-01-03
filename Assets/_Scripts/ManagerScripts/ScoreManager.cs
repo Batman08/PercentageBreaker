@@ -69,10 +69,10 @@ public class ScoreManager : MonoBehaviour
     public void CheckIfHighScore()
     {
         //IF YOU WANT TO DELETE HIGHSCORE THEN CHANGE THE SIGN TO >
-        bool isScoreGreaterThanHighScore = (PlayerPrefs.GetInt(HighScoreKeyString) < ScoreCount);
+        bool isScoreGreaterThanHighScore = (SaveLoadManager.LoadScoreManager() < ScoreCount);
         if (isScoreGreaterThanHighScore)
         {
-            PlayerPrefs.SetInt(HighScoreKeyString, ScoreCount);
+            //PlayerPrefs.SetInt(HighScoreKeyString, ScoreCount);
             SaveScores();
         }
 

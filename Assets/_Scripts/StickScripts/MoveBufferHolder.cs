@@ -17,7 +17,7 @@ public class MoveBufferHolder : MonoBehaviour
             PlayerPrefs.SetFloat("CurrentPosition", DefaultXPosition);
         }
 
-        bool PastFiveRounds = (PlayerPrefs.GetInt(MoveBufferHolderKey) >= 5);
+        bool PastFiveRounds = (PlayerPrefs.GetInt(MoveBufferHolderKey) >= 2);
         if (PastFiveRounds)
         {
             x = PlayerPrefs.GetFloat("CurrentPosition");

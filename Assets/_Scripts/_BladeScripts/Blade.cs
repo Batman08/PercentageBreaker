@@ -13,7 +13,7 @@ public class Blade : MonoBehaviour
 
     [Header("Blade Cutting Variables")]
     //0.001 -- min cutting vel
-    private float MinCuttingVelocity = 0.00001f;
+    private float MinCuttingVelocity = 0.001f;
 
     private bool _isCutting = false;
     private Vector2 _previousePosition;

@@ -8,12 +8,38 @@ public class Stick : MonoBehaviour
     public Material GradientMaterial;
     public bool Move;
     //-0.01f
+
     public float SpeedForce;
+    //0.024
+    public string StickName;
 
     private GameObject _obj;
 
+    private BladeSlicingMechanic _bladeSlicingMechanic;
+    private PlayerVisualCorrection _playerVisualCorrection;
+
+    public string CrossName = "RedCrossV2";
+
+    private Collider2D _stickCollider;
+
+    public bool DisableArrow;
+    public GameObject Arrow;
+
+    private SlicedStick[] _slicedStick;
+
     void Awake()
     {
+        _bladeSlicingMechanic = FindObjectOfType<BladeSlicingMechanic>();
+        _playerVisualCorrection = FindObjectOfType<PlayerVisualCorrection>();
+
+        if (StickName != "MenuStick")
+        {
+            Cross = _playerVisualCorrection.transform.GetChild(0).transform.GetChild(1).gameObject;
+        }
+
+        _stickCollider = GetComponent<Collider2D>();
+
+        SpeedForce = PlayerPrefs.GetFloat("Speed");
         // Gradient();
         //if (StickSpawner.stickSpawner != null)
         //{
@@ -30,8 +56,32 @@ public class Stick : MonoBehaviour
         Physics2D.IgnoreLayerCollision(BladeLayer, StickLayer, false);
     }
 
+    public Color StickColor;
+
+    public GameObject Buffer;
+
     void Update()
     {
+        if (DisableArrow)
+        {
+            _slicedStick = FindObjectsOfType<SlicedStick>();
+            //_slicedStick.gameObject.GetComponent<MeshRenderer>().material = Material;
+            //GetComponent<MeshRenderer>().material = Material;
+            foreach (SlicedStick stick in _slicedStick)
+            {
+                stick.GetComponent<MeshRenderer>().material.color = StickColor;
+            }
+            if (GetComponent<MeshRenderer>() != null)
+            {
+                GetComponent<MeshRenderer>().material.color = StickColor;
+            }
+
+            foreach (Collider2D collider in Buffer.GetComponents<Collider2D>())
+            {
+                collider.enabled = false;
+            }
+        }
+
         CheckForChild();
 
         if (SpeedForce >= 0.5f)
@@ -43,6 +93,11 @@ public class Stick : MonoBehaviour
         if (collider2D != null)
         {
             Destroy(collider2D);
+        }
+
+        if (DisableArrow)
+        {
+            Arrow.SetActive(value: false);
         }
     }
 
@@ -90,17 +145,26 @@ public class Stick : MonoBehaviour
     {
         if (collision.tag == "DeathZone")
         {
-            if (StickSpawner.stickSpawner != null)
-            {
-                StickSpawner.stickSpawner.HasWaveEnded = true;
-            }
-            //_blade.Lives--;
-            float YPos = -4.13f;
-            float XOffset = 0.55345f;
-            _obj = Instantiate(Cross, new Vector2(transform.position.x + XOffset, YPos), Quaternion.identity);
-            StartCoroutine(TakeAwayObject(_obj));
-            Destroy(gameObject);
+            SetPlayerVisualPositions(collision);
         }
+    }
+
+    void SetPlayerVisualPositions(Collider2D collider)
+    {
+        float yPosOffset = -4.072f;
+        Vector2 collisionPos = collider.transform.position;
+        Vector2 SlicedPosNew = new Vector2(collisionPos.x, yPosOffset);
+
+        _bladeSlicingMechanic.SlicedPos = SlicedPosNew;
+
+        if (StickSpawner.stickSpawner != null)
+        {
+            StickSpawner.stickSpawner.HasWaveEnded = true;
+        }
+
+        Cross.SetActive(value: true);
+
+        Destroy(gameObject);
     }
 
     IEnumerator TakeAwayObject(GameObject obj)
